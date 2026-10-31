@@ -27,30 +27,47 @@
 6. Côté mère : moins de déplacements autorisés, moins de clients, les serres tournent au ralenti.
 7. Il arrive à Elderwood en colère contre quelqu'un, sans savoir qui : son père, l'AMRU, ou lui-même pour n'avoir rien fait.
 
-## Objectifs (format KZR)
+## Objectifs (format KZR) — v2, plus concrets
 
 ### Pendant l'école
 
-**Le carnet des bêtes de l'île**
-- Détails : avec des élèves de toutes les maisons intéressés par les créatures. Il va voir le garde-chasse et le professeur de magizoologie pour poser des questions, pas pour être pris sous leur aile.
+**1. Le carnet des bêtes de l'île**
+- Détails : avec des élèves de toutes maisons intéressés par les créatures ou la botanique. Le garde-chasse et le prof de magizoologie sont des sources qu'il interroge, pas des mentors.
 - Quand : dès les premières semaines.
-- Comment : sorties d'observation au Pavillon des Compagnons, aux Jardins, puis vers la lisière de Brûlebrume (zone RPK : vraie prise de risque). Il tient des fiches sur chaque créature et ses comportements, et finit par présenter le carnet aux professeurs. Il peut être pris dehors la nuit, sanctionné ou blessé.
-- Pourquoi : prouver qu'on peut cohabiter sans abattre, et répondre à ce que son père a fait.
+- Comment :
+  - Il cartographie les passages des créatures autour des Jardins, du Pavillon, puis de la lisière de Brûlebrume (zone RPK : prudence, Fear RP).
+  - Il remarque des traces anormales : bois de Scalvignus sciés au lieu de tombés, écailles d'Ornicabal arrachées. Quelqu'un pourrait faire commerce de ces matières (cératine, écailles, bois pour catalyseurs).
+  - Il monte des tours de guet nocturnes avec d'autres élèves, enquête sur les acheteurs (Shedwood, élèves qui revendent), puis choisit : dénoncer, négocier ou piéger. Il risque des sanctions, des coups, ou de se tromper de coupable.
+  - Résultat concret : une carte des zones de passage remise au garde-chasse, avec une demande de zones tranquilles où personne ne prélève rien.
+- Pourquoi : ne plus jamais rester spectateur comme avec le Scalvignus de Kielder.
 
-**Les soirées des Jardins**
-- Détails : des discussions informelles entre élèves de camps différents (pro-Secret, sceptiques, sympathisants de l'Ascendance, enfants de familles Sans-Flux).
+**2. Les tisanes des Jardins (les soirées)**
+- Détails : élèves de tous bords (pro-Secret, sceptiques, enfants de familles touchées par les restrictions, sympathisants de l'Ascendance).
 - Quand : après les premiers mois, une fois qu'il connaît du monde.
-- Comment : il invite, il écoute, il fait parler. Les scènes chill deviennent politiques. Il recueille les histoires de familles touchées par les restrictions, en lettres RP ou en témoignages. Les surveillants trouvent ça suspect, et des sympathisants de l'Ascendance finissent par l'approcher.
-- Pourquoi : il ne sait pas quoi penser et veut entendre tout le monde avant de choisir.
+- Comment :
+  - Il cultive une petite parcelle aux Jardins avec les boutures de sa mère (herboristerie ordinaire) et sert des tisanes. C'est le prétexte aux discussions chill.
+  - Il recueille les témoignages de ceux dont la famille souffre des mesures d'isolement, sous forme de lettres RP ou de récits.
+  - Avec les participants, il rédige une requête collective adressée à la direction d'Elderwood puis à l'AMRU (envoi par la Grande Volière). Par exemple : alléger les restrictions pour les familles de producteurs, ou permettre aux élèves d'écrire librement à leurs proches.
+  - Si la requête est ignorée ou refusée, il doit choisir : la rendre publique dans l'école (débat dans la Grande Salle, affiches, risque de sanction), ou accepter l'aide des sympathisants de l'Ascendance qui proposent de la diffuser « autrement ». C'est un dilemme majeur ; tout arc illégal passe par un ticket staff.
+- Pourquoi : il ne sait pas qui a raison et veut entendre tout le monde, puis agir.
 
-**Fil rouge (pas un objectif à part entière) :** les lettres avec son père via la Grande Volière. Pardonner ou rompre, au fil des scènes.
+**Fil rouge (pas un objectif) :** les lettres avec son père via la Grande Volière. Pardonner ou rompre, au fil des scènes.
 
-### Après l'école (deux voies, selon le RP)
-- **Voie de l'ordre :** entrer à l'AMRU au service des créatures, en se servant du carnet pour faire évoluer les protocoles de l'intérieur.
-- **Voie de la rupture :** si l'Ascendance l'a convaincu, il s'engage pour la fin de l'isolement, avec les risques que ça implique (arc illégal sous ticket staff).
+### Après l'école (voie principale : l'ordre, avec la rupture comme tentation)
+
+**3. Entrer au service des créatures de l'AMRU**
+- Détails : poste classique de terrain, comme son père, mais sur une autre ligne. Il emmène ses anciens camarades du carnet comme contacts.
+- Quand : à la sortie d'Elderwood.
+- Comment : il s'appuie sur ses cartes et rapports, et propose des alternatives à chaque ordre d'abattage (déplacement, zones protégées, Voile local). Il se heurte à sa hiérarchie et à la ligne conservatrice de l'AMRU. Il peut être sanctionné, muté, ou tenté par la rupture.
+- Pourquoi : faire ce que son père n'a pas osé.
 
 ### L'horizon
-- Faire réviser la règle d'abattage des créatures non dangereuses, ou tout perdre en essayant.
+
+**4. Faire adopter une alternative à l'abattage**
+- Détails : avec son réseau d'Elderwood (anciens des tisanes et du carnet), des familles de producteurs et des agents de terrain.
+- Quand : à son apogée, après des années de terrain.
+- Comment : il accumule des cas documentés, cherche des appuis à l'AMRU et présente une réforme. Si elle échoue, il risque de basculer vers ceux qui veulent tout changer.
+- Pourquoi : que plus aucun garde-forestier n'ait à obéir comme son père.
 
 ## Points à surveiller pour la douane
 - Ne pas faire du père un méchant : c'est un fonctionnaire qui obéit, et c'est ça qui fait mal.
