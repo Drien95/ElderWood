@@ -49,6 +49,7 @@ WL = [
     ("whitelist", "Guide officiel", "conseils/whitelist.md", "Préparer sa candidature", "Guide de la Whitelist"),
     ("whitelist-aide", "Aide rapide", "conseils/whitelist-aide-douane.md", "L'essentiel en dix questions", "Aide Whitelist"),
     ("whitelist-faq", "FAQ", "conseils/whitelist-faq-douane.md", "Questions fréquentes", "FAQ Whitelist"),
+    ("objectifs", "Objectifs", "conseils/format-objectifs.md", "Conseil de joueur", "Rédiger ses objectifs"),
     ("creation", "Créer son personnage", None, "Les règles essentielles", "Créer son personnage"),
 ]
 
@@ -215,6 +216,7 @@ def render_entries(nodes, route):
 
 
 LEADS = {
+    "objectifs": "Une méthode pour structurer les objectifs de ta candidature : quand, comment, pourquoi et avec qui, pendant l'école, après l'école et à l'horizon.",
     "whitelist-faq": "Les réponses de l'équipe aux questions qui reviennent le plus : ouverture des WL, âge du personnage, IA, Dissonants, fratries, candidatures à plusieurs et installation du jeu.",
 }
 
@@ -222,7 +224,7 @@ LEADS = {
 def render_page(route, md_text, kicker, title, lead_override=None):
     soup = md_to_soup(md_text)
     source, lead = strip_intro(soup)
-    lead = lead_override or lead or LEADS.get(route)
+    lead = lead_override or LEADS.get(route) or lead
     panels, toc = [], []
     for head, body in sections(soup, "h2"):
         if head is None:
