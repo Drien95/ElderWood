@@ -344,6 +344,31 @@ def render_rules():
     ), total
 
 
+def render_notices():
+    """Annonces du staff (conseils/annonces-whitelist.md) → avertissements en tête de l'espace Whitelist."""
+    path = ROOT / "conseils/annonces-whitelist.md"
+    if not path.exists():
+        return ""
+    soup = md_to_soup(path.read_text(encoding="utf-8"))
+    strip_intro(soup)
+    out = []
+    for head, body in sections(soup, "h2"):
+        if head is None:
+            continue
+        title, _, meta = head.get_text().partition(" — ")
+        frag = BeautifulSoup(html_of(body), "html.parser")
+        for el in frag.find_all("p"):
+            t = el.get_text(strip=True)
+            if t.startswith("@") or slug(t) == slug(title):
+                el.decompose()
+        meta_html = f'<p class="notice-meta">Annonce du staff · {meta}</p>' if meta else ""
+        out.append(
+            '<aside class="notice" role="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 20h20Z"/><path d="M12 10v4"/><path d="M12 17.5v.01"/></svg>'
+            f'<div>{meta_html}<h2>{title}</h2><div class="notice-body">{frag}</div></div></aside>'
+        )
+    return "".join(out)
+
+
 # ---------------------------------------------------------------- accueil
 
 HOUSES = [
@@ -416,6 +441,12 @@ def build():
             pages.append((route, "whitelist", render_page(route, read(path), kicker, title)))
         else:
             pages.append((route, "whitelist", render_creation()))
+    notices = render_notices()
+    if notices:
+        pages = [
+            (r, g, h.replace("</header>", "</header>" + notices, 1) if g == "whitelist" else h)
+            for r, g, h in pages
+        ]
     pages.insert(0, ("accueil", "accueil", render_home(total)))
 
     lore_tabs = "".join(f'<a class="tab" href="#{r}" data-route="{r}">{t}</a>' for r, t, *_ in LORE)
