@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- fragment:start -->
+<title>ElderWood RP</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Lore, règlement et guide de whitelist du serveur roleplay ElderWood (nanos world).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@1,500&family=Montserrat:wght@400;500;600&display=swap">
+<style>
+/* Mise en page : barre latérale du launcher (hibou, menu or) + colonne de panneaux sombres sous un ciel étoilé.
+   Univers unique et sombre, assumé : pas de thème clair. */
+:root {
+  --night: #0c0b0a;
+  --panel: rgba(22, 20, 17, 0.86);
+  --panel-2: rgba(32, 29, 24, 0.7);
+  --line: #2f2a22;
+  --line-soft: rgba(201, 162, 74, 0.16);
+  --gold: #c9a24a;
+  --gold-hi: #e6c77c;
+  --ink: #ece6da;
+  --muted: #a49d90;
+  --faint: #6f695e;
+  --ember: #d9683e;
+  --owl: #f3eee4;
+  --aerwyn: #5b9be0;
+  --brumval: #5bb47a;
+  --falcon: #e8913f;
+  --venatrix: #a67ae0;
+  --f-display: "Cinzel", "Trajan Pro", Georgia, serif;
+  --f-body: "Montserrat", "Segoe UI", system-ui, sans-serif;
+  --f-quote: "Cormorant Garamond", Garamond, Georgia, serif;
+  --radius: 14px;
+  color-scheme: dark;
+}
+[hidden] { display: none !important; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--night);
+  color: var(--ink);
+  font: 400 15px/1.7 var(--f-body);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--gold-hi); }
+:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3, h4 { font-family: var(--f-display); font-weight: 600; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+#sky { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.glow {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 85% 0%, rgba(201,162,74,0.07), transparent 70%),
+    radial-gradient(70% 60% at 10% 100%, rgba(60,70,60,0.18), transparent 70%);
+}
+
+/* ---------- coque ---------- */
+.shell { position: relative; z-index: 1; display: grid; grid-template-columns: 264px minmax(0, 1fr); min-height: 100vh; }
+.side {
+  position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; gap: 28px;
+  padding: 36px 18px 24px; background: rgba(14, 13, 11, 0.9); border-right: 1px solid var(--line);
+}
+.brand { display: grid; justify-items: center; gap: 6px; text-decoration: none; color: var(--ink); }
+.brand svg { width: 96px; height: 104px; filter: drop-shadow(0 6px 18px rgba(0,0,0,.6)); }
+.brand-name { font: 700 22px/1 var(--f-display); letter-spacing: .14em; margin-top: 8px; }
+.brand-sub { font: 600 10px/1 var(--f-display); letter-spacing: .38em; color: var(--gold); }
+.brand-sub::before, .brand-sub::after { content: "—"; margin: 0 .5em; letter-spacing: 0; }
+.menu { display: grid; gap: 6px; }
+.menu a {
+  display: flex; align-items: center; gap: 14px; padding: 13px 16px; border-radius: 10px;
+  border: 1px solid transparent; color: var(--muted); text-decoration: none;
+  font: 600 12.5px/1 var(--f-body); letter-spacing: .16em; text-transform: uppercase;
+  transition: color .2s, background .2s, border-color .2s;
+}
+.menu a svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.menu a:hover { color: var(--ink); background: rgba(255,255,255,.03); }
+.menu a[aria-current="true"] { color: var(--gold-hi); border-color: rgba(201,162,74,.55); background: rgba(201,162,74,.09); }
+.side-foot { margin-top: auto; font-size: 12px; color: var(--faint); text-align: center; line-height: 1.5; }
+.side-foot strong { display: block; font: 600 11px/1.4 var(--f-display); letter-spacing: .2em; color: var(--muted); }
+
+.main { min-width: 0; padding: 26px 44px 60px; }
+.content { max-width: 1060px; margin: 0 auto; display: grid; gap: 22px; }
+.page { display: grid; gap: 22px; animation: rise .45s ease both; }
+@keyframes rise { from { transform: translateY(8px); opacity: .4; } to { transform: none; opacity: 1; } }
+
+/* ---------- onglets ---------- */
+.tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--line); }
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex: none; padding: 12px 18px; color: var(--muted); text-decoration: none; background: none; border: 0;
+  border-bottom: 2px solid transparent; font: 600 13.5px/1 var(--f-body); letter-spacing: .02em; cursor: pointer;
+  transition: color .2s, border-color .2s;
+}
+.tab:hover { color: var(--ink); }
+.tab[aria-current="true"], .tab[aria-selected="true"] { color: var(--gold-hi); border-bottom-color: var(--gold); }
+.tab small { color: var(--faint); font-weight: 500; margin-left: 4px; }
+
+/* ---------- héros ---------- */
+.hero {
+  position: relative; overflow: hidden; isolation: isolate; border-radius: var(--radius);
+  border: 1px solid var(--line); padding: 64px 40px 40px; background: #15120e;
+  --tint: rgba(217, 140, 60, .35);
+}
+.hero-art { position: absolute; inset: 0; z-index: -1; background:
+  radial-gradient(45% 80% at 18% 95%, var(--tint), transparent 70%),
+  radial-gradient(35% 60% at 92% 10%, rgba(201,162,74,.12), transparent 70%),
+  linear-gradient(100deg, rgba(10,9,8,.92) 0%, rgba(10,9,8,.55) 60%, rgba(10,9,8,.3) 100%); }
+.hero-art::after {
+  content: ""; position: absolute; right: -60px; top: 50%; width: 360px; aspect-ratio: 1; transform: translateY(-50%);
+  border-radius: 50%; opacity: .5;
+  background:
+    radial-gradient(circle, transparent 38%, rgba(201,162,74,.22) 38.4%, transparent 39.2%),
+    radial-gradient(circle, transparent 48%, rgba(201,162,74,.16) 48.4%, transparent 49.2%),
+    repeating-conic-gradient(from 0deg, rgba(201,162,74,.18) 0 1deg, transparent 1deg 15deg);
+  -webkit-mask: radial-gradient(circle, transparent 30%, #000 31%, #000 66%, transparent 67%);
+          mask: radial-gradient(circle, transparent 30%, #000 31%, #000 66%, transparent 67%);
+  animation: turn 120s linear infinite;
+}
+@keyframes turn { to { transform: translateY(-50%) rotate(360deg); } }
+.hero-magie { --tint: rgba(110, 90, 200, .35); }
+.hero-ecole { --tint: rgba(90, 130, 200, .3); }
+.hero-societe { --tint: rgba(150, 110, 60, .38); }
+.hero-glossaire { --tint: rgba(120, 120, 110, .28); }
+.hero-creatures { --tint: rgba(70, 140, 100, .32); }
+.hero-reglement { --tint: rgba(170, 70, 50, .32); }
+.hero-whitelist, .hero-whitelist-aide, .hero-creation { --tint: rgba(80, 110, 170, .3); }
+.kicker { font: 600 12px/1 var(--f-display); letter-spacing: .3em; text-transform: uppercase; color: var(--gold); }
+.hero h1 { font-size: clamp(34px, 5vw, 50px); font-weight: 600; line-height: 1.1; margin: 14px 0 14px; color: #fff; }
+.hero-lead { max-width: 62ch; font-size: 16px; color: #e3ddd1; }
+.hero-src { margin-top: 14px; font-size: 12.5px; color: var(--muted); font-style: italic; }
+
+.hero-home { padding: 56px 40px 44px; text-align: center; display: grid; justify-items: center;
+  --tint: rgba(201, 162, 74, .22); }
+.hero-home .hero-art { background:
+  radial-gradient(50% 70% at 50% 0%, rgba(201,162,74,.16), transparent 70%),
+  radial-gradient(40% 60% at 0% 100%, rgba(91,155,224,.16), transparent 70%),
+  radial-gradient(40% 60% at 33% 110%, rgba(91,180,122,.14), transparent 70%),
+  radial-gradient(40% 60% at 66% 110%, rgba(232,145,63,.14), transparent 70%),
+  radial-gradient(40% 60% at 100% 100%, rgba(166,122,224,.18), transparent 70%),
+  #120f0c; }
+.hero-home .hero-art::after { right: 50%; top: 38%; transform: translate(50%, -50%); width: 520px; opacity: .35;
+  animation-name: turn-c; }
+@keyframes turn-c { to { transform: translate(50%, -50%) rotate(360deg); } }
+.hero-owl { width: 132px; height: 143px; filter: drop-shadow(0 10px 30px rgba(0,0,0,.7)); margin-bottom: 18px; }
+.home-title { font-size: clamp(44px, 9vw, 84px) !important; letter-spacing: .12em; margin: 12px 0 18px !important;
+  background: linear-gradient(180deg, #fff 30%, var(--gold-hi) 100%); -webkit-background-clip: text; background-clip: text; color: transparent !important; }
+.hero-home .hero-lead { margin: 0 auto; }
+.cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 28px; }
+.btn {
+  display: inline-flex; align-items: center; padding: 12px 20px; border-radius: 10px; text-decoration: none;
+  font: 600 12.5px/1 var(--f-body); letter-spacing: .14em; text-transform: uppercase;
+  background: linear-gradient(180deg, #d9b25b, #b38b37); color: #1a1408; border: 1px solid #e6c77c;
+  transition: filter .2s, transform .2s;
+}
+.btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.btn-ghost { background: rgba(201,162,74,.06); color: var(--gold-hi); border-color: rgba(201,162,74,.45); }
+
+/* ---------- panneaux ---------- */
+.toc { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.toc > span { font: 600 11px/1 var(--f-display); letter-spacing: .24em; text-transform: uppercase; color: var(--faint); margin-right: 6px; }
+.chip { padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--muted);
+  font: 500 12.5px/1.2 var(--f-body); cursor: pointer; transition: color .2s, border-color .2s; }
+.chip:hover { color: var(--gold-hi); border-color: rgba(201,162,74,.5); }
+
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 30px 32px;
+  display: grid; gap: 16px; scroll-margin-top: 20px; backdrop-filter: blur(3px); }
+.panel > h2 { font-size: 19px; letter-spacing: .08em; text-transform: uppercase; color: #f5efe2;
+  padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.panel p, .panel li, .panel dd { color: #d6d0c4; }
+.panel > p, .entry-body > p { max-width: 75ch; }
+.panel-lead { color: var(--muted) !important; }
+.panel ul, .panel ol:not(.timeline) { margin: 0; padding-left: 1.25em; display: grid; gap: 4px; }
+.panel ul li::marker { color: var(--gold); }
+.panel strong { color: #f3ecdd; font-weight: 600; }
+.panel em { color: var(--gold-hi); font-style: normal; letter-spacing: .02em; }
+.panel blockquote { margin: 0; padding: 4px 0 4px 18px; border-left: 1px solid var(--gold);
+  font: italic 500 20px/1.4 var(--f-quote); color: #efe6d2; }
+.panel blockquote p { color: inherit; }
+.panel h3 { font-size: 16px; letter-spacing: .04em; color: #f5efe2; }
+.panel table { border-collapse: collapse; width: 100%; font-size: 14px; }
+.panel td, .panel th { border: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+.panel-link { background: linear-gradient(120deg, rgba(201,162,74,.08), var(--panel)); }
+
+/* sous-sections */
+.entries { display: grid; gap: 14px; }
+.entries.grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+.entries.houses-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); }
+.entry {
+  --h: var(--gold); position: relative; overflow: hidden; display: grid; gap: 10px; align-content: start;
+  padding: 20px 22px; border-radius: 12px; background: var(--panel-2); border: 1px solid var(--line);
+}
+.entry::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(120% 70% at 100% 0%, color-mix(in srgb, var(--h) 13%, transparent), transparent 60%); }
+.entry h3 { display: flex; align-items: center; gap: 10px; color: color-mix(in srgb, var(--h) 70%, #fff); }
+.entry h3::before { content: ""; width: 9px; height: 9px; transform: rotate(45deg); background: var(--h); flex: none;
+  box-shadow: 0 0 12px var(--h); }
+.entry-sub { margin-top: -6px !important; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted) !important; }
+.entry-body { display: grid; gap: 10px; position: relative; }
+.entry-body > p:first-child > em:only-child { font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; }
+.entry.h-aerwyn em, .entry.h-brumval em, .entry.h-falcon em, .entry.h-venatrix em { color: color-mix(in srgb, var(--h) 60%, #fff); }
+
+/* lieux */
+.places { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
+.place { --h: var(--gold); padding: 16px 18px; border-radius: 12px; background: var(--panel-2); border: 1px solid var(--line); display: grid; gap: 6px; align-content: start; }
+.place h4 { font-size: 15px; color: #f5efe2; }
+.place p { font-size: 14px; }
+.pill { justify-self: start; font: 600 10.5px/1 var(--f-body); letter-spacing: .14em; text-transform: uppercase;
+  padding: 5px 9px; border-radius: 999px; color: color-mix(in srgb, var(--h) 75%, #fff);
+  background: color-mix(in srgb, var(--h) 12%, transparent); border: 1px solid color-mix(in srgb, var(--h) 35%, transparent); }
+
+/* glossaire */
+.terms { margin: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+.term { padding: 18px 20px; border-radius: 12px; background: var(--panel-2); border: 1px solid var(--line); }
+.term dt { font: 600 17px/1.3 var(--f-display); color: var(--gold-hi); margin-bottom: 6px; }
+.term dd { margin: 0; font-size: 14.5px; }
+
+/* frise */
+.timeline { list-style: none; margin: 0; padding: 0 0 0 4px; display: grid; }
+.timeline li { position: relative; padding: 0 0 26px 36px; display: grid; gap: 4px; }
+.timeline li::before { content: ""; position: absolute; left: 7px; top: 18px; bottom: -2px; width: 2px; background: rgba(201,162,74,.45); }
+.timeline li:last-child::before { display: none; }
+.timeline li::after { content: ""; position: absolute; left: 0; top: 2px; width: 12px; height: 12px; border-radius: 50%;
+  border: 2.5px solid var(--gold); background: var(--night); }
+.tl-year { font: 600 12px/1.4 var(--f-display); letter-spacing: .14em; color: var(--gold); font-variant-numeric: tabular-nums; }
+.timeline h4 { font-size: 15.5px; letter-spacing: .05em; text-transform: uppercase; color: #f5efe2; }
+.timeline p { max-width: 75ch; }
+.timeline .tl-now::after { border-color: var(--ember); box-shadow: 0 0 0 4px rgba(217,104,62,.15); }
+.timeline .tl-now .tl-year { color: var(--ember); }
+.timeline .tl-now::before { background: rgba(217,104,62,.4); }
+.timeline .tl-now p + p { margin-top: 8px; }
+.timeline.compact { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 18px; }
+.timeline.compact li { padding-bottom: 18px; }
+.timeline.compact li::before { display: none; }
+
+/* coches */
+.checks { list-style: none; padding: 0 !important; display: grid; gap: 10px !important; }
+.checks li { position: relative; padding-left: 30px; }
+.checks li::before { content: ""; position: absolute; left: 2px; top: 5px; width: 14px; height: 8px;
+  border-left: 2px solid var(--gold); border-bottom: 2px solid var(--gold); transform: rotate(-45deg); }
+
+/* ---------- accueil ---------- */
+.houses { display: grid; gap: 14px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.house { --h: var(--gold); position: relative; overflow: hidden; display: grid; gap: 8px; align-content: start;
+  padding: 22px 20px 20px; border-radius: 12px; text-decoration: none; color: var(--ink);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--h) 22%, #15120e) 0%, #16130f 70%);
+  border: 1px solid color-mix(in srgb, var(--h) 40%, transparent); transition: transform .25s, box-shadow .25s; }
+.house:hover { transform: translateY(-3px); box-shadow: 0 14px 34px -12px color-mix(in srgb, var(--h) 60%, transparent); }
+.house-flux { font: 600 10.5px/1 var(--f-body); letter-spacing: .2em; text-transform: uppercase; color: color-mix(in srgb, var(--h) 70%, #fff); }
+.house h3 { font-size: 24px; letter-spacing: .08em; color: #fff; }
+.house-beast { font: 600 12px/1 var(--f-display); letter-spacing: .16em; color: var(--muted); text-transform: uppercase; }
+.house-motto { font: italic 500 18px/1.35 var(--f-quote); color: #efe6d2; margin-top: 6px !important; }
+.house-values { font-size: 12.5px; color: color-mix(in srgb, var(--h) 55%, #fff); letter-spacing: .04em; }
+.house-founder { font-size: 12px; color: var(--faint); }
+.paths { display: grid; gap: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.path { display: grid; gap: 10px; align-content: start; padding: 22px; border-radius: 12px; text-decoration: none; color: var(--ink);
+  background: var(--panel-2); border: 1px solid var(--line); transition: border-color .2s, transform .2s; }
+.path:hover { border-color: rgba(201,162,74,.55); transform: translateY(-2px); }
+.path-n { font: 600 11px/1 var(--f-body); letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+.path h3 { font-size: 20px; color: #fff; }
+.path p { color: var(--muted); font-size: 14px; }
+.path-go { margin-top: 4px; font-size: 13px; font-weight: 600; color: var(--gold-hi); }
+.path-go::after { content: " →"; }
+
+/* ---------- règlement ---------- */
+.rules-tools { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; display: grid; gap: 10px;
+  padding: 14px 0 0; background: linear-gradient(180deg, var(--night) 75%, transparent); }
+.search { display: flex; align-items: center; gap: 10px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); }
+.search:focus-within { border-color: rgba(201,162,74,.6); }
+.search svg { width: 18px; height: 18px; fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; flex: none; }
+.search input { flex: 1; min-width: 0; padding: 14px 0; background: none; border: 0; color: var(--ink); font: 500 15px var(--f-body); outline: none; }
+.search input::placeholder { color: var(--faint); }
+.rule-count { font-size: 12.5px; color: var(--faint); letter-spacing: .04em; }
+.rules { display: grid; gap: 14px; }
+.rule { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 26px 24px; display: grid; gap: 14px; scroll-margin-top: 150px; }
+.rule-head { display: flex; gap: 16px; align-items: center; }
+.rule-num { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+  border: 1.5px solid var(--gold); color: var(--gold-hi); font: 600 15px/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.rule-sec { font: 600 10.5px/1 var(--f-body); letter-spacing: .2em; text-transform: uppercase; color: var(--faint); margin-bottom: 6px !important; }
+.rule h3 { font-size: 17px; letter-spacing: .04em; color: #f5efe2; }
+.rule-body { display: grid; gap: 10px; color: #d6d0c4; padding-left: 60px; }
+.rule-body p, .rule-body li { color: #d6d0c4; max-width: 78ch; }
+.rule-body ul, .rule-body ol { margin: 0; padding-left: 1.25em; display: grid; gap: 4px; }
+.rule-body li::marker { color: var(--gold); }
+.rule-body strong { color: #f3ecdd; }
+.rule-body h3 { font-size: 13px; letter-spacing: .1em; color: var(--gold-hi); margin-top: 6px; }
+.rule-body blockquote { margin: 0; padding-left: 14px; border-left: 1px solid var(--gold); }
+.rule mark { background: rgba(201,162,74,.35); color: #fff; border-radius: 3px; padding: 0 2px; }
+.empty { text-align: center; color: var(--muted); padding: 30px; }
+
+/* ---------- pied ---------- */
+.foot { position: relative; z-index: 1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px;
+  margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 12px; color: var(--faint); }
+.foot strong { font: 600 11px/1 var(--f-display); letter-spacing: .2em; color: var(--muted); }
+.status { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); }
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #4cc38a; box-shadow: 0 0 10px #4cc38a; }
+
+/* couleurs des maisons : en dernier pour primer sur les --h par défaut */
+.h-aerwyn { --h: var(--aerwyn); }
+.h-brumval { --h: var(--brumval); }
+.h-falcon { --h: var(--falcon); }
+.h-venatrix { --h: var(--venatrix); }
+
+@media (max-width: 1240px) {
+  .houses, .timeline.compact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 1100px) and (min-width: 961px), (max-width: 760px) {
+  .paths { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 520px) {
+  .houses, .timeline.compact { grid-template-columns: minmax(0, 1fr); }
+}
+/* ---------- mobile ---------- */
+@media (max-width: 960px) {
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .side { position: relative; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px 16px;
+    padding: 14px max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px));
+    border-right: 0; border-bottom: 1px solid var(--line); }
+  .brand { grid-auto-flow: column; justify-items: start; align-items: center; gap: 10px; }
+  .brand svg { width: 38px; height: 41px; }
+  .brand-name { font-size: 17px; margin: 0; }
+  .brand-sub, .side-foot { display: none; }
+  .menu { order: 3; width: 100%; display: flex; overflow-x: auto; scrollbar-width: none; gap: 2px; margin: 0 -6px; }
+  .menu::-webkit-scrollbar { display: none; }
+  .menu a { flex: none; padding: 12px 10px; border: 0; border-radius: 0; border-bottom: 2px solid transparent; font-size: 11.5px; letter-spacing: .12em; gap: 8px; }
+  .menu a[aria-current="true"] { background: none; border-bottom-color: var(--gold); }
+  .menu a svg { width: 16px; height: 16px; }
+  .main { padding: 18px max(16px, env(safe-area-inset-right, 0px)) 40px max(16px, env(safe-area-inset-left, 0px)); }
+}
+@media (max-width: 600px) {
+  body { font-size: 14.5px; }
+  .hero { padding: 40px 22px 28px; }
+  .hero-art::after { width: 240px; right: -90px; }
+  .hero-home { padding: 40px 18px 32px; }
+  .hero-owl { width: 96px; height: 104px; }
+  .panel { padding: 22px 18px 24px; }
+  .panel > h2 { font-size: 16.5px; }
+  .rule { padding: 18px 18px 20px; }
+  .rule-body { padding-left: 0; }
+  .panel blockquote { font-size: 18px; }
+  .menu a svg { display: none; }
+  .menu { justify-content: space-between; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="owl" viewBox="0 0 120 130">
+    <path fill="#f3eee4" d="M12 8 L42 36 Q60 30 78 36 L108 8 L101 52 Q111 70 103 93 Q93 119 60 127 Q27 119 17 93 Q9 70 19 52 Z"/>
+    <path fill="none" stroke="#0c0b0a" stroke-width="2" stroke-linecap="round" d="M22 20 L36 36 M98 20 L84 36"/>
+    <circle cx="42" cy="68" r="16.5" fill="#0c0b0a"/>
+    <circle cx="78" cy="68" r="16.5" fill="#0c0b0a"/>
+    <circle cx="42" cy="69" r="9.5" fill="#c9a24a"/>
+    <circle cx="78" cy="69" r="9.5" fill="#c9a24a"/>
+    <circle cx="42" cy="69" r="4.6" fill="#0c0b0a"/>
+    <circle cx="78" cy="69" r="4.6" fill="#0c0b0a"/>
+    <circle cx="44.5" cy="66.5" r="1.6" fill="#fff"/>
+    <circle cx="80.5" cy="66.5" r="1.6" fill="#fff"/>
+    <path fill="#f3eee4" d="M14 30 L64 46 L62 62.5 L16 52 Z"/>
+    <path fill="#f3eee4" d="M106 30 L56 46 L58 62.5 L104 52 Z"/>
+    <path fill="none" stroke="#0c0b0a" stroke-width="3.2" stroke-linecap="round" d="M23 53.6 L59 61.8 M97 53.6 L61 61.8"/>
+    <path fill="#0c0b0a" d="M53.5 74 L66.5 74 L60 92 Z"/>
+    <path fill="none" stroke="#0c0b0a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      d="M40 100 l5 4 l5 -4 M55 102 l5 4 l5 -4 M70 100 l5 4 l5 -4 M47 110 l5 4 l5 -4 M63 110 l5 4 l5 -4"/>
+  </symbol>
+</svg>
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="glow" aria-hidden="true"></div>
+
+<div class="shell">
+  <aside class="side">
+    <a class="brand" href="#accueil" aria-label="ElderWood, accueil">
+      <svg aria-hidden="true"><use href="#owl"/></svg>
+      <span class="brand-name">ELDERWOOD</span>
+      <span class="brand-sub">ROLEPLAY</span>
+    </a>
+    <nav class="menu" aria-label="Menu principal">
+      <a href="#accueil" data-group="accueil"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Accueil</a>
+      <a href="#magie" data-group="lore"><svg viewBox="0 0 24 24"><path d="M12 6c-2-1.5-5-2-9-2v14c4 0 7 .5 9 2 2-1.5 5-2 9-2V4c-4 0-7 .5-9 2Z"/><path d="M12 6v14"/></svg>Lore</a>
+      <a href="#reglement" data-group="reglement"><svg viewBox="0 0 24 24"><path d="m14 4 6 6"/><path d="m11 7 6 6"/><path d="m12.5 5.5-7 7 6 6 7-7"/><path d="M8.5 15.5 3 21"/></svg>Règlement</a>
+      <a href="#whitelist" data-group="whitelist"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h12V7Z"/><path d="M14 3v4h4"/><path d="m9 14 2 2 4-4"/></svg>Whitelist</a>
+    </nav>
+    <div class="side-foot"><strong>ElderWood RP</strong>Serveur nanos world</div>
+  </aside>
+
+  <main class="main">
+    <div class="content">
+      <nav class="tabs" data-tabs="lore" aria-label="Chapitres du lore" hidden><a class="tab" href="#magie" data-route="magie">La Magie</a><a class="tab" href="#ecole" data-route="ecole">Elderwood</a><a class="tab" href="#societe" data-route="societe">Société Magique</a><a class="tab" href="#contexte" data-route="contexte">Contexte</a><a class="tab" href="#glossaire" data-route="glossaire">Glossaire</a><a class="tab" href="#creatures" data-route="creatures">Entités magiques</a></nav>
+      <nav class="tabs" data-tabs="whitelist" aria-label="Guides whitelist" hidden><a class="tab" href="#whitelist" data-route="whitelist">Guide officiel</a><a class="tab" href="#whitelist-aide" data-route="whitelist-aide">Aide rapide</a><a class="tab" href="#creation" data-route="creation">Créer son personnage</a></nav>
+      <section class="page" id="page-accueil" data-route="accueil" data-group="accueil">
+<header class="hero hero-home">
+  <div class="hero-art" aria-hidden="true"></div>
+  <svg class="hero-owl" aria-hidden="true"><use href="#owl"/></svg>
+  <p class="kicker">Serveur roleplay · nanos world</p>
+  <h1 class="home-title">Elderwood</h1>
+  <p class="hero-lead">Seule grande école de sorcellerie du Royaume-Uni, Elderwood forme les jeunes Résonants à comprendre leur Flux. Dissimulée par un Voile puissant, bâtie autour d'une source de magie unique, elle garde encore aujourd'hui bien des secrets.</p>
+  <div class="cta">
+    <a class="btn" href="#magie">Découvrir le lore</a>
+    <a class="btn btn-ghost" href="#reglement">Lire le règlement</a>
+    <a class="btn btn-ghost" href="#whitelist">Préparer sa whitelist</a>
+  </div>
+</header>
+
+<section class="panel">
+  <h2>Les quatre maisons</h2>
+  <p class="panel-lead">En 1298, Falcon découvre la Source de Vehr, qui révèle la couleur du Flux de chaque Résonant. Quatre couleurs, quatre fondateurs, quatre maisons. Personne ne choisit la sienne : c'est la Source qui répond.</p>
+  <div class="houses"><a class="house h-aerwyn" href="#ecole"><span class="house-flux">Flux Bleu</span><h3>Aerwyn</h3><p class="house-beast">L'Ephyr</p><p class="house-motto">« J'agis avec droiture et intégrité. »</p><p class="house-values">Honneur · Protection · Constance</p><p class="house-founder">Fondée par Althea Aerwyn</p></a><a class="house h-brumval" href="#ecole"><span class="house-flux">Flux Vert</span><h3>Brumval</h3><p class="house-beast">Le Valdorn</p><p class="house-motto">« Ma force, c'est de rester fidèle à ceux qui comptent sur moi. »</p><p class="house-values">Loyauté · Camaraderie · Courage</p><p class="house-founder">Fondée par Hector Brumval</p></a><a class="house h-falcon" href="#ecole"><span class="house-flux">Flux Orange</span><h3>Falcon</h3><p class="house-beast">L'Aetherion</p><p class="house-motto">« La connaissance est une arme redoutable. »</p><p class="house-values">Savoir · Curiosité · Sagesse</p><p class="house-founder">Fondée par Eldric Falcon</p></a><a class="house h-venatrix" href="#ecole"><span class="house-flux">Flux Violet</span><h3>Venatrix</h3><p class="house-beast">L'Akkorokamui</p><p class="house-motto">« Qui connaît les ficelles contrôle le jeu »</p><p class="house-values">Ambition · Maîtrise · Influence</p><p class="house-founder">Fondée par Selena Venatrix</p></a></div>
+</section>
+
+<section class="panel">
+  <h2>Par où commencer</h2>
+  <div class="paths">
+    <a class="path" href="#magie"><span class="path-n">6 chapitres</span><h3>Le lore</h3><p>L'Écho, la Résonance et le Flux, l'école, la société magique, la chronologie, le glossaire et les créatures.</p><span class="path-go">Ouvrir le lore</span></a>
+    <a class="path" href="#reglement"><span class="path-n">68 règles</span><h3>Le règlement</h3><p>Général, vocal, lexique RP, roleplay, zones RPK et familles. Avec une recherche pour retrouver une règle en un instant.</p><span class="path-go">Ouvrir le règlement</span></a>
+    <a class="path" href="#whitelist"><span class="path-n">Candidature</span><h3>La whitelist</h3><p>Ce que la douane attend de ton personnage, les redflags à éviter, l'oral et les règles de création.</p><span class="path-go">Ouvrir le guide</span></a>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>2026, l'année de toutes les fractures</h2>
+  <ol class="timeline compact">
+    <li class="tl-now"><span class="tl-year">2026</span><h4>La tentative de coup d'État</h4><p>L'Ascendance attaque l'AMRU. Le coup échoue, mais le Ministre est assassiné.</p></li>
+    <li class="tl-now"><span class="tl-year">2026</span><h4>La mort d'Arthurius Glenwood</h4><p>Le directeur d'Elderwood tombe dans une embuscade de l'Ascendance.</p></li>
+    <li class="tl-now"><span class="tl-year">2026</span><h4>La Rupture du Voile</h4><p>Pendant quelques minutes, l'île devient visible depuis le monde Sans-Flux.</p></li>
+    <li class="tl-now"><span class="tl-year">2026</span><h4>Tensions entre les Mondes</h4><p>Le secret se resserre et les Dissonants sont de plus en plus nombreux.</p></li>
+  </ol>
+  <p><a class="btn btn-ghost" href="#contexte">Toute la chronologie</a></p>
+</section>
+</section><section class="page" id="page-magie" data-route="magie" data-group="lore" hidden><header class="hero hero-magie"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Les fondements du monde</p><h1>La Magie</h1></header><nav class="toc" aria-label="Sur cette page"><span>Sur cette page</span><button type="button" class="chip" data-jump="magie-l-echo">L'Écho</button><button type="button" class="chip" data-jump="magie-la-resonance">La Résonance</button><button type="button" class="chip" data-jump="magie-le-flux">Le Flux</button><button type="button" class="chip" data-jump="magie-les-couleurs-du-flux">Les couleurs du Flux</button><button type="button" class="chip" data-jump="magie-le-voile">Le Voile</button><button type="button" class="chip" data-jump="magie-les-statuts-magiques">Les statuts magiques</button><button type="button" class="chip" data-jump="magie-les-formes-de-magie">Les formes de magie</button></nav><section class="panel" id="magie-l-echo"><h2>L'Écho</h2><p>L'Écho est la force originelle qui traverse toute chose depuis la naissance de l'univers, ce que les textes les plus anciens appellent le Premier Murmure. Il ne produit aucun sortilège et n'obéit à aucune formule : il est simplement présent, mêlé à la matière, aux lieux, aux êtres vivants, depuis toujours.</p><p>En pratique, l'Écho est ce qui rend la magie possible. Sans lui, aucune Résonance et aucun Flux ne pourraient exister : c'est le socle sur lequel repose toute la magie pratiquée à Elderwood.</p></section><section class="panel" id="magie-la-resonance"><h2>La Résonance</h2><p>La Résonance est la manière dont un être répond à l'Écho, une fréquence propre à chacun, présente en toute chose depuis sa naissance.</p><p>Chez la majorité des humains, elle demeure trop faible pour produire quoi que ce soit de perceptible : ce sont les Sans-Flux. Chez d'autres, elle répond avec assez de force et de clarté pour qu'un véritable échange se forme avec l'Écho : ce sont les Résonants. C'est cette différence de Résonance, et non le sang ou la naissance, qui détermine qui peut ou non pratiquer la magie.</p><p>Concrètement, la Résonance repose sur deux prédispositions distinctes, transmises génétiquement : l'une permet de ressentir l'Écho, l'autre permet de le contrôler. Un Résonant complet possède les deux : il perçoit la magie et parvient à en tirer un Flux exploitable.</p></section><section class="panel" id="magie-le-flux"><h2>Le Flux</h2><p>Le Flux naît lorsque l'Écho rencontre une Résonance suffisamment forte pour y répondre. Ce n'est pas une réserve enfermée dans le corps du sorcier, mais une énergie qui naît de cette relation : la forme perceptible et manipulable de la magie.</p><p>En pratique, le Flux se manifeste d'abord sans contrôle chez les jeunes sorciers : une peur qui repousse un danger, une colère qui fait trembler un objet, avant d'être apprivoisé grâce à l'intention, au geste, à l'incantation et à un catalyseur (baguette, sceptre, bâton, flûte, ou tout autre instrument magique). Apprendre la magie, c'est avant tout apprendre à diriger volontairement ce que le Flux fait déjà instinctivement.</p></section><section class="panel" id="magie-les-couleurs-du-flux"><h2>Les couleurs du Flux</h2><p>Tous les Résonants ne s'accordent pas à l'Écho de la même manière. Une certaine quantité d'eau de la Source de Vehr, plus simplement appelée la Source, approchée d'un Résonant, révèle la couleur de son Flux selon la nature profonde de celui-ci : quatre grandes expressions, associées aux quatre fondateurs puis aux quatre maisons d'Elderwood.</p><div class="entries grid"><article class="entry h-aerwyn"><h3>Flux Bleu</h3><p class="entry-sub">Aerwyn</p><div class="entry-body"><p><em>Courage · Protection · Action</em></p><p>Il incarne le courage, l'engagement et la volonté d'agir. Les Résonants bleus possèdent une magie tournée vers la protection, l'intervention directe et le soutien : leur Flux répond souvent avec force lorsqu'il s'agit de défendre, de tenir une position ou de se dresser face à ce qui menace l'équilibre. Tous ne sont pas des combattants : certains protègent par des boucliers, d'autres par des enchantements de soutien ou des sorts d'évacuation. Ce qui les unit n'est pas la violence, mais la décision de se placer entre le danger et ceux qu'ils cherchent à préserver. Le Bleu agit, protège, et accepte d'avancer lorsque le danger exige une réponse.</p></div></article><article class="entry h-brumval"><h3>Flux Vert</h3><p class="entry-sub">Brumval</p><div class="entry-body"><p><em>Stabilité · Loyauté · Continuité</em></p><p>Il porte la stabilité, la loyauté et la continuité. Sa magie se montre généralement constante et résistante : là où d'autres cherchent à transformer rapidement une situation, le Vert tend à maintenir, renforcer ou restaurer ce qui menace de céder. Il est particulièrement lié à la protection durable, aux soins, aux enchantements de stabilité et aux équilibres du vivant. Les sorciers au Flux Vert ne sont pas simplement patients : leur force réside dans leur capacité à tenir dans la durée et à soutenir les autres, même quand les résultats ne sont pas immédiatement visibles. Le Vert préserve, soutient et résiste lorsque tout ce qui l'entoure menace de s'effondrer.</p></div></article><article class="entry h-falcon"><h3>Flux Orange</h3><p class="entry-sub">Falcon</p><div class="entry-body"><p><em>Savoir · Curiosité · Créativité</em></p><p>Il porte le savoir, la compréhension et la créativité, répondant naturellement à la curiosité et au besoin de comprendre ce qui échappe encore aux connaissances établies. Les sorciers liés à l'Orange observent, expérimentent et cherchent souvent une solution nouvelle lorsque les méthodes habituelles ne fonctionnent plus. Tous ne sont pas des chercheurs enfermés dans une bibliothèque : le Flux Orange peut s'exprimer dans l'invention d'un sort, l'étude d'un artefact ou l'exploration d'un lieu ancien. L'Orange observe, comprend et invente lorsque les réponses connues ne suffisent plus.</p></div></article><article class="entry h-venatrix"><h3>Flux Violet</h3><p class="entry-sub">Venatrix</p><div class="entry-body"><p><em>Maîtrise · Stratégie · Influence</em></p><p>Il représente l'ambition, la maîtrise et l'influence, lié à la stratégie plus qu'à l'effet spectaculaire : il préfère souvent contrôler ce qui existe déjà , modifier le cours d'une situation ou prendre l'avantage par la précision. Les sorciers liés au Violet observent, préparent et choisissent avec soin le moment où ils agissent. Leur magie se montre particulièrement efficace pour dévier un sortilège, recueillir une information, comprendre les intentions de l'adversaire ou reprendre le contrôle d'une situation devenue instable. Le Violet observe, maîtrise, et agit rarement sans avoir mesuré les conséquences.</p></div></article></div></section><section class="panel" id="magie-le-voile"><h2>Le Voile</h2><p>Chaque lieu possède, comme les êtres vivants, sa propre Résonance. Une forte concentration de Flux peut faire naître un Voile, un phénomène qui rend le lieu difficile à remarquer pour les Sans-Flux.</p><p>Les écoles et sanctuaires magiques se construisent souvent dans ces lieux voilés, Elderwood en est l'exemple le plus connu, dissimulée du monde Sans-Flux par un Voile naturel particulièrement puissant. Un lieu trop chargé en Flux peut cependant devenir imprévisible : c'est ainsi que naissent les Échoïdes, des souvenirs figés dans une rune instable.</p><p>On distingue le Voile naturel, qui se forme spontanément autour d'un lieu fortement chargé en Flux, du voile artificiel, posé volontairement par des sorciers pour dissimuler un lieu de leur choix. Un voile artificiel peut se superposer à un Voile naturel existant, et parfois même le perturber.</p></section><section class="panel" id="magie-les-statuts-magiques"><h2>Les statuts magiques</h2><div class="entries grid"><article class="entry"><h3>Les Résonants</h3><div class="entry-body"><p>Ceux que l'on appelle dans le langage courant des sorciers. Ils possèdent une Résonance assez importante et claire pour répondre à l'Écho et faire naître un Flux exploitable. Cela leur permet d'apprendre la magie, de canaliser leur Flux à travers une baguette, un sceptre ou tout autre catalyseur, de pratiquer des sorts et d'utiliser des objets enchantés. Être Résonant implique l'accès à une éducation magique, à des droits, des devoirs, et une responsabilité : celle de ne pas exposer la magie aux Sans-Flux.</p></div></article><article class="entry"><h3>Les Sans-Flux</h3><div class="entry-body"><p>Ils représentent la majorité de l'humanité. Ils possèdent bien une Résonance, comme toute chose existante, mais elle est bien trop faible : ils ne perçoivent pas la magie, ne produisent pas de Flux suffisant et ne peuvent pas le manipuler. Cela ne signifie pas qu'ils sont totalement séparés du monde magique : ils peuvent apercevoir certaines choses, être touchés par ses effets, ou traverser le Voile si celui-ci est affaibli, devenant alors témoins de phénomènes qu'ils ne s'expliquent pas. Leur esprit tend naturellement à rationaliser ce qu'il ne comprend pas et à se tourner vers la science.</p></div></article><article class="entry"><h3>Les Dissonants</h3><div class="entry-body"><p>Des cas particuliers. Ils naissent généralement dans le monde Sans-Flux, souvent de parents Sans-Flux, avec une prédisposition rare liée à la Résonance. Celle-ci repose sur deux aptitudes : ressentir l'Écho et être capable de le contrôler. La plupart des Dissonants n'en possèdent qu'une seule et peuvent vivre sans jamais connaître l'existence du monde magique, parfois perçus comme des prodiges, voyants ou médiums. Les plus rares possèdent les deux : ils sont alors, par définition, pleinement Résonants. Repérés par l'AMRU, ils sont invités à rejoindre Elderwood afin d'apprendre à maîtriser leur Flux. Malgré cela, une partie de la société magique continue de les qualifier de Dissonants en raison de leurs origines Sans-Flux.</p></div></article></div></section><section class="panel" id="magie-les-formes-de-magie"><h2>Les formes de magie</h2><p>La <strong>Magie d'usage</strong> est la forme la plus répandue aujourd'hui. Elle correspond à la magie pratiquée par les sorciers dans leur vie quotidienne : dans les écoles, les duels, les soins, les enchantements simples ou les actes magiques courants. Elle repose sur l'intention du sorcier, sur sa capacité à canaliser son Flux, puis à lui donner une direction par un geste, une formule ou un catalyseur. L'apparition des baguettes a profondément transformé cette pratique, en concentrant le Flux dans un catalyseur adapté, ce qui a permis aux sorciers d'affiner leurs gestes et de transmettre plus facilement leur savoir.</p><p>La <strong>Runomancie</strong> suit une logique différente : là où la Magie d'usage agit par le geste et l'instant, la Runomancie cherche à inscrire le Flux dans la durée. Les runes ne sont pas de simples lettres, mais des fréquences retranscrites sous forme de symboles ; chaque rune représente une harmonie observée dans l'Écho. Une rune seule possède une influence limitée, mais plusieurs runes forment un accord capable d'orienter durablement la magie : protéger un lieu, verrouiller un passage, conserver une mémoire ou stabiliser un enchantement.</p></section></section><section class="page" id="page-ecole" data-route="ecole" data-group="lore" hidden><header class="hero hero-ecole"><div class="hero-art" aria-hidden="true"></div><p class="kicker">L'école</p><h1>Elderwood</h1><p class="hero-lead">Seule grande école de sorcellerie du Royaume-Uni, Elderwood forme les jeunes Résonants à comprendre leur Flux. Dissimulée par un Voile puissant, bâtie autour d'une source de magie unique, elle garde encore aujourd'hui bien des secrets.</p></header><nav class="toc" aria-label="Sur cette page"><span>Sur cette page</span><button type="button" class="chip" data-jump="ecole-histoire-d-elderwood">Histoire d'Elderwood</button><button type="button" class="chip" data-jump="ecole-les-maisons">Les maisons</button><button type="button" class="chip" data-jump="ecole-le-chateau-lieux-interieurs">Le château : lieux intérieurs</button><button type="button" class="chip" data-jump="ecole-l-ile-hors-du-chateau">L'île, hors du château</button></nav><section class="panel" id="ecole-histoire-d-elderwood"><h2>Histoire d'Elderwood</h2><p>En l'an 1298, Falcon découvrit sur une île sans nom, protégée par un voile magique, une source d'eau capable de révéler la couleur de l'âme de quiconque s'y reflète : la Source de Vehr, plus simplement appelée la Source.</p><p>Il identifia quatre couleurs majeures : le bleu, le vert, le violet, l'orange. Il chercha ensuite trois personnes dont l'âme correspondrait aux couleurs qu'il n'incarnait pas lui-même : Aerwyn, Venatrix et Brumval. En l'an 1300, tous les quatre fondèrent Elderwood.</p></section><section class="panel" id="ecole-les-maisons"><h2>Les maisons</h2><div class="entries grid houses-grid"><article class="entry h-aerwyn"><h3>Aerwyn</h3><p class="entry-sub">L'Ephyr</p><div class="entry-body"><blockquote>
+<p>« J'agis avec droiture et intégrité. »</p>
+</blockquote><p><em>Honneur · Protection · Constance</em></p><p>Fondée par Althea Aerwyn, la maison Aerwyn est celle du courage et du serment tenu. Les Aerwyn agissent selon un code qu'ils se sont choisi, et s'y tiennent même quand c'est inconfortable.</p><p><strong>Famille Caerwyn</strong> — « Tant qu'Elderwood existe, un Caerwyn veille. »<br/>
+Présente depuis la première nuit de la construction.</p></div></article><article class="entry h-brumval"><h3>Brumval</h3><p class="entry-sub">Le Valdorn</p><div class="entry-body"><blockquote>
+<p>« Ma force, c'est de rester fidèle à ceux qui comptent sur moi. »</p>
+</blockquote><p><em>Loyauté · Camaraderie · Courage</em></p><p>Fondée par Hector Brumval, la maison Brumval est celle du foyer et de la fidélité. Les Brumval croient que ce qu'on construit ensemble vaut plus que ce qu'on obtient seul.</p><p><strong>Famille Hearthbane</strong> — « Le feu accueille. Le feu dure. »<br/>
+Gardienne des traditions du premier feu.</p></div></article><article class="entry h-falcon"><h3>Falcon</h3><p class="entry-sub">L'Aetherion</p><div class="entry-body"><blockquote>
+<p>« La connaissance est une arme redoutable. »</p>
+</blockquote><p><em>Savoir · Curiosité · Sagesse</em></p><p>Fondée par Eldric Falcon, la maison Falcon est celle de l'intelligence mise au service du monde. Les Falcon croient que comprendre une situation vaut mieux que la forcer ; on leur reproche parfois de vivre si haut dans leurs réflexions qu'ils en oublient ceux qui marchent à leurs côtés.</p><p><strong>Famille Valemont</strong> — « La connaissance régit notre monde. »<br/>
+Gardienne du savoir de la maison Falcon depuis le XIVe siècle.</p></div></article><article class="entry h-venatrix"><h3>Venatrix</h3><p class="entry-sub">L'Akkorokamui</p><div class="entry-body"><blockquote>
+<p>« Qui connaît les ficelles contrôle le jeu »</p>
+</blockquote><p><em>Ambition · Maîtrise · Influence</em></p><p>Fondée par Selena Venatrix, la maison Venatrix est celle de la stratégie et de la dissimulation. Les Venatrix construisent les chemins pour obtenir ce qu'ils veulent.</p><p><strong>Famille Dravenholt</strong> — « Le monde appartient à ceux qui en comprennent les rouages. »<br/>
+Influente dans les cercles du Ministère.</p></div></article></div></section><section class="panel" id="ecole-le-chateau-lieux-interieurs"><h2>Le château : lieux intérieurs</h2><div class="places"><div class="place"><span class="pill">Savoir et archives</span><h4>La Bibliothèque</h4><p>Manuels, grimoires anciens et sections interdites, gérés par un bibliothécaire et des fées des bois.</p></div><div class="place"><span class="pill">Soins et convalescence</span><h4>L'Infirmerie Grimshaw</h4><p>Nommée en hommage à Edith Grimshaw, ancienne médicomage d'Elderwood.</p></div><div class="place"><span class="pill">Botanique et repos</span><h4>Les Jardins</h4><p>Modifiés par la proximité de la Source, lieu d'étude et de repos à l'ombre des grands arbres.</p></div><div class="place"><span class="pill">Courrier et messagers</span><h4>La Grande Volière</h4><p>Tour ouverte où nichent chouettes, corbeaux et faucons messagers.</p></div><div class="place"><span class="pill">Ménagerie</span><h4>Le Pavillon des Compagnons</h4><p>Abrite les familiers des élèves, géré par le garde-chasse et le professeur de magizoologie.</p></div><div class="place"><span class="pill">Entretien des catalyseurs</span><h4>L'Atelier des Catalyseurs</h4><p>Salle technique où les élèves apprennent à entretenir et réparer baguettes, sceptres et bâtons.</p></div><div class="place"><span class="pill">Runomancie et expériences</span><h4>La Forge Runique</h4><p>Profondément enfouie sous le château, réservée aux élèves avancés.</p></div><div class="place"><span class="pill">Repas de l'école</span><h4>Les Cuisines Hearthbane</h4><p>Vastes et toujours en mouvement, situées sous la Grande Salle.</p></div><div class="place"><span class="pill">Cœur du château</span><h4>La Grande Salle</h4><p>Seul lieu où toutes les maisons se retrouvent sous le même toit.</p></div><div class="place h-falcon"><span class="pill">Salle commune de Falcon</span><h4>L'Observatoire des Hautes-Vues</h4><p>Nichée dans les plus hautes tours du château, accessible par un pont suspendu. Falcon y aurait conçu les premières bases du système d'apprentissage.</p></div><div class="place h-aerwyn"><span class="pill">Salle commune d'Aerwyn</span><h4>La Veillée Bleue</h4><p>Éclairée par un toit de verre incassable, elle expose les armures des anciens défenseurs du château.</p></div><div class="place h-venatrix"><span class="pill">Salle commune de Venatrix</span><h4>Le Salon des Ombres</h4><p>Enfouis dans les sous-sols du château, ouverte sur les profondeurs du lac par deux grandes baies vitrées.</p></div><div class="place h-brumval"><span class="pill">Salle commune de Brumval</span><h4>Le Grand Foyer</h4><p>La plus chaleureuse du château, réchauffée par un feu qui ne s'éteint jamais.</p></div></div></section><section class="panel" id="ecole-l-ile-hors-du-chateau"><h2>L'île, hors du château</h2><div class="places"><div class="place"><span class="pill">Zone à haut risque</span><h4>Brûlebrume</h4><p>Une brume grise et corrosive, sanctuaire des Arachnides d'Éther.</p></div><div class="place"><span class="pill">Sport et rivalités</span><h4>Le Terrain de Razorball</h4><p>Structure circulaire taillée dans la falaise, cœur battant de la vie extrascolaire.</p></div><div class="place"><span class="pill">Village voisin</span><h4>Shedwood</h4><p>Une statue y rend hommage à Maeve Storm.</p></div></div></section></section><section class="page" id="page-societe" data-route="societe" data-group="lore" hidden><header class="hero hero-societe"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Au-delà des murs</p><h1>La Société Magique</h1><p class="hero-lead">L'Autorité Magique et les grandes familles notables façonnent le monde magique britannique dans lequel évolue Elderwood.</p></header><nav class="toc" aria-label="Sur cette page"><span>Sur cette page</span><button type="button" class="chip" data-jump="societe-l-amru-autorites-magiques-du-royaume-uni">L'AMRU — Autorités Magiques du Royaume-Uni</button><button type="button" class="chip" data-jump="societe-les-grandes-familles">Les grandes familles</button><button type="button" class="chip" data-jump="societe-les-familles-notables">Les familles notables</button><button type="button" class="chip" data-jump="societe-personnages-illustres">Personnages illustres</button><button type="button" class="chip" data-jump="societe-le-razeball">Le Razeball</button></nav><section class="panel" id="societe-l-amru-autorites-magiques-du-royaume-uni"><h2>L'AMRU — Autorités Magiques du Royaume-Uni</h2><p>L'AMRU, ou Autorités Magiques du Royaume-Uni, constitue l'autorité centrale chargée de l'administration de la société magique du Royaume-Uni. Elle veille à l'application des lois, à la sécurité de la population, au fonctionnement des institutions et à la régulation des activités susceptibles d'affecter l'équilibre du monde magique. Son autorité s'étend à l'ensemble des individus, organisations et communautés relevant de sa juridiction, ainsi qu'aux pratiques magiques, créatures, artefacts et activités soumises à réglementation. Elderwood occupe une place particulière dans cet équilibre. Principale institution de formation magique du Royaume-Uni, l'école entretient depuis des siècles des relations étroites avec les autorités britanniques. Si elle conserve sa propre organisation et une importante autonomie dans son fonctionnement, elle demeure un interlocuteur essentiel de l'AMRU, notamment dans la formation des nouvelles générations et face aux enjeux majeurs touchant la société magique.</p></section><section class="panel" id="societe-les-grandes-familles"><h2>Les grandes familles</h2><div class="entries grid"><article class="entry h-aerwyn"><h3>Caerwyn</h3><p class="entry-sub">Maison Aerwyn, le serment</p><div class="entry-body"><p>Présents aux côtés d'Aerwyn dès la fondation de l'école, les Caerwyn ont fait de la protection d'Elderwood un devoir transmis de génération en génération. Leur nom est associé à l'honneur, au respect du code et à la parole donnée. Ils sont représentés par Seraphine Caerwyn, capitaine de Razeball des Aerwyn.</p></div></article><article class="entry h-brumval"><h3>Hearthbane</h3><p class="entry-sub">Maison Brumval, le foyer</p><div class="entry-body"><p>Liés à Brumval depuis les premières années d'Elderwood, les Hearthbane sont à l'origine du premier feu de la Grande Salle et de la célèbre Flamme Ouverte. La famille incarne la loyauté, l'unité et la protection de la communauté. Elle est représentée par Petra Hearthbane, élève de quatrième année.</p></div></article><article class="entry h-falcon"><h3>Valemont</h3><p class="entry-sub">Maison Falcon, le savoir</p><div class="entry-body"><p>Gardiens historiques des archives d'Elderwood, les Valemont ont sauvé les savoirs de l'école durant la Crise des Archives du XIVe siècle. Leur influence s'étend aujourd'hui à l'enseignement, à l'administration et au monde du Razeball. Ils sont représentés à Elderwood par Ebenezer Valemont, héritier d'une lignée aussi brillante qu'exigeante.</p></div></article><article class="entry h-venatrix"><h3>Dravenholt</h3><p class="entry-sub">Maison Venatrix, l'influence</p><div class="entry-body"><p>Ancienne famille proche de Venatrix, les Dravenholt évoluent depuis des siècles au cœur des cercles politiques, académiques et mondains du monde magique. Leur pouvoir repose sur leur maîtrise des apparences, des réseaux et des décisions prises dans l'ombre. Ils sont représentés par Isolde Dravenholt, élève de cinquième année.</p></div></article></div></section><section class="panel" id="societe-les-familles-notables"><h2>Les familles notables</h2><div class="entries grid"><article class="entry"><h3>Belladorn</h3><p class="entry-sub">Alchimie, expérimentation et indépendance</p><div class="entry-body"><p>Famille d'alchimistes aussi brillante qu'imprévisible, les Belladorn ont bâti leur réputation sur l'expérimentation, l'herboristerie et leur refus des limites imposées par les institutions. Depuis leur domaine dissimulé, la Chaudronnerie, ils poursuivent des recherches parfois dangereuses où la découverte passe souvent avant la prudence. À Elderwood, leurs membres sont traditionnellement proches des maisons Falcon et Venatrix.</p></div></article><article class="entry"><h3>Ravenscroft</h3><p class="entry-sub">Runomancie, précision et préparation</p><div class="entry-body"><p>Ancienne lignée britannique spécialisée dans la Runomancie, les Ravenscroft sont réputés pour leur maîtrise des structures runiques complexes et leur méthode particulièrement rigoureuse. Leur philosophie repose sur une idée simple : comprendre avant d'intervenir, préparer avant d'agir. Experts des partitions instables et des dangers liés aux runes, ils privilégient toujours la précision à la précipitation.</p></div></article><article class="entry"><h3>Glenhart</h3><p class="entry-sub">Créatures, exploration et connaissance du terrain</p><div class="entry-body"><p>Famille connue pour sa spécialisation dans l'étude des créatures magiques, les Glenhart ont bâti leur savoir au contact direct du terrain. Deux traditions coexistent dans la lignée : les Compagnons, qui privilégient le soin, la confiance et l'observation rapprochée, et les Arpenteurs, qui parcourent les territoires les plus sauvages afin d'étudier les créatures dans leur milieu naturel. Malgré leurs méthodes différentes, tous partagent la même conviction : une créature ne se comprend véritablement qu'en allant à sa rencontre.</p></div></article></div></section><section class="panel" id="societe-personnages-illustres"><h2>Personnages illustres</h2><div class="entries grid"><article class="entry"><h3>Arthurius Glenwood</h3><p class="entry-sub">Ancien Directeur d'Elderwood</p><div class="entry-body"><p>Ancien directeur d'Elderwood, Arthurius Glenwood fut pendant de nombreuses années l'une des principales figures de l'établissement. Sa mort survint lors d'une embuscade attribuée à l'Ascendance, dans des circonstances qui restent encore entourées de zones d'ombre. Selon plusieurs rumeurs, il aurait été tué par Leopold Evenwald lui-même. Depuis sa disparition, certaines informations laissent également entendre qu'Arthurius entretenait des liens avec le Cercle de Frêne, une organisation secrète engagée dans la lutte contre l'Ascendance. Sa mort semble ainsi dépasser largement le simple cadre de l'école et demeure au cœur de nombreuses interrogations.</p></div></article><article class="entry"><h3>Edith Grimshaw</h3><p class="entry-sub">Ancienne médicomage d'Elderwood</p><div class="entry-body"><p>Lorsque plusieurs élèves furent touchés par une maladie inconnue qui affaiblissait progressivement leur Résonance, Edith Grimshaw tenta une méthode particulièrement risquée : relier temporairement leur magie à la sienne pour absorber une partie de leur fatigue et de leur douleur. Les élèves survécurent, mais Edith ne retrouva jamais entièrement l'usage de sa propre magie. L'infirmerie d'Elderwood porte aujourd'hui son nom.</p></div></article><article class="entry h-falcon"><h3>Alistair Valemont</h3><p class="entry-sub">Haut placé de l'AMRU</p><div class="entry-body"><p>Patriarche de la famille Valemont, Alistair est également l'une des figures influentes de l'AMRU. Il défend depuis longtemps une application stricte du Secret magique et considère sa préservation comme l'une des principales responsabilités des institutions sorcières. Son nom est ainsi régulièrement associé aux décisions les plus conservatrices de l'autorité magique britannique.</p></div></article><article class="entry h-aerwyn"><h3>Cadoc Caerwyn</h3><p class="entry-sub">Celui qui tint la ligne</p><div class="entry-body"><p>En 1958, Cadoc Caerwyn et trois autres Aerwyn furent envoyés dans la baie de Lituya après l'apparition de Résonances anormales. Lorsque le réveil d'un Léviathan provoqua un cataclysme, l'ordre d'évacuation fut donné, mais les quatre sorciers refusèrent d'abandonner la communauté présente sur place. Ils maintinrent une barrière de protection pendant trois jours et trois nuits, jusqu'à ce que le danger soit écarté. Cadoc y perdit un bras, mais ne céda rien de ce qu'il estimait juste.</p></div></article><article class="entry h-brumval"><h3>Bénédicte Hearthbane</h3><p class="entry-sub">Le Grand Incendie de Londres</p><div class="entry-body"><p>Lors du Grand Incendie de Londres de 1666, Bénédicte Hearthbane participa avec plusieurs Brumval au détournement d'un ancien réseau runique sous la ville à l'origine de l'incendie. Celui-ci permit d'évacuer les familles résonantes prises au piège sans révéler leur existence aux Sans-Flux. Ce dispositif inspira plus tard la création du Tunnel du Faux Pas.</p></div></article><article class="entry"><h3>Edgar Ravenscroft</h3><p class="entry-sub">Fondateur de la Méthode Ravenscroft</p><div class="entry-body"><p>Au XVe siècle, Edgar Ravenscroft fut appelé dans un refuge dont l'accumulation de protections runiques avait fini par engendrer un immense Échoïde. Plutôt que de tenter de détruire brutalement la structure, il étudia chacune de ses connexions et les neutralisa progressivement, section après section. Cette intervention devint la base de la Méthode Ravenscroft, encore utilisée dans l'étude des systèmes runiques instables.</p></div></article><article class="entry"><h3>Rowena Glenhart</h3><p class="entry-sub">L'Expédition de Shedwood</p><div class="entry-body"><p>En 1890, Rowena Glenhart mena une expédition de quarante jours dans la forêt de Shedwood afin d'en étudier la faune magique. Le groupe revint avec l'une des documentations les plus importantes jamais réalisées sur les créatures de la région, mais deux membres de l'expédition disparurent sans laisser de corps ni de matériel. Rowena ne révéla jamais publiquement ce qui s'était produit durant les derniers jours du voyage.</p></div></article><article class="entry"><h3>Maeve Storm</h3><p class="entry-sub">La dernière Garde</p><div class="entry-body"><p>Maeve Storm fut une résonante et étudiante d'Elderwood connue pour sa maîtrise exceptionnelle du Flux Bleu. Lors d'une attaque ayant frappé Shedwood, elle maintint à elle seule un immense bouclier autour du village, refusant de l'abandonner tant que le dernier habitant n'avait pas été évacué. Elle succomba peu après, faisant d'elle l'une des figures les plus respectées de l'histoire locale. Sa statue domine aujourd'hui la place de Shedwood, rappelant aux habitants le courage des élèves Aerwyn.</p></div></article></div></section><section class="panel" id="societe-le-razeball"><h2>Le Razeball</h2><p>Le Razeball, originellement appelé « Razorball » et souvent simplement surnommé « le Raze », est l'un des sports les plus populaires du monde magique. Pratiqué à près d'une centaine de mètres de hauteur, il oppose deux équipes lancées à grande vitesse autour d'une sphère métallique qu'elles doivent envoyer dans le Cœur adverse. Longtemps pratiqué sous la forme de jeux de balais brutaux et sans règles communes, le Razeball moderne naît véritablement à Elderwood en 1863, lorsque Corvinus Valemont en rédige le premier règlement et met au point le dispositif permettant de stabiliser les Cœurs utilisés lors des rencontres. Le sport se diffuse rapidement au-delà du Royaume-Uni et donne naissance, en 1896, à la première Coupe du Monde. Une équipe aligne six joueurs : un Gardien et cinq joueurs de champ dont la composition varie selon la stratégie adoptée. Les Finishers sont spécialisés dans la conclusion des actions et les tirs à longue distance ; les Playmakers organisent le jeu et créent les ouvertures ; les Enforcers imposent leur présence physique ; tandis que les Lights Out se spécialisent dans l'interception et la destruction du jeu adverse. Le Gardien reste quant à lui la dernière ligne de défense devant le Cœur. Le Razeball est aujourd'hui pratiqué à tous les niveaux du monde magique. Des championnats professionnels existent à travers le monde, tandis que les meilleures sélections nationales se retrouvent tous les quatre ans lors de la Coupe du Monde de Razeball, considérée comme le sommet de la discipline. À Elderwood, les quatre maisons s'affrontent également tout au long de l'année dans un championnat particulièrement suivi, jusqu'à la grande finale organisée à la fin de l'année scolaire.</p></section></section><section class="page" id="page-contexte" data-route="contexte" data-group="lore" hidden><header class="hero hero-contexte"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Il était une fois</p><h1>Chronologie</h1><p class="hero-lead">De la découverte de la Source de Vehr au Grand Confinement, les grandes dates officiellement enseignées à Elderwood.</p></header><section class="panel" id="contexte-chronologie-d-elderwood"><h2>Chronologie d'Elderwood</h2><p>Les dates officiellement enseignées à Elderwood.</p><ol class="timeline"><li><span class="tl-year">1298</span><h4>La découverte de la Source de Vehr</h4><p>Falcon découvre une source d'eau capable de révéler la couleur du flux des Résonants.</p></li><li><span class="tl-year">1300</span><h4>Fondation d'Elderwood</h4><p>Falcon, Aerwyn, Venatrix et Brumval fondent l'école.</p></li><li><span class="tl-year">1432</span><h4>La Sentence de Mireille</h4><p>Gwendolyn Caerwyn applique une sanction controversée, un choix qui divise encore la maison Aerwyn.</p></li><li><span class="tl-year">1463</span><h4>La Flamme Ouverte</h4><p>Elspeth Hearthbane organise le premier grand festival ouvert à toutes les entités magiques.</p></li><li><span class="tl-year">1863</span><h4>La codification du Razeball</h4><p>Corvinus Valemont établit le règlement moderne du sport.</p></li><li><span class="tl-year">1944-1945</span><h4>Le Grand Confinement</h4><p>Cassiopée Valemont rédige les décrets d'isolation du monde magique.</p></li><li class="tl-now"><span class="tl-year">2026</span><h4>La tentative de Coup d'État</h4><p>L'Ascendance lance une offensive contre l'AMRU dans le but de prendre le contrôle des institutions du monde magique. La tentative de coup d'État échoue, mais les affrontements coûtent la vie au Ministre de l'AMRU, assassiné par l'Ascendance. Cet échec ne met toutefois pas fin au mouvement et ouvre une période d'instabilité politique majeure. L'AMRU officialise L'Ascendance comme un groupe extrémiste dangereux</p></li><li class="tl-now"><span class="tl-year">2026</span><h4>La mort d'Arthurius Glenwood</h4><p>Arthurius Glenwood trouve la mort lors d'une embuscade tendue par l'Ascendance sur une île proche d'Elderwood. Plusieurs rumeurs affirment qu'il appartenait au Cercle du Frêne, une organisation secrète opposée à l'Ascendance. À l'issue des affrontements, Adam Wrightmoore, dirigeant présumé de l'Ascendance, est capturé puis incarcéré au centre pénitentiaire de Briseflux.</p></li><li class="tl-now"><span class="tl-year">2026</span><h4>La Rupture du Voile</h4><p>Le Voile protégeant Elderwood cède momentanément. Pendant quelques minutes, l'île devient visible depuis le monde Sans-Flux. Des plaisanciers naviguant au large aperçoivent les lieux et les filment avant leur disparition. Plusieurs vidéos circulent depuis, alimentant interrogations et théories sur l'existence de l'île.</p></li><li class="tl-now"><span class="tl-year">2026</span><h4>Tensions entre les Mondes</h4><p>Les récents événements accentuent les tensions entre le monde magique et celui des Sans-Flux. En réponse, les autorités renforcent les mesures héritées du Grand Confinement et imposent davantage de discrétion et d'isolement aux Résonants afin de préserver le secret du monde magique. Ces contraintes pèsent de plus en plus lourdement sur une partie de la population.</p><p>Dans le même temps, le nombre de Dissonants augmente : plus spécifiquement de Résonants nés au sein de familles entièrement Sans-Flux. Cette évolution nourrit de nouvelles inquiétudes et, dans l'opinion publique, certains commencent à se montrer plus réceptifs aux idées défendues par l'Ascendance, notamment à son rejet de l'isolement imposé au monde magique.</p></li></ol></section><section class="panel panel-link"><h2>Créer votre personnage</h2><p>Les règles essentielles de création (catalyseur, noblesse, Dissonants, filiation, famille…) sont regroupées dans l'espace Whitelist.</p><p><a class="btn" href="#creation">Lire les règles de création</a></p></section></section><section class="page" id="page-glossaire" data-route="glossaire" data-group="lore" hidden><header class="hero hero-glossaire"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Les mots du monde</p><h1>Glossaire</h1><p class="hero-lead">Les notions essentielles pour comprendre la magie, la société et l'histoire d'Elderwood.</p></header><section class="panel"><dl class="terms"><div class="term"><dt>Écho</dt><dd>Aussi appelé magie, l'origine de toute chose.</dd></div><div class="term"><dt>Résonance</dt><dd>Réponse propre de chaque être vivant à l'Écho, reposant sur deux prédispositions génétiques : ressentir l'Écho, et le contrôler.</dd></div><div class="term"><dt>Flux</dt><dd>Énergie née de la rencontre entre l'Écho et la Résonance.</dd></div><div class="term"><dt>Sans-Flux</dt><dd>Humains dont la Résonance est trop faible pour produire un Flux exploitable.</dd></div><div class="term"><dt>Dissonant</dt><dd>Né de parents Sans-Flux mais ne présentant qu'une des deux prédispositions de la Résonance.</dd></div><div class="term"><dt>Dissonant ( résonant )</dt><dd>Né de parents Sans-Flux et présentant les deux prédispositions de la Résonance.</dd></div><div class="term"><dt>Voile</dt><dd>Phénomène dissimulant un lieu chargé de Flux aux Sans-Flux.</dd></div><div class="term"><dt>Catalyseur</dt><dd>Objet (baguette, sceptre, bâton, flûte, ou tout autre instrument magique) canalisant le Flux du sorcier.</dd></div><div class="term"><dt>La Source de Vehr</dt><dd>Aussi appelée « la Source », bassin d'eau révélant la couleur du Flux de chaque Résonant.</dd></div><div class="term"><dt>Razeball</dt><dd>Sport international sorcier, aussi appelé « le Raze ».</dd></div></dl></section></section><section class="page" id="page-creatures" data-route="creatures" data-group="lore" hidden><header class="hero hero-creatures"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Les êtres du monde</p><h1>Entités magiques</h1><p class="hero-lead">Découvrez les créatures et entités qui peuplent le monde magique, leurs particularités, leurs comportements et les traces qu'elles laissent derrière elles.</p></header><section class="panel" id="creatures-creatures-magiques"><h2>Créatures Magiques</h2><div class="entries grid"><article class="entry"><h3>Brisecerat</h3><div class="entry-body"><p>Le Brisecerat est une créature côtière discrète et farouche, vivant principalement dans les zones rocheuses, les plages et les abords de certains lacs. Lent mais difficile à repérer, il se fond naturellement dans son environnement et préfère fuir plutôt que se défendre. Son dos est recouvert de cératine, une matière souple et résistante recherchée pour la fabrication d'équipements de protection accessibles et durables.</p></div></article><article class="entry"><h3>Scalvignus</h3><div class="entry-body"><p>Le Scalvignus est une créature forestière discrète et paisible, reconnaissable à sa silhouette de cerf recouverte d'écailles et à ses larges bois ramifiés. Il évite naturellement les humains et ne se défend qu'en cas de menace. À la fin de l'hiver, ses bois tombent naturellement et sont parfois récupérés pour leurs propriétés magiques, particulièrement appréciées dans la confection de certains catalyseurs.</p></div></article><article class="entry"><h3>Échoïde</h3><div class="entry-body"><p>L'Échoïde est une créature née d'une ancienne structure runique ayant conservé une part du savoir, des souvenirs et de la personnalité de son créateur. Généralement lié à son lieu d'origine, il peut continuer à protéger, enseigner ou accomplir la fonction pour laquelle la structure avait été conçue. Avec le temps et la dégradation des runes, sa mémoire peut se fragmenter, le rendant confus, obsessionnel ou dangereux. Certains finissent même par croire qu'ils sont réellement le runomancien dont ils portent l'empreinte. Il reste tout de même une créature dangereuse et imprévisible.</p></div></article><article class="entry"><h3>Ornicabal</h3><div class="entry-body"><p>L'Ornicabal est une créature semi-aquatique vivant principalement dans les forêts riveraines. Sociable, joueuse et capable d'être apprivoisée, elle peut cependant devenir brusquement agressive lorsqu'elle défend son territoire ou sa nourriture. Sa peau, couverte de fines écailles hydrophobes, la protège de l'humidité et lui permet d'évoluer facilement entre terre et eau. Ses écailles, perdues naturellement au cours de sa croissance, sont recherchées pour la fabrication d'équipements imperméables et certains usages liés à la magie de l'eau.</p></div></article></div></section><section class="panel" id="creatures-creatures-legendaires"><h2>Créatures Légendaires</h2><div class="entries grid"><article class="entry h-aerwyn"><h3>Ephyr</h3><div class="entry-body"><p>L'Ephyr est un grand équidé ailé, farouche, loyal et particulièrement difficile à approcher. Il ne crée de lien qu'avec ceux qu'il juge dignes de confiance, mais une fois ce lien établi, sa fidélité devient presque absolue. La tradition raconte qu'Althea Aerwyn recueillit un jeune Ephyr blessé peu après son arrivée sur l'île. Une fois soigné, l'animal resta à proximité du chantier d'Elderwood et veilla régulièrement sur lui depuis les airs. Cette histoire en fit naturellement l'un des symboles les plus anciens de la maison Aerwyn.</p></div></article><article class="entry h-brumval"><h3>Valdorn</h3><div class="entry-body"><p>Le Valdorn est un immense ursidé magique, territorial et profondément lié aux forêts anciennes. Il semble capable de ressentir les intentions de ceux qui l'approchent, distinguant la malveillance, la cupidité ou au contraire la bienveillance et le respect du vivant. Là où il passe, la végétation retrouve temporairement vigueur, comme si la nature répondait à sa présence. Bien avant la fondation d'Elderwood, Brumval aurait vécu plusieurs années au contact de l'un d'eux, jusqu'à être accepté sur son territoire. Cette relation aurait profondément marqué sa vision de la nature et fait du Valdorn l'un des symboles de sa maison.</p></div></article><article class="entry h-falcon"><h3>Aetherion</h3><div class="entry-body"><p>L'Aetherion est un immense rapace capable de percevoir l'Écho, les Résonances et les mouvements du Flux avec une précision exceptionnelle. Indépendant et observateur, il choisit lui-même ceux qu'il accepte d'approcher. Eldric Falcon aurait rencontré l'un d'eux lors d'une expédition. Plus tard, alors qu'Eldric fut blessé et séparé de son groupe, l'Aetherion aurait tourné au-dessus de lui en poussant des cris, permettant aux autres de retrouver sa position. La créature continua ensuite à croiser sa route pendant plusieurs années, jusqu'à devenir pour Eldric un symbole d'instinct, d'observation et de vision.</p></div></article><article class="entry h-venatrix"><h3>Akkorokamui</h3><div class="entry-body"><p>L'Akkorokamui est une créature marine titanesque, territoriale et dotée d'une intelligence proche de celle d'un être humain. Capable de communiquer par télépathie, elle peut transmettre des pensées, des sensations et des images, tout en percevant les intentions de ceux qui l'approchent, même lorsqu'ils tentent de les dissimuler. La plus célèbre d'entre elles, Thalassia, aurait entretenu un lien durable avec Selena Venatrix. Depuis cette rencontre, elle se montrerait particulièrement protectrice envers les eaux entourant Elderwood.</p></div></article><article class="entry"><h3>Dragon</h3><div class="entry-body"><p>Les Dragons appartiennent aujourd'hui davantage à la légende qu'au monde connu. Les récits anciens parlent d'êtres immenses, conscients, avides et profondément orgueilleux, dont la soif de domination aurait ravagé des régions entières. Il subsiste encore certaines lignées anciennes, comme les wyvernes ou les wyrms, parfois considérées comme de lointains vestiges de ces créatures. Mais rien de connu aujourd'hui ne ressemble réellement aux Dragons décrits dans les légendes, et personne ne peut affirmer avec certitude qu'ils existent encore.</p></div></article></div></section></section><section class="page" id="page-reglement" data-route="reglement" data-group="reglement" hidden><header class="hero hero-reglement"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Les bases du jeu</p><h1>Règlement</h1><p class="hero-lead">68 règles en six sections : les bases de jeu et les limites RP à respecter sur Elderwood. En rejoignant le serveur, tu t'engages à les connaître.</p></header><div class="rules-tools"><label class="search" for="rule-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="rule-search" type="search" placeholder="Chercher une règle : metagaming, potions, RPK…" autocomplete="off"></label><div class="tabs sub-tabs" role="tablist"><button type="button" class="tab" role="tab" data-filter="general" aria-selected="true">Général <small>14</small></button><button type="button" class="tab" role="tab" data-filter="vocal" aria-selected="false">Vocal <small>1</small></button><button type="button" class="tab" role="tab" data-filter="lexique" aria-selected="false">Lexique RP <small>23</small></button><button type="button" class="tab" role="tab" data-filter="roleplay" aria-selected="false">RolePlay <small>18</small></button><button type="button" class="tab" role="tab" data-filter="rpk" aria-selected="false">RPK On <small>8</small></button><button type="button" class="tab" role="tab" data-filter="familles" aria-selected="false">Familles <small>4</small></button></div><p class="rule-count" aria-live="polite"></p></div><div class="rules"><article class="rule" data-section="general" id="regle-general-01"><div class="rule-head"><span class="rule-num">01</span><div><p class="rule-sec">Général</p><h3>Nom Roleplay</h3></div></div><div class="rule-body"><p>Chaque joueur doit porter un nom Roleplay cohérent avec l'univers du serveur.<br/>
+Le nom doit être original, crédible et approprié à l'univers.</p><p>Les prénoms et noms réels, de célébrités, de personnages connus (ex. : "Naruto Uzumaki", "Harry Potter") sont strictement interdits.</p><p>Les noms trolls, à connotation sexuelle, raciste, provocante ou humoristique hors-RP sont interdits.</p><p>Le format Prénom Nom est obligatoire, sauf exception validée par un membre du staff.</p><p>Le nom doit être écrit correctement, sans chiffres, caractères spéciaux ou majuscules abusives.</p></div></article><article class="rule" data-section="general" id="regle-general-02"><div class="rule-head"><span class="rule-num">02</span><div><p class="rule-sec">Général</p><h3>Comportement</h3></div></div><div class="rule-body"><p>En rejoignant ELDERWOOD et son serveur Discord, vous vous engagez à être courtois·e et respectueux·se envers les autres joueurs, les membres du staff et la communauté dans son ensemble. Il est interdit de trash le serveur, ses membres ou son staff, que ce soit en public, en privé ou sur d'autres plateformes. Tout comportement nuisible à l'ambiance et à la cohésion de la communauté pourra être sanctionné par l'équipe de modération.</p></div></article><article class="rule" data-section="general" id="regle-general-03"><div class="rule-head"><span class="rule-num">03</span><div><p class="rule-sec">Général</p><h3>Vocabulaire</h3></div></div><div class="rule-body"><p>Le vocabulaire utilisé doit être adapté à l'univers du serveur.<br/>
+Tout propos raciste, sexiste, homophobe, ou incitant à la haine, au harcèlement ou à la discrimination est strictement interdit, en RP comme hors RP.<br/>
+Le respect des autres joueurs est obligatoire en toute circonstance.</p></div></article><article class="rule" data-section="general" id="regle-general-04"><div class="rule-head"><span class="rule-num">04</span><div><p class="rule-sec">Général</p><h3>Sanctions</h3></div></div><div class="rule-body"><p>Les infractions aux règles peuvent entraîner des avertissements, des kicks, des bans temporaires ou permanents, selon la gravité de l'infraction.</p><p>Recours : Si vous estimez avoir été sanctionné à tort, vous pouvez faire appel via les tickets, de manière respectueuse.</p></div></article><article class="rule" data-section="general" id="regle-general-05"><div class="rule-head"><span class="rule-num">05</span><div><p class="rule-sec">Général</p><h3>Langage HRP</h3></div></div><div class="rule-body"><p>Il est interdit d'utiliser un langage hors roleplay (HRP) lors des interactions en jeu.<br/>
+Tout message, dialogue ou comportement doit rester dans le contexte du personnage et de l'univers RP.<br/>
+Le non-respect de cette règle pourra entraîner des sanctions.</p></div></article><article class="rule" data-section="general" id="regle-general-06"><div class="rule-head"><span class="rule-num">06</span><div><p class="rule-sec">Général</p><h3>Insinuations HRP</h3></div></div><div class="rule-body"><p>Toute insinuation, allusion ou message à caractère hors roleplay (HRP) durant les interactions en jeu est interdite.<br/>
+Les échanges doivent rester dans le cadre du personnage et de l'univers RP pour garantir une expérience immersive et équitable pour tous.<br/>
+Le non-respect de cette règle pourra entraîner des sanctions.</p></div></article><article class="rule" data-section="general" id="regle-general-07"><div class="rule-head"><span class="rule-num">07</span><div><p class="rule-sec">Général</p><h3>Publicité</h3></div></div><div class="rule-body"><p>Toute publicité, promotion ou invitation concernant un autre serveur RP est strictement interdite sur ce serveur.<br/>
+Toute tentative de publicité pourra entraîner des sanctions immédiates, allant du mute temporaire à l'exclusion.</p></div></article><article class="rule" data-section="general" id="regle-general-08"><div class="rule-head"><span class="rule-num">08</span><div><p class="rule-sec">Général</p><h3>Soundboards / Voice mods</h3></div></div><div class="rule-body"><p>L'utilisation de soundboards, voice mods ou tout autre outil modifiant la voix est interdite en vocal durant les sessions RP, afin de préserver l'immersion et éviter toute nuisance sonore ou confusion. Toute infraction pourra entraîner des sanctions.</p></div></article><article class="rule" data-section="general" id="regle-general-09"><div class="rule-head"><span class="rule-num">09</span><div><p class="rule-sec">Général</p><h3>Arnaque / Boutique</h3></div></div><div class="rule-body"><p>Toute arnaque dans la boutique (vente, échange ou achat frauduleux) ainsi que le mensonge ou la manipulation envers le staff dans le but d'obtenir de l'argent ou des avantages sont strictement interdits. Les contrevenants s'exposent à des sanctions sévères, pouvant aller jusqu'au bannissement définitif.</p></div></article><article class="rule" data-section="general" id="regle-general-10"><div class="rule-head"><span class="rule-num">10</span><div><p class="rule-sec">Général</p><h3>Partage de compte</h3></div></div><div class="rule-body"><p>Le partage de compte entre plusieurs personnes est interdit. Chaque joueur doit utiliser son propre compte personnel.<br/>
+Le partage de compte peut entraîner des sanctions, y compris la suspension ou l'exclusion du serveur.</p></div></article><article class="rule" data-section="general" id="regle-general-11"><div class="rule-head"><span class="rule-num">11</span><div><p class="rule-sec">Général</p><h3>Contestation</h3></div></div><div class="rule-body"><p>Toute contestation de sanction doit impérativement se faire via un ticket sur Discord et non par message privé (MP) aux membres du staff.<br/>
+Le spam ou harcèlement en MP envers un membre du staff peut entraîner un bannissement immédiat.</p></div></article><article class="rule" data-section="general" id="regle-general-12"><div class="rule-head"><span class="rule-num">12</span><div><p class="rule-sec">Général</p><h3>Déconnexion en scène</h3></div></div><div class="rule-body"><p>Il est strictement interdit de se déconnecter volontairement en pleine scène RP pour fuir une situation ou éviter ses conséquences.<br/>
+Toute déconnexion non justifiée pourra être sanctionnée, sauf cas de crash ou problème technique réel, à signaler immédiatement via un ticket Discord.</p></div></article><article class="rule" data-section="general" id="regle-general-13"><div class="rule-head"><span class="rule-num">13</span><div><p class="rule-sec">Général</p><h3>Mention staff</h3></div></div><div class="rule-body"><p>Il est interdit de mentionner un membre du staff sans raison valable. Pour toute demande ou problème, merci d'utiliser le système de tickets.<br/>
+Les mentions abusives ou répétées peuvent entraîner des sanctions, y compris un mute temporaire ou un bannissement du Discord.</p></div></article><article class="rule" data-section="general" id="regle-general-14"><div class="rule-head"><span class="rule-num">14</span><div><p class="rule-sec">Général</p><h3>Use Bug</h3></div></div><div class="rule-body"><p>L'exploitation volontaire d'un bug ou d'un dysfonctionnement du serveur pour obtenir un avantage est strictement interdite.<br/>
+Tout joueur surpris en train d'user bug sera sanctionné, pouvant aller jusqu'au bannissement selon la gravité des faits.<br/>
+Tout bug découvert doit être immédiatement signalé au staff via un ticket.</p></div></article><article class="rule" data-section="vocal" id="regle-vocal-01"><div class="rule-head"><span class="rule-num">01</span><div><p class="rule-sec">Vocal</p><h3>Enregistrement des communications vocales</h3></div></div><div class="rule-body"><hr/><h3>ENREGISTREMENT DES COMMUNICATIONS VOCALES</h3><p>En installant, en accédant ou en jouant à ELDERWOOD via notre launcher, ainsi qu'en participant aux activités organisées sur notre serveur Discord officiel (notamment les BDA / événements vocaux), vous acceptez explicitement que vos communications vocales en jeu et sur Discord puissent être captées, enregistrées et conservées par GREAT OWL STUDIO, à des fins exclusives de :</p><ul>
+<li>modération et prévention des comportements toxiques ou interdits ;</li>
+<li>traitement des réclamations et litiges entre joueurs ;</li>
+<li>constitution de preuves en cas de sanction ou de procédure interne.</li>
+</ul><p>Ces enregistrements sont traités comme des données personnelles au sens du RGPD et de la loi Informatique et Libertés. Le traitement repose sur l'intérêt légitime de GREAT OWL STUDIO (assurer un environnement de jeu sûr et conforme au règlement) et sur le consentement explicite des joueurs, matérialisé par l'acceptation des présentes conditions. ELDERWOOD est réservé aux personnes majeures (18 ans et plus) ; les mineurs ne sont pas autorisés à y jouer ni à utiliser ses fonctionnalités vocales.</p><p>Les enregistrements vocaux sont conservés pendant une durée maximale de 24 mois à compter de leur capture, durée jugée nécessaire pour assurer un suivi efficace des comportements, la gestion des litiges et la constitution de preuves en cas de procédure interne. À l'issue de cette période, les fichiers sont supprimés de manière sécurisée, sauf obligation légale ou nécessité liée à un litige en cours. Ces enregistrements sont accessibles uniquement aux membres de l'équipe de modération et aux personnes habilitées par GREAT OWL STUDIO, et ne sont pas transmis à des tiers sauf obligation légale ou nécessité liée à une procédure.</p><p>Vous disposez d'un droit d'accès, de suppression, d'opposition et, le cas échéant, de rectification ou de limitation du traitement sur ces données, en contactant direction@greatowlstudio.fr.</p><p>Si vous n'acceptez pas ces conditions, vous ne devez pas utiliser les fonctionnalités vocales du jeu ni participer aux événements vocaux sur notre serveur Discord.</p><hr/><h3>ENREGISTREMENTS ET DIFFUSIONS RÉALISÉS PAR LES AUTRES JOUEURS (STREAMS, RECORDINGS, CLIPS, ETC.)</h3><p>En raison de la nature ouverte et multijoueur de ELDERWOOD et de notre communauté, il est techniquement possible que d'autres joueurs capturent, enregistrent ou diffusent des extraits de vos sessions de jeu, y compris votre voix, via des outils de streaming, d'enregistrement d'écran ou de capture audio (OBS, logiciels de rec, fonctionnalités de plateformes, etc.).</p><p>Ces enregistrements sont réalisés à l'initiative et sous la responsabilité exclusive des joueurs qui les effectuent, et non par GREAT OWL STUDIO. Chaque joueur reste seul responsable du respect des lois applicables (droit à l'image, droit à la voix, RGPD, etc.) pour ses propres captures et diffusions.</p><p>En installant, en accédant ou en jouant à ELDERWOOD, ainsi qu'en participant aux activités sur notre serveur Discord officiel, vous êtes informé(e) que de tels enregistrements par d'autres joueurs peuvent exister et vous acceptez ce risque dans la mesure où il découle du fonctionnement normal d'un jeu multijoueur ouvert et d'une communauté en ligne.</p><p>GREAT OWL STUDIO ne peut ni contrôler ni garantir l'absence de tels enregistrements, et n'est pas responsable des usages qui en sont faits par des tiers, sauf si GREAT OWL STUDIO est elle-même à l'origine de l'enregistrement ou de la diffusion.</p><hr/></div></article><article class="rule" data-section="lexique" id="regle-lexique-01"><div class="rule-head"><span class="rule-num">01</span><div><p class="rule-sec">Lexique RP</p><h3>Metagaming</h3></div></div><div class="rule-body"><p>Le metagaming est interdit.<br/>
+Utiliser des informations obtenues hors RP (vocal, chat, streams, etc.) pour avantager ton personnage en RP est strictement sanctionné.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-02"><div class="rule-head"><span class="rule-num">02</span><div><p class="rule-sec">Lexique RP</p><h3>Freekill</h3></div></div><div class="rule-body"><p>Le freekill est interdit.<br/>
+Tuer un joueur sans raison RP valable ou sans contexte est sanctionné. Chaque action violente doit être justifiée en RP.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-03"><div class="rule-head"><span class="rule-num">03</span><div><p class="rule-sec">Lexique RP</p><h3>Revenge Kill</h3></div></div><div class="rule-body"><p>Le revenge kill est interdit.<br/>
+Tu ne peux pas revenir te venger après la mort de ton personnage. Une mort RP implique une perte de mémoire des événements ayant mené à celle-ci.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-04"><div class="rule-head"><span class="rule-num">04</span><div><p class="rule-sec">Lexique RP</p><h3>Free Attack</h3></div></div><div class="rule-body"><p>Le free attack est interdit.<br/>
+Attaquer un joueur sans raison RP valable ou sans interaction préalable est sanctionné. Toute agression doit être logique, justifiée et jouée en RP.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-05"><div class="rule-head"><span class="rule-num">05</span><div><p class="rule-sec">Lexique RP</p><h3>Fear RP</h3></div></div><div class="rule-body"><p>Le Fear RP est obligatoire.<br/>
+Ton personnage n'est pas invincible : il doit réagir avec réalisme et prudence face à une menace sérieuse (otage, torture, surnombre, etc.).<br/>
+Ignorer le danger, provoquer volontairement en situation de faiblesse ou foncer sans réfléchir est considéré comme du No-Fear.</p><p>Exemples :</p><ul>
+<li>Se moquer ou attaquer quelqu'un alors que tu n'es pas en position de le faire.</li>
+<li>Refuser toute forme de peur face à un supérieur ou un adversaire bien plus puissant.</li>
+<li>Tenter de fuir sans logique alors que ton personnage est maîtrisé ou gravement blessé.</li>
+</ul></div></article><article class="rule" data-section="lexique" id="regle-lexique-06"><div class="rule-head"><span class="rule-num">06</span><div><p class="rule-sec">Lexique RP</p><h3>Bunny Hopping</h3></div></div><div class="rule-body"><p>Le bunny hopping (sauter sans cesse pour esquiver ou exploiter le système de déplacement) est interdit s'il donne un avantage déloyal en combat ou en fuite.<br/>
+Ton personnage doit agir de façon réaliste : sauter continuellement de façon irréaliste nuit à l'immersion et à l'équilibre du jeu.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-07"><div class="rule-head"><span class="rule-num">07</span><div><p class="rule-sec">Lexique RP</p><h3>Cheat / Use bug</h3></div></div><div class="rule-body"><p>L'utilisation de cheats, scripts, mods non autorisés ou l'exploitation de bugs/glitches pour obtenir un avantage est strictement interdite.<br/>
+Toute triche détectée entraîne des sanctions immédiates, pouvant aller jusqu'au ban définitif.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-08"><div class="rule-head"><span class="rule-num">08</span><div><p class="rule-sec">Lexique RP</p><h3>Mass RP</h3></div></div><div class="rule-body"><p>Le Mass RP consiste à prendre en compte la présence passive des PNJ/civils dans les lieux publics.<br/>
+Le Mass RP implique que tu dois adapter ton comportement en fonction de l'environnement et des personnes présentes.</p><p>Exemples :</p><ul>
+<li>Ne pas entrer dans le bureau du directeur sans y être invité.</li>
+</ul></div></article><article class="rule" data-section="lexique" id="regle-lexique-09"><div class="rule-head"><span class="rule-num">09</span><div><p class="rule-sec">Lexique RP</p><h3>Pain RP</h3></div></div><div class="rule-body"><p>Le Pain RP est obligatoire pour garantir le réalisme.<br/>
+Ton personnage doit réagir de manière crédible à la douleur : grimacer, gémir, ralentir ses mouvements, montrer des signes de souffrance.<br/>
+Ignorer ou minimiser la douleur excessive nuit à l'immersion et peut être sanctionné.</p><p>Exemples :</p><ul>
+<li>Continuer à courir normalement après une blessure grave.</li>
+<li>Refuser de montrer des réactions à des attaques ou blessures visibles.</li>
+</ul></div></article><article class="rule" data-section="lexique" id="regle-lexique-10"><div class="rule-head"><span class="rule-num">10</span><div><p class="rule-sec">Lexique RP</p><h3>StreamHack</h3></div></div><div class="rule-body"><p>L'utilisation d'informations obtenues en regardant le stream d'un autre joueur pour en tirer un avantage en jeu (stream hack) est strictement interdite.<br/>
+Tout joueur pris en train de profiter de ce type d'informations subira des sanctions sévères, pouvant aller jusqu'au ban permanent.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-11"><div class="rule-head"><span class="rule-num">11</span><div><p class="rule-sec">Lexique RP</p><h3>Force RP</h3></div></div><div class="rule-body"><p>Le Force RP est interdit.<br/>
+Tu ne dois pas imposer une action, une interaction ou une conséquence RP à un autre joueur sans son accord préalable.<br/>
+Le RP se fait toujours dans le respect et le consentement mutuel.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-12"><div class="rule-head"><span class="rule-num">12</span><div><p class="rule-sec">Lexique RP</p><h3>Power Gaming</h3></div></div><div class="rule-body"><p>Le Powergaming est interdit.<br/>
+Le Powergaming consiste à user de la physique du jeu pour faire des choses irréalisables en temps normal dans notre univers.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-13"><div class="rule-head"><span class="rule-num">13</span><div><p class="rule-sec">Lexique RP</p><h3>Safe RP</h3></div></div><div class="rule-body"><p>Le Safe RP (jouer systématiquement pour protéger son personnage ou ses biens sans prendre de risques en toutes circonstances) est interdit.<br/>
+Fuir ou se protéger de façon irréaliste pour éviter toute conséquence RP nuit à l'immersion et à l'équilibre du jeu.<br/>
+Ton personnage doit accepter les risques liés à ses choix et situations RP.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-14"><div class="rule-head"><span class="rule-num">14</span><div><p class="rule-sec">Lexique RP</p><h3>Win RP</h3></div></div><div class="rule-body"><p>Le Win RP est interdit.<br/>
+Il consiste à faire en sorte que son personnage réussisse toujours sans obstacle, sans laisser de place à l'échec ou aux conséquences.<br/>
+Le RP doit être équilibré, avec des victoires comme des défaites crédibles.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-15"><div class="rule-head"><span class="rule-num">15</span><div><p class="rule-sec">Lexique RP</p><h3>Logique RP</h3></div></div><div class="rule-body"><p>Le personnage doit rester cohérent avec l'univers et le serveur.<br/>
+Tu ne peux pas changer soudainement son caractère, son histoire ou son apparence physique (ex : chirurgie esthétique) sans une justification RP crédible et progressive.<br/>
+Les changements doivent être logiques et expliqués en RP pour préserver l'immersion.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-16"><div class="rule-head"><span class="rule-num">16</span><div><p class="rule-sec">Lexique RP</p><h3>NLR (New Life Rule)</h3></div></div><div class="rule-body"><p>Après la mort de ton personnage, tu dois oublier tout ce qui s'est passé avant cette mort dans un délai de 15 minutes (événements, rencontres, positions, conflits).<br/>
+Le retour sur la zone de ta mort est interdit pendant 20 minutes minimum, sauf accord RP ou validation du staff.<br/>
+Cette règle évite le metagaming et préserve le réalisme.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-17"><div class="rule-head"><span class="rule-num">17</span><div><p class="rule-sec">Lexique RP</p><h3>RPK Flash</h3></div></div><div class="rule-body"><p>Le RPK Flash (tuer un joueur immédiatement après l'avoir croisé, sans aucune interaction ou contexte RP) est strictement interdit.<br/>
+Chaque meurtre doit être justifié par un scénario RP cohérent, une interaction préalable, et validé par le staff par un ticket RPK avant d'être effectué.</p><p>De la même manière, une scène RPK doit durer un moment. Si on met fin à une Whitelist, la scène doit être profonde, développée et belle. On rend hommage au personnage que l'on RPK; la scène doit être plaisante et pour celui qui l'inflige et celui qui la subit.</p><p>La condition ne s'applique pas en cas de NoFear ou de non respect des zones RPK ON du règlement.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-18"><div class="rule-head"><span class="rule-num">18</span><div><p class="rule-sec">Lexique RP</p><h3>AFK Farm</h3></div></div><div class="rule-body"><p>Le AFK Farm (faire progresser son personnage ou gagner des ressources en étant inactif) est interdit.<br/>
+Toute exploitation de systèmes en restant AFK nuit à l'équilibre du serveur et à l'expérience de jeu des autres.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-19"><div class="rule-head"><span class="rule-num">19</span><div><p class="rule-sec">Lexique RP</p><h3>Roll</h3></div></div><div class="rule-body"><p>Chaque /roll pour une même action doit être espacé d'une minute (sauf en cas d'échec critique).</p><p>Votre degré de réussite est défini comme suit :</p><ul>
+<li>De 1 à 10 : Échec critique</li>
+<li>De 11 à 49 : Échec</li>
+<li>De 50 à 89 : Réussite</li>
+<li>De 90 à 100 : Réussite critique</li>
+</ul><p>Les rolls doivent être un élément important dans votre RP passif.</p><p>Exemples :</p><ul>
+<li>Vous tentez de voler les clés de quelqu'un. Si vous ratez votre premier /roll, vous devrez attendre une minute avant de réessayer.</li>
+</ul></div></article><article class="rule" data-section="lexique" id="regle-lexique-20"><div class="rule-head"><span class="rule-num">20</span><div><p class="rule-sec">Lexique RP</p><h3>FairPlay</h3></div></div><div class="rule-body"><p>Chaque joueur s'engage à respecter les autres participants, à jouer de manière honnête et à ne pas chercher à tricher ou à profiter d'avantages injustes. Le respect, la courtoisie et la bonne humeur sont essentiels pour garantir une expérience agréable et équitable pour tous. Toute attitude contraire au fairplay pourra entraîner des sanctions.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-21"><div class="rule-head"><span class="rule-num">21</span><div><p class="rule-sec">Lexique RP</p><h3>Double Voc</h3></div></div><div class="rule-body"><p>Il est interdit d'être connecté en vocal Discord tout en étant en jeu en RP, afin de préserver l'immersion et d'éviter les échanges d'informations (HRP) qui pourraient désavantager les autres joueurs. Le non-respect de cette règle pourra entraîner des sanctions.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-22"><div class="rule-head"><span class="rule-num">22</span><div><p class="rule-sec">Lexique RP</p><h3>ERP à Caractère Sexuel</h3></div></div><div class="rule-body"><p>Les scènes à caractère sexuel sont interdites. Cependant, les romances entre personnages sont autorisées si elles restent dans des limites respectueuses du roleplay.</p></div></article><article class="rule" data-section="lexique" id="regle-lexique-23"><div class="rule-head"><span class="rule-num">23</span><div><p class="rule-sec">Lexique RP</p><h3>Insinuations HRP</h3></div></div><div class="rule-body"><p>Les insinuations HRP sont interdites. Elles nuisent à l'immersion.</p><p>Par exemple :</p><ul>
+<li>"Je suis dans ma tête" =&gt; Pour signaler que tu es AFK ou occupé, tu peux dire "J'ai besoin de rester seul un peu." ou tu peux faire un /it Cornellius semblera absorbé par ses pensées.</li>
+<li>"Appuie sur ton muscle K" =&gt; Demande sur discord dans les channel HRP.</li>
+<li>"Tu peux utiliser ton sort de ton année que t'as débloqué en cours" =&gt; Que tu as appris.</li>
+<li>"Je dois faire le cours parce que j'ai pas le sort" =&gt; Je dois apprendre un sortilège ou rattraper mon retard.</li>
+</ul><p>Les insinuations HRP sont passibles de sanctions !</p></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-01"><div class="rule-head"><span class="rule-num">01</span><div><p class="rule-sec">RolePlay</p><h3>Fear RP</h3></div></div><div class="rule-body"><p>Le danger doit être pris au sérieux : professeur, directeur, créature, menace...<br/>
+Vous devez avoir peur, hésiter, fuir, obéir.<br/>
+Si vous jouez un refus total de fearRP, attendez-vous à de vraies conséquences RP.</p></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-02"><div class="rule-head"><span class="rule-num">02</span><div><p class="rule-sec">RolePlay</p><h3>Nom de famille</h3></div></div><div class="rule-body"><p>Pour porter un nom d'une famille ORIGINELLE, NOTABLE OU RÉPUTÉE dans le lore d'ElderWood, il vous faudra attendre une naissance validée par le staff.</p></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-03"><div class="rule-head"><span class="rule-num">03</span><div><p class="rule-sec">RolePlay</p><h3>/me /it et /na</h3></div></div><div class="rule-body"><p>Le RP nécessite l'utilisation de narrations sur le tchat afin de pousser l'immersion à son paroxysme.</p><p>Le <strong>/me</strong> définit une action physique.<br/>
+Par exemple :</p><ul>
+<li>/me porte la tasse à ses lèvres, sirotant le thé servi.</li>
+<li>/me sourit.</li>
+<li>/me tend la main à la personne en face de lui.</li>
+<li>/me fronce les sourcils.</li>
+</ul><p>Le <strong>/it</strong> définit une action environnementale, pas une action directe d'un personnage.<br/>
+Par exemple :</p><ul>
+<li>/it Le regard de Cornellius semblait vide, comme s'il était pensif.</li>
+<li>/it Une tension sera ressentie dans la forêt.</li>
+<li>/it Les murs de la salle commune de Falcon sembleront plus froid qu'à l'accoutumée.</li>
+<li>/it La pluie s'entremêlera aux larmes de Cornellius.</li>
+</ul><p>Le <strong>/na</strong> définit une narration globale qui est envoyée à l'ensemble du serveur.<br/>
+Il est interdit de spam cette narration et elle doit être utilisée à juste titre.<br/>
+Par exemple :</p><ul>
+<li>/na Une partie de la forêt sera carbonisée. (Après avoir fait un combat qui a détruit une partie d'une zone)</li>
+<li>/na Les élèves de Venatrix partiront en direction de leur salle commune avec dépit. (Après que le directeur ai sermonné une maison )</li>
+<li>/na Le bureau du professeur de sortilèges sera saccagé. (Après que votre personnage ait fait mis le désordre dans le bureau d'un professeur)</li>
+<li>/na Une odeur immonde flottera dans le hall central du château d'Elderwood. (Après que votre personnage ait saccagé une partie du château)</li>
+</ul><p><strong>IMPORTANT :</strong></p><ul>
+<li>Si vous pensez quelque chose, cette chose ne doit pas être écrite sous forme de /me , /it ou /na. Cette chose ne doit pas être dévoilée. Par contre, vous pouvez faire un "/it Cornellius semblera pensif" sans plus détailler. Si vous souhaitez insinuez, parlez, mais n'utilisez jamais ce genre de choses pour décrire une pensée !</li>
+</ul><p><strong>RPK :</strong></p><ul>
+<li>Si vous êtes amené à RPK quelqu'un, vous faites l'action en /me ou en /it en fonction de la nature de l'action. Vous pouvez faire un /na de RPK si vous êtes l'auteur de la scène, mais ce n'est pas une obligation.</li>
+<li>Le joueur qui perd la vie a l'autorisation de faire un texte de fin sur un /na sans expliquer comment ou de qui il a perdu la vie.</li>
+</ul></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-04"><div class="rule-head"><span class="rule-num">04</span><div><p class="rule-sec">RolePlay</p><h3>Vol / Arnaque</h3></div></div><div class="rule-body"><p>Il est possible d'arnaquer quelqu'un d'une somme à la hauteur de 2500 Couronnes.</p></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-05"><div class="rule-head"><span class="rule-num">05</span><div><p class="rule-sec">RolePlay</p><h3>Potions</h3></div></div><div class="rule-body"><p>Les potions ont des effets réels sur votre personnage.<br/>
+Exemple : amnésie -&gt; vous oubliez réellement ce que vous devez oublier.</p><p>Quand un message d'effet s'affiche, vous devez le jouer.<br/>
+Interdit d'ignorer ou minimiser les effets.</p></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-06"><div class="rule-head"><span class="rule-num">06</span><div><p class="rule-sec">RolePlay</p><h3>"Coma"</h3></div></div><div class="rule-body"><p>Ne faites pas tomber quelqu'un juste pour lui faire perdre la mémoire.<br/>
+Le coma doit être cohérent (blessure grave, choc violent).</p></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-07"><div class="rule-head"><span class="rule-num">07</span><div><p class="rule-sec">RolePlay</p><h3>RP "Mage noir"</h3></div></div><div class="rule-body"><p>Le RP mage noir est sur demande via ticket.</p><p>Si vous êtes élève : autorisation staff obligatoire pour entrer dans un arc illégal.</p><p>Si vous êtes capturé/accusé -&gt; prison à vie ou RPK (mort définitive) sauf décision du staff.<br/>
+Pas de magie noire "gratuite".</p></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-08"><div class="rule-head"><span class="rule-num">08</span><div><p class="rule-sec">RolePlay</p><h3>Créatures Conscientes, Hybrides et Lycanthropie</h3></div></div><div class="rule-body"><p><strong>IMPORTANT</strong><br/>
+Les WL lycanthropes, créatures conscientes et hybrides comportent un nombre de slots prédéfinis.<br/>
+Ils sont ouverts avec le système de naissance lorsqu'ils sont annoncés.<br/>
+Il est IMPOSSIBLE de faire un personnage hybride, lycanthrope ou créatures conscientes sans une validation de WL via le système de naissance.</p><p><strong>Lycanthropes :</strong><br/>
+Il est interdit de forcer quelqu'un à vous mordre ou transformer.<br/>
+Seul un suivi validé peut permettre à un lycanthrope d'avoir la capacité de transformer une personne.<br/>
+La transformation est effective sous ticket validé.<br/>
+Toute infection se fait sous ticket staff.<br/>
+Le RP lycanthrope est dangereux : perte de contrôle, exposition, risque de mort.<br/>
+Si vous vous faites surprendre -&gt; conséquences RP réelles et lourdes (jusqu'au RPK).</p><p>Interdiction de créer un personnage avec une spécificité Hybride, Malédiction, Lycanthropie ou Créature Consciente sans naissance validée à ce sujet. Vous ne pouvez jouer qu'un être humain pour une WL classique. RISQUE DE BLACKLIST SERVEUR en cas de personnage non validé joué en jeu.</p></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-09"><div class="rule-head"><span class="rule-num">09</span><div><p class="rule-sec">RolePlay</p><h3>Lettre RP</h3></div></div><div class="rule-body"><p>Les lettres doivent être jouées en RP via le système en jeu.</p><p>Les lettres sur Discord sont interdites (metagaming).</p><p>Une lettre en RP doit être logique (temps d'acheminement, lieu, contexte).</p></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-10"><div class="rule-head"><span class="rule-num">10</span><div><p class="rule-sec">RolePlay</p><h3>Incantation des sorts</h3></div></div><div class="rule-body"><p>Incantation obligatoire avant chaque sort (verbale).<br/>
+Pas de sort inventé, les incantations seront les vraies formules de notre lore.</p></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-11"><div class="rule-head"><span class="rule-num">11</span><div><p class="rule-sec">RolePlay</p><h3>Cohérence du personnage</h3></div></div><div class="rule-body"><p>Votre personnage doit être logique, cohérent et incarné.<br/>
+Son âge, son passé, ses compétences et ses réactions doivent suivre une continuité.<br/>
+Pas de personnage "invincible", "omniscient", ou "super-héros".<br/>
+Les connaissances et pouvoirs doivent être gagnés en RP, pas donnés HRP.</p></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-12"><div class="rule-head"><span class="rule-num">12</span><div><p class="rule-sec">RolePlay</p><h3>Rec</h3></div></div><div class="rule-body"><p>Il est important de rec vos scènes. Au cas où vous êtes appelé en BDA, vous pourrez vous défendre.</p></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-13"><div class="rule-head"><span class="rule-num">13</span><div><p class="rule-sec">RolePlay</p><h3>Bully RP</h3></div></div><div class="rule-body"><p>Autorisé uniquement si mutuel et cohérent avec l'histoire.</p><p>Interdit :</p><ul>
+<li>Abuser du harcèlement RP.</li>
+<li>Empêcher quelqu'un de jouer.</li>
+<li>Justifier du HRP en disant "c'est du RP".</li>
+</ul></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-14"><div class="rule-head"><span class="rule-num">14</span><div><p class="rule-sec">RolePlay</p><h3>Main character</h3></div></div><div class="rule-body"><p>Vous pouvez être au centre d'un arc, mais :</p><ul>
+<li>Ne volez pas toutes les scènes,</li>
+<li>N'interrompez pas le RP des autres,</li>
+<li>Ne forcez pas les joueurs à tourner autour de vous,</li>
+<li>Ne vous donnez pas des rôles/prophéties/pouvoirs sans autorisation.</li>
+</ul><p>Des conséquences pourront être appliquées par le staff.</p></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-15"><div class="rule-head"><span class="rule-num">15</span><div><p class="rule-sec">RolePlay</p><h3>Respect des conséquences</h3></div></div><div class="rule-body"><p>Toute action RP entraîne une conséquence RP.</p><p>Si vous laissez des indices, si vous vous exposez, si vous êtes imprudent -&gt; assumez.</p><p>Le staff n'est pas là pour vous protéger de vos choix RP.</p></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-16"><div class="rule-head"><span class="rule-num">16</span><div><p class="rule-sec">RolePlay</p><h3>Autorité du personnel</h3></div></div><div class="rule-body"><p>Directeur, professeurs, surveillants sont des figures d'autorité RP.</p><p>Le respect RP est obligatoire (fearRP, politesse selon votre personnage, cohérence).</p></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-17"><div class="rule-head"><span class="rule-num">17</span><div><p class="rule-sec">RolePlay</p><h3>Temporalité</h3></div></div><div class="rule-body"><p>Dans notre lore, ainsi que notre univers :<br/>
+2 semaines IRL = 1 an de scolarité.</p><p>Ainsi donc, votre personnage sera âgé de 15 ans, le jour de sa rentrée à ElderWood (Pas plus, pas moins).</p></div></article><article class="rule" data-section="roleplay" id="regle-roleplay-18"><div class="rule-head"><span class="rule-num">18</span><div><p class="rule-sec">RolePlay</p><h3>Changement de maison</h3></div></div><div class="rule-body"><p>Le changement de maison est interdit, ainsi que le wipe/rpk forcé pour pouvoir refaire un personnage et changer de maison.<br/>
+Si vous êtes découvert, vous serez banni définitivement.</p><p>⚠ Bannissement définitif en cas de non-respect.</p></div></article><article class="rule" data-section="rpk" id="regle-rpk-01"><div class="rule-head"><span class="rule-num">01</span><div><p class="rule-sec">RPK On</p><h3>Interdiction d'attirer quelqu'un dans une zone RPK pour le tuer (Force RP)</h3></div></div><div class="rule-body"><p>Vous ne pouvez pas amener quelqu'un dans une zone RPK contre son gré pour qu'il se fasse tuer là-bas sans ticket RPK actif.</p><p>Vous devez détenir un ticket RPK pour tuer quelqu'un OU avoir son accord HRP pour le tuer. Si vous avez son accord HRP pour le tuer, le fait doit être reporté au staff par ticket de la part de la personne tuée afin de vérifier le consentement de la mort sans ticket.</p><p>⚠ Tuer quelqu'un, que ce soit avec son autorisation ou avec un ticket RPK ne vous soustrait pas aux conséquences RP qui peuvent en découler.</p></div></article><article class="rule" data-section="rpk" id="regle-rpk-02"><div class="rule-head"><span class="rule-num">02</span><div><p class="rule-sec">RPK On</p><h3>Forêt de Brûlebrume</h3></div></div><div class="rule-body"><p>⚠ Zone à risque RPK — Entrez à vos risques et périls.</p><p>Vous pouvez être amené à trouver la mort dans cette zone en fonction des situations.</p></div></article><article class="rule" data-section="rpk" id="regle-rpk-03"><div class="rule-head"><span class="rule-num">03</span><div><p class="rule-sec">RPK On</p><h3>Cathédrale abandonnée et cimetière</h3></div></div><div class="rule-body"><p>⚠ Zone à risque RPK — Entrez à vos risques et périls.</p><p>Vous pouvez être amené à trouver la mort dans cette zone en fonction des situations.<br/>
+Vous ne pouvez pas tuer quelqu'un sans ticket dans cette zone.</p></div></article><article class="rule" data-section="rpk" id="regle-rpk-04"><div class="rule-head"><span class="rule-num">04</span><div><p class="rule-sec">RPK On</p><h3>Grottes</h3></div></div><div class="rule-body"><p>⚠ Zone à risque RPK — Entrez à vos risques et périls.</p><p>Vous pouvez être amené à trouver la mort dans cette zone en fonction des situations.<br/>
+Vous ne pouvez pas tuer quelqu'un sans ticket dans cette zone.</p></div></article><article class="rule" data-section="rpk" id="regle-rpk-05"><div class="rule-head"><span class="rule-num">05</span><div><p class="rule-sec">RPK On</p><h3>Île de la Tour</h3></div></div><div class="rule-body"><p>⚠ Zone à très haut risque RPK — Entrez à vos risques et périls.</p><p>Au large d'Elderwood se tient une île avec une grande tour en ruines ainsi qu'un phare abandonné. Vous aventurer sur cette île sans y avoir été invité vous soumet au RPK des personnes qui l'occupent. Ils seront libres de vous tuer ou non si vous vous y aventurer sans y être invité.</p><p>RPK possible sur vous sans porte de sortie.</p></div></article><article class="rule" data-section="rpk" id="regle-rpk-06"><div class="rule-head"><span class="rule-num">06</span><div><p class="rule-sec">RPK On</p><h3>Bureau du Directeur d'Elderwood</h3></div></div><div class="rule-body"><p>⚠ N'entrez jamais sans invitation sous peine de RPK.</p><p>À moins que vous n'ayez été invité, RPK possible et sans porte de sortie.</p></div></article><article class="rule" data-section="rpk" id="regle-rpk-07"><div class="rule-head"><span class="rule-num">07</span><div><p class="rule-sec">RPK On</p><h3>Siège de l'AMRU</h3></div></div><div class="rule-body"><p>⚠ Ne vagabondez jamais au sein du siège de l'AMRU sans autorisation sous peine de RPK.</p><p>Au sein du siège de l'Autorité Magique du Royaume Uni, en dehors du hall central qui est public, si vous vous retrouvez dans une zone qui n'est pas accessible à tous sans y avoir été invité, vous êtes soumis au RPK sans porte de sortie.</p></div></article><article class="rule" data-section="rpk" id="regle-rpk-08"><div class="rule-head"><span class="rule-num">08</span><div><p class="rule-sec">RPK On</p><h3>Prison de Brise-Flux</h3></div></div><div class="rule-body"><p>⚠ Ne pénétrez jamais la prison sans accord sous peine de RPK.</p><p>Entrer au sein de la prison sans un laisser-passer délivré par l'AMRU ou une autorisation spécifique vous soumet au RPK sans porte de sortie.</p><p>La zone autour de la prison est soumise au RPK également. Tant que vous n'êtes pas rentré, vous bénéficierez d'une porte de sortie. Si, par contre, vous êtes pris en récidive à cet endroit, aucune porte de sortie ne vous sera offerte.</p></div></article><article class="rule" data-section="familles" id="regle-familles-01"><div class="rule-head"><span class="rule-num">01</span><div><p class="rule-sec">Familles</p><h3>Les familles et leur hiérarchie</h3></div></div><div class="rule-body"><p>Les familles originelles, notables et réputées sont connues dans le Royaume Uni comme des familles de sang pur avec une certaine notoriété. Elles possèdent un Titre de Noblesse Magique.</p><p><strong>FAMILLES ORIGINELLES</strong></p><ul>
+<li>Dravenholt</li>
+<li>Caerwyn</li>
+<li>Hearthbane</li>
+<li>Valemont</li>
+</ul><p><strong>FAMILLES NOTABLES</strong></p><ul>
+<li>Belladorn</li>
+<li>Ravenscroft</li>
+<li>Glenhart</li>
+</ul><p><strong>FAMILLES RÉPUTÉES</strong></p><ul>
+<li>A venir quelques temps après l'ouverture du serveur suite à la validation des dossiers joueurs.</li>
+</ul><p>Les familles non officielles peuvent aussi être de lignée "pur". Elles n'ont cependant pas la même notoriété dans le monde magique que les familles officielles.</p><p>Pour rappel: vous êtes considéré "famille de lignée pur" dans l'opinion sociale du moment qu'il y a plusieurs générations de résonnants dans vos ancêtres. (Si eux sont des résonants, vous êtes de lignée pur dans l'opinion sociale.)</p></div></article><article class="rule" data-section="familles" id="regle-familles-02"><div class="rule-head"><span class="rule-num">02</span><div><p class="rule-sec">Familles</p><h3>Effectif des familles</h3></div></div><div class="rule-body"><p><strong>IMPORTANT</strong><br/>
+Pour les FAMILLES ORIGINELLES, le nombre de slots est limité à :</p><ul>
+<li>6 slots joueurs</li>
+<li>2 slots streamer</li>
+</ul><p>Pour les FAMILLES NOTABLES, le nombre de slots est limité à :</p><ul>
+<li>6 slots joueurs</li>
+<li>1 slot streamer</li>
+</ul><p>Pour les FAMILLES RÉPUTÉES, le nombre de slots est limité à :</p><ul>
+<li>6 slots joueurs</li>
+</ul><p>Les familles non officielles, sans dossier peuvent comporter jusqu'à 5 membres MAXIMUM de la même familles. Les liens de cousins / cousines, ou d'autres branches etc. ne sont pas acceptés via des noms différents.</p><p>LES CANDIDATURES POUR SOUMETTRE UN DOSSIER FAMILLE RÉPUTÉE NE SONT PAS ENCORE OUVERTES.</p></div></article><article class="rule" data-section="familles" id="regle-familles-03"><div class="rule-head"><span class="rule-num">03</span><div><p class="rule-sec">Familles</p><h3>Poser un dossier Famille</h3></div></div><div class="rule-body"><p><strong>IMPORTANT</strong><br/>
+Si vous possédez une famille non officielle en jeu constituée de plus de 3 joueurs, merci d'ouvrir un ticket et de signaler votre famille ainsi que les joueurs et leurs personnages qu'elle comporte afin que cette archive puisse être gardée par le staff.<br/>
+Cela vous permettra aussi de "réserver votre nom", empêchant les futurs joueurs WL de prendre le même nom de famille que vous tant que la famille est active d'au moins 4 de ses membres sur le plateau.</p><p>Si et seulement si vous êtes enregistrés, que vous êtes actifs en jeu et que votre famille a de l'impact sur le plateau, alors vous pourrez proposer un dossier de candidature pour devenir une famille officielle dite réputée. Le staff analysera le dossier, le potentiel de celui-ci et de ce que vous proposerez et acceptera ou non de vous faire passer en famille officielle.</p><p>Si votre famille non officielle comporte 4 ou 5 membres, merci de vous signaler par un ticket staff une fois la WL passée pour le recensement des "grandes" familles non officielles.</p></div></article><article class="rule" data-section="familles" id="regle-familles-04"><div class="rule-head"><span class="rule-num">04</span><div><p class="rule-sec">Familles</p><h3>Évoluer avec sa famille</h3></div></div><div class="rule-body"><p>Selon le RP proposé, l'impact et les actions effectuées, votre famille peut être amenée à évoluer :</p><ul>
+<li>Une famille non officielle peut devenir une famille réputée. Une famille réputée peut devenir une famille notable.</li>
+<li>De la même manière, une famille notable peut devenir une famille réputée. Une famille réputée peut redevenir une famille non officielle.</li>
+</ul><p>Les choix d'évolution ou de rétrogradation sont discutés avec le staff qui prend la décision finale quant à chaque famille.</p></div></article></div><p class="empty" hidden>Aucune règle ne correspond à cette recherche.</p></section><section class="page" id="page-whitelist" data-route="whitelist" data-group="whitelist" hidden><header class="hero hero-whitelist"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Préparer sa candidature</p><h1>Guide de la Whitelist</h1><p class="hero-src">Guide officiel transmis par l'équipe ElderWood (_carla [SAKÉ], OP — 12/06/2026).</p></header><nav class="toc" aria-label="Sur cette page"><span>Sur cette page</span><button type="button" class="chip" data-jump="whitelist-le-but-de-la-whitelist">Le but de la Whitelist</button><button type="button" class="chip" data-jump="whitelist-l-histoire-du-personnage">L'histoire du personnage</button><button type="button" class="chip" data-jump="whitelist-les-motivations">Les motivations</button><button type="button" class="chip" data-jump="whitelist-c-est-quoi-une-bonne-candidature">C'est quoi une bonne candidature ?</button><button type="button" class="chip" data-jump="whitelist-questions-a-se-poser-avant-d-envoyer-sa-wl">Questions à se poser avant d'envoyer sa WL</button><button type="button" class="chip" data-jump="whitelist-ce-qu-on-attend-de-toi-en-rp">Ce qu'on attend de toi en RP</button><button type="button" class="chip" data-jump="whitelist-l-oral">L'oral</button></nav><section class="panel" id="whitelist-le-but-de-la-whitelist"><h2>Le but de la Whitelist</h2><p>La WL, c'est pour vérifier si ton personnage tient la route :</p><ul>
+<li>Est-ce qu'il colle bien à l'univers Elderwood ?</li>
+<li>Est-ce qu'il a du potentiel pour le RP ?</li>
+<li>Est-ce qu'il peut créer des interactions avec les autres joueurs ?</li>
+<li>Est-ce que son histoire et ses motivations ont du sens ?</li>
+</ul><p>On ne cherche pas des personnages ultra puissants, mais des personnages vivants, crédibles, avec qui on a envie de jouer.</p><p><strong>Attention :</strong> accordez-y de l'attention même si c'est votre premier essai, car les délais de carence sont de <strong>2, puis 4, puis 7 jours</strong>.</p><p>De plus, nous vous conseillons de sauvegarder votre candidature écrite quelque part, au cas où, pour ne pas en perdre la trace.</p></section><section class="panel" id="whitelist-l-histoire-du-personnage"><h2>L'histoire du personnage</h2><p>Votre lore sert à donner une base à votre personnage. Il doit permettre de justifier vos choix et vos objectifs. En réalité, le plus important est d'éviter les incohérences liées au lore, le force RP, le fait de s'inclure dans une histoire qui n'est pas la sienne, les éléments qui rendent votre personnage peu crédible ou incohérent.</p><p>Pensez à ajouter une partie <strong>« Caractère »</strong>. Cela permet au douanier de mieux cerner votre personnage. Pas besoin d'écrire plusieurs paragraphes : 2-3 lignes avec quelques adjectifs, qualités et défauts suffisent. Faites en sorte que cela soit cohérent avec votre histoire, rajoute de la profondeur de personnage.</p><p>Nous attendons que ton histoire soit :</p><ul>
+<li>Cohérente avec l'univers magique</li>
+<li>Réaliste (pas de trucs impossibles)</li>
+<li>Adaptée à un enfant de 15 ans au début qui n'a jamais eu de baguette entre les mains</li>
+<li>Fluide et facile à comprendre</li>
+<li>Profondeur du personnage</li>
+</ul><p>⚠ Petit rappel : ton perso n'a pas besoin d'être spécial ou unique. Ce n'est pas un concours. De plus, vous ne pouvez <strong>PAS</strong> forcer le fait d'être dans une maison particulière.</p><div class="entries"><article class="entry"><h3>Redflags (histoire)</h3><div class="entry-body"><ul>
+<li>Être lié à des persos importants du lore (directeur, fondateurs, figures connues…)</li>
+<li>Sortir d'une famille ultra célèbre ou légendaire</li>
+<li>S'attribuer une maison (Aerwyn, Brumval, Venatrix ou Falcon) de base ou grande institution</li>
+<li>Avoir un passé trop parfait ou irréaliste</li>
+<li>Un nom troll ou qui sort de l'univers sorcier</li>
+<li>Débarquer avec déjà une réputation ou une grande histoire</li>
+<li>Un perso qui tourne uniquement autour de lui-même</li>
+<li>Aucune vraie direction RP</li>
+</ul></div></article></div></section><section class="panel" id="whitelist-les-motivations"><h2>Les motivations</h2><p>Le principal de votre candidature concerne vos objectifs pendant l'école, étant donné que cette période sera celle dans laquelle vous allez vous introduire et jouer longtemps. Cela permettra d'amortir vos objectifs bien plus tard, et vous gardera actif tout le long.</p><p>Nous attendons de tes motivations qu'elles :</p><ul>
+<li>Donnent aux autres joueurs envie d'interagir avec ton perso en RP</li>
+<li>Créent des interactions avec les autres</li>
+<li>Peuvent évoluer dans le temps (pas juste un objectif vite fait)</li>
+<li>Donnent une direction à ton personnage</li>
+</ul><p>Exemple de bonne logique :</p><blockquote>
+<p>« Je veux comprendre X → du coup je vais faire un groupe d'études, enquêter, évoluer de telle manière et mettre en place ceci… »</p>
+</blockquote><p>Comprendre est passif, il faut le retranscrire en objectifs actifs.</p><p>Privilégiez le format <strong>court / moyen / long terme</strong>, ou <strong>début / pendant / après l'école</strong> par exemple.</p><div class="entries"><article class="entry"><h3>Redflags (motivations)</h3><div class="entry-body"><ul>
+<li>Vouloir devenir le plus fort / le meilleur</li>
+<li>Des objectifs qui n'intéressent personne d'autre</li>
+<li>Des objectifs qui n'apportent pas de scènes et se basent sur du passif, type « former un cercle » sans but actif concret derrière</li>
+<li>Réussir ses examens</li>
+<li>Devenir sorcier</li>
+<li>Suivre les cours</li>
+</ul></div></article></div></section><section class="panel" id="whitelist-c-est-quoi-une-bonne-candidature"><h2>C'est quoi une bonne candidature ?</h2><p>Une bonne candidature, c'est :</p><ul>
+<li>Simple mais bien écrite</li>
+<li>Cohérente du début à la fin</li>
+<li>Intéressante sans en faire trop</li>
+<li>Utile pour créer du RP autour du perso</li>
+</ul><p>Le but est d'avoir un personnage crédible et vraisemblable, pas un personnage « exceptionnel ».</p><div class="entries grid"><article class="entry"><h3>Pourquoi une candidature peut être refusée ?</h3><div class="entry-body"><p>On refuse si :</p><ul>
+<li>Elle est incohérente</li>
+<li>Elle est trop puissante</li>
+<li>Elle ne respecte pas le lore</li>
+<li>Elle n'a pas de vraie motivation RP, objectifs passifs</li>
+<li>Elle est trop vide ou trop générique</li>
+</ul></div></article><article class="entry"><h3>Feedback en cas de refus</h3><div class="entry-body"><p>Si ta candidature est refusée :</p><ul>
+<li>On t'explique clairement pourquoi</li>
+<li>On te montre les problèmes précis</li>
+</ul><p>Le but, c'est de t'aider à t'améliorer.</p><p>⚠ Par contre, on ne réécrit pas ta candidature à ta place. C'est à toi de bosser dessus.</p></div></article></div></section><section class="panel" id="whitelist-questions-a-se-poser-avant-d-envoyer-sa-wl"><h2>Questions à se poser avant d'envoyer sa WL</h2><p>Avant d'envoyer ta candidature, demande-toi :</p><ul>
+<li>Pourquoi les autres joueurs auraient envie d'interagir avec mon personnage ?</li>
+<li>Comment peut-il évoluer ?</li>
+<li>Que fera-t-il concrètement pendant plusieurs semaines de RP ? Comment va-t-il s'y prendre ?</li>
+<li>A-t-il des objectifs qui impliquent d'autres personnes ? Explicitez.</li>
+<li>Va-t-il impacter le plateau de jeu ?</li>
+<li>Est-ce que mon personnage a une identité construite ? (Le but n'est pas de se jouer soi-même)</li>
+</ul><div class="entries"><article class="entry"><h3>Ce qui n'est PAS obligatoire pour une whitelist</h3><div class="entry-body"><p>Tu n'as pas besoin :</p><ul>
+<li>D'avoir un passé tragique</li>
+<li>D'avoir un secret incroyable</li>
+<li>D'avoir une famille importante</li>
+<li>D'avoir vécu un événement exceptionnel</li>
+</ul><p>Parfois, les meilleurs personnages sont simplement les plus crédibles.</p></div></article></div></section><section class="panel" id="whitelist-ce-qu-on-attend-de-toi-en-rp"><h2>Ce qu'on attend de toi en RP</h2><div class="entries grid"><article class="entry"><h3>Bon comportement</h3><div class="entry-body"><ul>
+<li>Créer du jeu avec les autres</li>
+<li>Participer à des scènes RP naturelles</li>
+<li>Faire évoluer son personnage avec le temps</li>
+<li>Accepter la progression (réussites comme échecs)</li>
+<li>Faire vivre l'univers</li>
+</ul></div></article><article class="entry"><h3>Mauvais comportement</h3><div class="entry-body"><ul>
+<li>Vouloir « gagner » à tout prix</li>
+<li>Forcer les situations RP</li>
+<li>Être trop obsédé par la puissance</li>
+<li>Ignorer la logique du monde</li>
+<li>Jouer uniquement pour soi</li>
+</ul></div></article></div></section><section class="panel" id="whitelist-l-oral"><h2>L'oral</h2><p><strong>BON MICRO OBLIGATOIRE.</strong></p><p>Pour réussir votre oral vous devez simplement connaître le règlement HRP/RP, le lexique, ainsi que le lore du serveur. En gros, tout le lore. Tout est disponible sur le launcher d'Elderwood.</p><p>L'oral doit être fait avec le micro avec lequel vous allez jouer et d'une bonne qualité. Si vous n'avez pas un bon micro : ⁠SORTIE AUDIO: <em>(la suite du message a été coupée)</em></p></section></section><section class="page" id="page-whitelist-aide" data-route="whitelist-aide" data-group="whitelist" hidden><header class="hero hero-whitelist-aide"><div class="hero-art" aria-hidden="true"></div><p class="kicker">L'essentiel en dix questions</p><h1>Aide Whitelist</h1><p class="hero-src">Message de l'aide automatique ElderWood DouaneAPP (15/08/2026).</p></header><nav class="toc" aria-label="Sur cette page"><span>Sur cette page</span><button type="button" class="chip" data-jump="whitelist-aide-but-de-la-wl">But de la WL ?</button><button type="button" class="chip" data-jump="whitelist-aide-histoire-du-personnage">Histoire du personnage ?</button><button type="button" class="chip" data-jump="whitelist-aide-a-eviter">À éviter ?</button><button type="button" class="chip" data-jump="whitelist-aide-motivations-attendues">Motivations attendues ?</button><button type="button" class="chip" data-jump="whitelist-aide-mauvaises-motivations">Mauvaises motivations ?</button><button type="button" class="chip" data-jump="whitelist-aide-qu-est-ce-qu-une-bonne-candidature">Qu'est-ce qu'une bonne candidature ?</button><button type="button" class="chip" data-jump="whitelist-aide-pourquoi-une-wl-peut-etre-refusee">Pourquoi une WL peut être refusée ?</button><button type="button" class="chip" data-jump="whitelist-aide-avant-d-envoyer-votre-wl">Avant d'envoyer votre WL ?</button><button type="button" class="chip" data-jump="whitelist-aide-ce-qu-on-attend-en-rp">Ce qu'on attend en RP ?</button><button type="button" class="chip" data-jump="whitelist-aide-pour-l-oral">Pour l'oral ?</button></nav><section class="panel" id="whitelist-aide-but-de-la-wl"><h2>But de la WL ?</h2><ul>
+<li>Vérifier que votre personnage est cohérent avec l'univers, possède un potentiel RP et peut créer des interactions avec les autres joueurs.</li>
+</ul></section><section class="panel" id="whitelist-aide-histoire-du-personnage"><h2>Histoire du personnage ?</h2><ul>
+<li>Simple, crédible et adaptée à un enfant de 15 ans.</li>
+<li>Cohérente avec le lore d'Elderwood.</li>
+<li>Avec une personnalité et une direction RP claires.</li>
+</ul></section><section class="panel" id="whitelist-aide-a-eviter"><h2>À éviter ?</h2><ul>
+<li>Famille célèbre ou liée au lore important.</li>
+<li>Personnage déjà puissant ou connu.</li>
+<li>Passé irréaliste ou trop parfait.</li>
+<li>Personnage sans objectifs ou centré uniquement sur lui-même.</li>
+</ul></section><section class="panel" id="whitelist-aide-motivations-attendues"><h2>Motivations attendues ?</h2><ul>
+<li>Créer des interactions avec les autres joueurs.</li>
+<li>Pouvoir évoluer au fil du RP.</li>
+<li>Donner une véritable direction au personnage.</li>
+</ul></section><section class="panel" id="whitelist-aide-mauvaises-motivations"><h2>Mauvaises motivations ?</h2><ul>
+<li>Vouloir devenir le plus fort ou le meilleur.</li>
+<li>Réussir ses examens ou simplement suivre les cours.</li>
+<li>Avoir des objectifs qui n'impliquent personne d'autre.</li>
+</ul></section><section class="panel" id="whitelist-aide-qu-est-ce-qu-une-bonne-candidature"><h2>Qu'est-ce qu'une bonne candidature ?</h2><ul>
+<li>Une candidature simple, cohérente, crédible et qui donne envie de jouer avec votre personnage.</li>
+</ul></section><section class="panel" id="whitelist-aide-pourquoi-une-wl-peut-etre-refusee"><h2>Pourquoi une WL peut être refusée ?</h2><ul>
+<li>Incohérences avec le lore.</li>
+<li>Personnage trop puissant ou irréaliste.</li>
+<li>Motivations insuffisantes.</li>
+<li>Candidature trop vide ou trop générique.</li>
+</ul></section><section class="panel" id="whitelist-aide-avant-d-envoyer-votre-wl"><h2>Avant d'envoyer votre WL ?</h2><ul>
+<li>Pourquoi les autres voudraient RP avec mon personnage ?</li>
+<li>Comment peut-il évoluer ?</li>
+<li>Que fera-t-il pendant plusieurs semaines de RP ?</li>
+<li>Ses objectifs impliquent-ils d'autres personnes ?</li>
+</ul></section><section class="panel" id="whitelist-aide-ce-qu-on-attend-en-rp"><h2>Ce qu'on attend en RP ?</h2><ul>
+<li>Créer du jeu avec les autres.</li>
+<li>Faire évoluer son personnage.</li>
+<li>Respecter la logique de l'univers.</li>
+</ul></section><section class="panel" id="whitelist-aide-pour-l-oral"><h2>Pour l'oral ?</h2><ul>
+<li>Connaître le règlement HRP/RP, le lexique, le lore du serveur ainsi que l'histoire et les objectifs de votre personnage.</li>
+</ul><p><em>Elderwood • Whitelist Systeme</em></p></section></section><section class="page" id="page-creation" data-route="creation" data-group="whitelist" hidden><header class="hero hero-creation"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Les règles essentielles</p><h1>Créer son personnage</h1><p class="hero-lead">Tout élément de background reste possible tant qu'il ne crée pas d'avantage disproportionné et n'impose pas de conséquences au RP des autres joueurs et du Lore.</p></header><section class="panel"><h2>À retenir pour la whitelist</h2><ul class="checks"><li>Un personnage humain, âgé de 15 ans à son entrée à Elderwood.</li><li>Le format Prénom Nom, original et crédible.</li><li>Pas de nom de famille officielle : Dravenholt, Caerwyn, Hearthbane, Valemont, Belladorn, Ravenscroft, Glenhart.</li><li>Pas de maison imposée : c'est la Source qui décide.</li><li>Une baguette pour seul catalyseur au départ.</li></ul></section><section class="panel"><h2>Les règles de création</h2><div class="entries grid"><article class="entry"><h3>Catalyseur</h3><div class="entry-body"><p>À votre entrée à Elderwood, votre personnage utilise une baguette. Les autres catalyseurs doivent être obtenus ou appris en RP sous suivi validé.</p></div></article><article class="entry"><h3>Noblesse</h3><div class="entry-body"><p>Une origine noble dans le monde Sans-Flux reste possible tant qu'elle n'apporte pas d'avantage ou d'impact particulier en RP. En revanche, vous ne pouvez pas inventer librement une lignée noble propre au monde résonant.</p></div></article><article class="entry"><h3>Dissonants</h3><div class="entry-body"><p>Un Dissonant joué comme élève doit être capable de ressentir l'Écho et de contrôler son Flux. Le terme reste également socialement péjoratif et peut être utilisé comme une forme de rejet ou d'insulte envers les Résonants issus de familles Sans-Flux.</p></div></article><article class="entry"><h3>Filiation : Résonant ou Dissonant ?</h3><div class="entry-body"><p>Pour être considéré comme Résonant, les deux parents doivent chacun posséder les deux prédispositions : ressentir l'Écho et contrôler leur Flux. Si l'un des parents ne possède pas ces deux aptitudes, l'enfant est considéré comme Dissonant, même s'il les possède lui-même.</p></div></article><article class="entry"><h3>Famille et métiers</h3><div class="entry-body"><p>Vos proches peuvent travailler dans des institutions comme l'AMRU ou dans l'administration. Les postes classiques sont possibles, mais les fonctions majeures comme Ministre, directeur ou haut responsable sont interdites sans validation.</p></div></article><article class="entry"><h3>Influence familiale</h3><div class="entry-body"><p>Une famille inventée peut être riche, ancienne ou reconnue dans son domaine, mais ne peut pas posséder une influence politique ou institutionnelle majeure dès la création.</p></div></article><article class="entry"><h3>Connaissances et capacités</h3><div class="entry-body"><p>Votre personnage peut avoir des facilités ou quelques connaissances liées à son éducation, mais ne peut pas arriver en maîtrisant déjà des magies avancées ou rares. Il ne peut pas non plus posséder une spécialité ou compétence unique propre à lui ou à une famille.</p></div></article><article class="entry"><h3>Lore existant</h3><div class="entry-body"><p>Votre personnage peut avoir été touché par les grands événements du monde, mais ne peut pas avoir joué un rôle majeur dans ceux-ci.</p></div></article><article class="entry"><h3>Personnages importants</h3><div class="entry-body"><p>Les liens directs avec des figures majeures du lore ou des familles déjà établies doivent être validés.</p></div></article></div></section></section>
+      <footer class="foot">
+        <span><strong>ELDERWOOD RP</strong> · univers magique sur nanos world</span>
+        <span class="status">Contenu recopié du lore et du règlement officiels</span>
+      </footer>
+    </div>
+  </main>
+</div>
+
+<script>
+(() => {
+  const pages = [...document.querySelectorAll(".page")];
+  const menu = [...document.querySelectorAll(".menu a")];
+  const tabBars = [...document.querySelectorAll("[data-tabs]")];
+
+  function show(first) {
+    const want = location.hash.slice(1);
+    const page = pages.find(p => p.dataset.route === want) || pages[0];
+    const group = page.dataset.group;
+    pages.forEach(p => { p.hidden = p !== page; });
+    menu.forEach(a => a.setAttribute("aria-current", String(a.dataset.group === group)));
+    tabBars.forEach(bar => {
+      bar.hidden = bar.dataset.tabs !== group;
+      bar.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-current", String(t.dataset.route === page.dataset.route)));
+    });
+    document.querySelectorAll('.menu a[aria-current="true"], .tab[aria-current="true"]').forEach(el => {
+      const bar = el.parentElement;
+      if (bar.scrollWidth > bar.clientWidth) bar.scrollLeft = el.offsetLeft - bar.offsetLeft - (bar.clientWidth - el.offsetWidth) / 2;
+    });
+    if (!first) window.scrollTo({ top: 0, behavior: "auto" });
+  }
+  window.addEventListener("hashchange", () => show(false));
+  show(true);
+
+  document.addEventListener("click", e => {
+    const chip = e.target.closest("[data-jump]");
+    if (chip) document.getElementById(chip.dataset.jump)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  /* ---- règlement : onglets et recherche ---- */
+  const rules = [...document.querySelectorAll(".rule")];
+  const filters = [...document.querySelectorAll("[data-filter]")];
+  const input = document.getElementById("rule-search");
+  const count = document.querySelector(".rule-count");
+  const empty = document.querySelector(".empty");
+  const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  rules.forEach(r => { r._text = norm(r.textContent); });
+  let section = filters[0] ? filters[0].dataset.filter : null;
+
+  function applyRules() {
+    const q = norm(input.value.trim());
+    let n = 0;
+    rules.forEach(r => {
+      const ok = q ? r._text.includes(q) : r.dataset.section === section;
+      r.hidden = !ok;
+      if (ok) n++;
+    });
+    filters.forEach(f => f.setAttribute("aria-selected", String(!q && f.dataset.filter === section)));
+    empty.hidden = n > 0;
+    count.textContent = q ? `${n} règle${n > 1 ? "s" : ""} trouvée${n > 1 ? "s" : ""} dans tout le règlement` : `${n} règle${n > 1 ? "s" : ""} dans cette section`;
+  }
+  filters.forEach(f => f.addEventListener("click", () => { section = f.dataset.filter; input.value = ""; applyRules(); }));
+  if (input) { input.addEventListener("input", applyRules); applyRules(); }
+
+  /* ---- ciel étoilé ---- */
+  const sky = document.getElementById("sky");
+  const ctx = sky.getContext("2d");
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let stars = [], w = 0, h = 0;
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth; h = window.innerHeight;
+    sky.width = w * dpr; sky.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.round((w * h) / 5200);
+    stars = Array.from({ length: n }, () => ({
+      x: Math.random() * w, y: Math.random() * h, r: Math.random() * 1.1 + 0.2,
+      a: Math.random() * 0.6 + 0.15, s: Math.random() * 0.002 + 0.0005, p: Math.random() * Math.PI * 2,
+      g: Math.random() < 0.08
+    }));
+  }
+  function draw(t) {
+    ctx.clearRect(0, 0, w, h);
+    for (const s of stars) {
+      const a = still ? s.a : s.a * (0.65 + 0.35 * Math.sin(t * s.s + s.p));
+      ctx.fillStyle = s.g ? `rgba(230,199,124,${a})` : `rgba(236,230,218,${a})`;
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill();
+    }
+    if (!still) requestAnimationFrame(draw);
+  }
+  resize(); requestAnimationFrame(draw);
+  window.addEventListener("resize", () => { resize(); if (still) draw(0); });
+})();
+</script>
+</body>
+</html>

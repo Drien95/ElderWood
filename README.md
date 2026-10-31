@@ -12,6 +12,7 @@ Ce dépôt centralise toute la documentation du serveur : l'histoire du monde, l
 | [`reglement/`](reglement/) | Le règlement du serveur |
 | [`conseils/`](conseils/) | Conseils et bonnes pratiques de roleplay |
 | [`personnages/`](personnages/) | Les fiches personnages (un fichier par personnage) |
+| [`site/`](site/) | Le site web du serveur (lore, règlement, whitelist) |
 
 ## Créer un personnage
 
