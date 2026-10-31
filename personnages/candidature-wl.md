@@ -1,6 +1,6 @@
 # Candidature Whitelist — Tobias Penhallow
 
-> Brouillon v1 proposé par Claude à la demande d'Adrien. À retoucher avec ses propres mots avant envoi : l'oral porte aussi sur l'histoire et les objectifs du personnage.
+> ⚠ NE PAS ENVOYER EN L'ÉTAT. Brouillon v1 rédigé par Claude, avant que la FAQ DouaneAPP ne précise que l'IA est interdite pour la WL (idées ET rédaction : voir ../conseils/whitelist-faq-douane.md). À ne garder que comme exemple de structure ; la candidature envoyée doit être écrite par Adrien, avec ses propres idées.
 > Référence : [guide WL](../conseils/whitelist.md) · [règles de création](../lore/04-contexte-chronologie.md)
 
 ## Identité
