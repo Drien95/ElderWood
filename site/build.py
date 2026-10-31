@@ -48,6 +48,7 @@ REGLES = [
 WL = [
     ("whitelist", "Guide officiel", "conseils/whitelist.md", "Préparer sa candidature", "Guide de la Whitelist"),
     ("whitelist-aide", "Aide rapide", "conseils/whitelist-aide-douane.md", "L'essentiel en dix questions", "Aide Whitelist"),
+    ("whitelist-faq", "FAQ", "conseils/whitelist-faq-douane.md", "Questions fréquentes", "FAQ Whitelist"),
     ("creation", "Créer son personnage", None, "Les règles essentielles", "Créer son personnage"),
 ]
 
@@ -95,9 +96,9 @@ def strip_intro(soup):
     if first and first.name == "p":
         lead = first.decode_contents()
         first.decompose()
-    # « Contenu maintenu par le pôle Lore. »
+    # « Contenu maintenu par le pôle Lore. », signature DouaneAPP
     for p in soup.find_all("p"):
-        if "pôle Lore" in p.get_text():
+        if "pôle Lore" in p.get_text() or "Whitelist Système" in p.get_text():
             p.decompose()
     return source, lead
 
@@ -182,6 +183,10 @@ def render_entries(nodes, route):
             continue
         title = head.get_text()
         body_html = enhance_lists(html_of(body))
+        if route == "whitelist-faq":
+            q = re.sub(r"^[✦\s]+", "", title)
+            entries.append(f'<details class="faq"><summary>{q}</summary><div class="entry-body">{body_html}</div></details>')
+            continue
         m = re.match(r"^(\d{4}(?:-\d{4})?) — (.*)$", title)
         if m:  # événements récents de la chronologie
             events.append(
@@ -200,6 +205,8 @@ def render_entries(nodes, route):
         intro = intro.replace("</ol>", "".join(events) + "</ol>", 1)
     if not entries:
         return intro
+    if route == "whitelist-faq":
+        return intro + '<div class="faqs">' + "".join(entries) + "</div>"
     short = all(len(e) < 2600 for e in entries) and len(entries) >= 2
     grid = " grid" if short else ""
     if route == "ecole" and len(entries) == 4:
@@ -207,10 +214,15 @@ def render_entries(nodes, route):
     return intro + f'<div class="entries{grid}">' + "".join(entries) + "</div>"
 
 
+LEADS = {
+    "whitelist-faq": "Les réponses de l'équipe aux questions qui reviennent le plus : ouverture des WL, âge du personnage, IA, Dissonants, fratries, candidatures à plusieurs et installation du jeu.",
+}
+
+
 def render_page(route, md_text, kicker, title, lead_override=None):
     soup = md_to_soup(md_text)
     source, lead = strip_intro(soup)
-    lead = lead_override or lead
+    lead = lead_override or lead or LEADS.get(route)
     panels, toc = [], []
     for head, body in sections(soup, "h2"):
         if head is None:
@@ -218,6 +230,7 @@ def render_page(route, md_text, kicker, title, lead_override=None):
             continue
         text = head.get_text()
         clean = re.sub(r"^[⬩➤✦\s]+", "", text)
+        clean = re.sub(r"^ElderWood - ", "", clean)
         if route == "contexte" and clean.startswith("Créer votre personnage"):
             panels.append(
                 '<section class="panel panel-link"><h2>Créer votre personnage</h2>'
