@@ -1,3 +1,4 @@
 # Conseils de roleplay
 
-Les conseils et bonnes pratiques pour jouer sur ElderWood. Le contenu arrive bientôt.
+- [Guide de la Whitelist](whitelist.md) (guide officiel)
+- [Aide Whitelist DouaneAPP](whitelist-aide-douane.md) (version résumée)
