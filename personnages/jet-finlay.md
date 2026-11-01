@@ -55,8 +55,8 @@ Il arrive à Elderwood avec un bois de Scalvignus dans sa malle et une colère q
 
 ### L'horizon
 
-**4. Faire adopter une alternative à l'abattage**
-- **Détails :** avec son réseau d'Elderwood, des familles de producteurs et des agents de terrain.
-- **Quand :** à son apogée, après des années de terrain.
-- **Comment :** il essaierait de réunir des cas documentés, de chercher des appuis à l'AMRU et de présenter une réforme. S'il échouait, il pourrait basculer.
-- **Pourquoi :** que plus aucun garde-forestier n'ait à obéir comme son père l'a fait.
+**4. Faire plier l'AMRU, de l'extérieur**
+- **Détails :** avec les familles de producteurs touchées par les restrictions, des agents de terrain lassés d'obéir sans comprendre, et le réseau qu'il se sera construit à Elderwood (anciens des tisanes et des sorties d'observation).
+- **Quand :** à son apogée, une fois qu'il aura vu de l'intérieur les limites de l'AMRU.
+- **Comment :** Finlay aimerait fédérer ces familles et ces agents en un mouvement qui fasse pression sur l'AMRU : réunions dans les villages résonants, témoignages et cas documentés, requêtes collectives, soutien aux familles sanctionnées. Son but serait d'obtenir une alternative à l'abattage des créatures et un allègement des restrictions qui étouffent les petits producteurs. Ce combat le mettrait face à la ligne la plus dure de l'AMRU, et ferait de lui une cible facile à confondre avec l'Ascendance. Si rien ne bougeait, Finlay pourrait se laisser convaincre par ceux qui veulent tout renverser. Tout basculement de ce type se ferait via un ticket staff.
+- **Pourquoi :** il a vu son père obéir à un ordre injuste. Il refuse que d'autres familles vivent la même chose, quitte à se brûler les ailes.
