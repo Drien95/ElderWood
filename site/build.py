@@ -54,6 +54,51 @@ WL = [
 ]
 
 
+def revision_pages():
+    """(route, onglet, fichier, surtitre, titre) pour chaque fichier de revision/."""
+    pages = []
+    if not (ROOT / "revision").is_dir():
+        return pages
+    if (ROOT / "revision/README.md").exists():
+        pages.append(("revision", "Sommaire", "revision/README.md", "Oral de whitelist", "Fiches de révision"))
+    for f in sorted((ROOT / "revision").glob("[0-9][0-9]-*.md")):
+        h1 = re.search(r"^# (.*)$", f.read_text(encoding="utf-8"), re.M)
+        text = h1.group(1) if h1 else f.stem
+        m = re.match(r"^Fiche (\d+) — (.*)$", text)
+        num, title = (m.group(1), m.group(2)) if m else (f.stem[:2].lstrip("0"), text)
+        pages.append((f"fiche-{num}", f"{num}. {re.sub(r' \(.*\)$', '', title)}", f"revision/{f.name}", f"Fiche {num}", title))
+    if (ROOT / "revision/quiz.md").exists():
+        pages.append(("quiz", "Quiz", "revision/quiz.md", "Entraînement à l'oral", "Quiz type oral"))
+    return pages
+
+
+def revision_links(text):
+    """Liens Markdown entre fiches → routes du site."""
+    text = re.sub(r"\]\((\d\d)-[\w-]+\.md\)", lambda m: f"](#fiche-{int(m.group(1))})", text)
+    return text.replace("](quiz.md)", "](#quiz)")
+
+
+def render_quiz(soup):
+    """Chaque question devient une carte avec une réponse repliable."""
+    for li in soup.select("ol > li"):
+        details = li.find("details")
+        strong = li.find("strong")
+        if not details or not strong:
+            continue
+        summary = details.find("summary")
+        if summary:
+            summary.decompose()
+        answer = details.decode_contents().strip()
+        question = strong.decode_contents()
+        li.clear()
+        li["class"] = "q"
+        li.append(BeautifulSoup(
+            f'<p class="q-text">{question}</p><details class="q-answer"><summary>Voir la réponse</summary>'
+            f"<p>{answer}</p></details>", "html.parser"))
+    for ol in soup.find_all("ol"):
+        ol["class"] = "quiz"
+
+
 def slug(text):
     t = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode()
     return re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")
@@ -130,6 +175,13 @@ def html_of(nodes):
 def enhance_lists(frag):
     """Listes « **Nom** (étiquette) : texte » → cartes ; dates → frise."""
     soup = BeautifulSoup(frag, "html.parser")
+    for table in soup.find_all("table"):
+        heads = [th.get_text(strip=True) for th in table.select("thead th")]
+        for tr in table.select("tbody tr"):
+            for i, td in enumerate(tr.find_all("td")):
+                if i < len(heads):
+                    td["data-label"] = heads[i]
+        table.wrap(soup.new_tag("div", attrs={"class": "table-wrap"}))
     for ul in soup.find_all("ul"):
         items = ul.find_all("li", recursive=False)
         if not items:
@@ -222,8 +274,12 @@ LEADS = {
 
 
 def render_page(route, md_text, kicker, title, lead_override=None):
+    if route == "revision" or route.startswith("fiche-") or route == "quiz":
+        md_text = revision_links(md_text)
     soup = md_to_soup(md_text)
     source, lead = strip_intro(soup)
+    if route == "quiz":
+        render_quiz(soup)
     lead = lead_override or LEADS.get(route) or lead
     panels, toc = [], []
     for head, body in sections(soup, "h2"):
@@ -246,12 +302,20 @@ def render_page(route, md_text, kicker, title, lead_override=None):
         panels.append(
             f'<section class="panel" id="{sid}"><h2>{clean}</h2>{render_entries(body, route)}</section>'
         )
-    return hero(kicker, title, lead, route, source) + toc_html(toc) + "".join(panels)
+    tools = ""
+    if route == "quiz":
+        n = len(soup.select("li.q"))
+        tools = (
+            '<div class="quiz-tools"><p>' + str(n) + " questions. Réponds à voix haute, puis dévoile la réponse.</p>"
+            '<button type="button" class="btn btn-ghost" data-quiz="open">Tout dévoiler</button>'
+            '<button type="button" class="btn btn-ghost" data-quiz="close">Tout replier</button></div>'
+        )
+    return hero(kicker, title, lead, route, source) + tools + toc_html(toc) + "".join(panels)
 
 
 def hero(kicker, title, lead, route, source=None):
     src = ""
-    if source and not source.startswith("Recopié"):
+    if source and not source.startswith("Recopié") and route != "quiz":
         src = f'<p class="hero-src">{re.sub(r"Recopié fidèlement.?", "", source).strip()}</p>'
     lead_html = f'<p class="hero-lead">{lead}</p>' if lead else ""
     return (
@@ -414,6 +478,7 @@ def render_home(total_rules):
     <a class="path" href="#magie"><span class="path-n">6 chapitres</span><h3>Le lore</h3><p>L'Écho, la Résonance et le Flux, l'école, la société magique, la chronologie, le glossaire et les créatures.</p><span class="path-go">Ouvrir le lore</span></a>
     <a class="path" href="#reglement"><span class="path-n">{total_rules} règles</span><h3>Le règlement</h3><p>Général, vocal, lexique RP, roleplay, zones RPK et familles. Avec une recherche pour retrouver une règle en un instant.</p><span class="path-go">Ouvrir le règlement</span></a>
     <a class="path" href="#whitelist"><span class="path-n">Candidature</span><h3>La whitelist</h3><p>Ce que la douane attend de ton personnage, les redflags à éviter, l'oral et les règles de création.</p><span class="path-go">Ouvrir le guide</span></a>
+    <a class="path" href="#revision"><span class="path-n">10 fiches · quiz</span><h3>La révision</h3><p>Des fiches de synthèse pour préparer l'oral de whitelist, et un quiz type oral avec les réponses à dévoiler.</p><span class="path-go">Réviser</span></a>
   </div>
 </section>
 
@@ -449,9 +514,12 @@ def build():
             (r, g, h.replace("</header>", "</header>" + notices, 1) if g == "whitelist" else h)
             for r, g, h in pages
         ]
+    for route, tab, path, kicker, title in revision_pages():
+        pages.append((route, "revision", render_page(route, read(path), kicker, title)))
     pages.insert(0, ("accueil", "accueil", render_home(total)))
 
     lore_tabs = "".join(f'<a class="tab" href="#{r}" data-route="{r}">{t}</a>' for r, t, *_ in LORE)
+    rev_tabs = "".join(f'<a class="tab" href="#{r}" data-route="{r}">{t}</a>' for r, t, *_ in revision_pages())
     wl_tabs = "".join(f'<a class="tab" href="#{r}" data-route="{r}">{t}</a>' for r, t, *_ in WL)
     body = "".join(
         f'<section class="page" id="page-{r}" data-route="{r}" data-group="{g}"{"" if r == "accueil" else " hidden"}>{h}</section>'
@@ -462,6 +530,7 @@ def build():
         tpl.replace("{{PAGES}}", body)
         .replace("{{LORE_TABS}}", lore_tabs)
         .replace("{{WL_TABS}}", wl_tabs)
+        .replace("{{REV_TABS}}", rev_tabs)
     )
     (SITE / "index.html").write_text(html, encoding="utf-8")
     print(f"site/index.html : {len(pages)} pages, {total} règles, {len(html) // 1024} Ko")

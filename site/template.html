@@ -256,7 +256,7 @@ p { margin: 0; }
 .house-motto { font: italic 500 18px/1.35 var(--f-quote); color: #efe6d2; margin-top: 6px !important; }
 .house-values { font-size: 12.5px; color: color-mix(in srgb, var(--h) 55%, #fff); letter-spacing: .04em; }
 .house-founder { font-size: 12px; color: var(--faint); }
-.paths { display: grid; gap: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.paths { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .path { display: grid; gap: 10px; align-content: start; padding: 22px; border-radius: 12px; text-decoration: none; color: var(--ink);
   background: var(--panel-2); border: 1px solid var(--line); transition: border-color .2s, transform .2s; }
 .path:hover { border-color: rgba(201,162,74,.55); transform: translateY(-2px); }
@@ -310,6 +310,30 @@ p { margin: 0; }
 .notice-body ul { margin: 0; padding-left: 1.2em; display: grid; gap: 2px; }
 .notice-body strong { color: #fff; }
 
+/* tableaux */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+.panel .table-wrap table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 14px; }
+.panel .table-wrap th, .panel .table-wrap td { border: 0; border-bottom: 1px solid var(--line); padding: 10px 14px; text-align: left; vertical-align: top; }
+.panel .table-wrap th { font: 600 11px/1.3 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); background: rgba(201,162,74,.06); }
+.panel .table-wrap tr:last-child td { border-bottom: 0; }
+.panel .table-wrap tbody tr:nth-child(even) td { background: rgba(255,255,255,.015); }
+.panel code { font-size: .9em; color: var(--gold-hi); background: rgba(201,162,74,.08); padding: 1px 5px; border-radius: 4px; }
+
+/* quiz */
+.quiz-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.quiz-tools p { flex: 1 1 260px; color: var(--muted); }
+.quiz-tools .btn { padding: 10px 14px; font-size: 11.5px; cursor: pointer; }
+.panel ol.quiz { list-style: none; padding: 0; display: grid; gap: 10px; counter-reset: q calc(var(--start, 1) - 1); }
+.q { counter-increment: q; position: relative; padding: 16px 18px 14px 62px; border-radius: 12px; background: var(--panel-2); border: 1px solid var(--line); display: grid; gap: 8px; }
+.q::before { content: counter(q); position: absolute; left: 16px; top: 14px; width: 32px; height: 32px; display: grid; place-items: center;
+  border-radius: 50%; border: 1.5px solid var(--gold); color: var(--gold-hi); font: 600 12.5px/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.q-text { color: #f5efe2 !important; font-weight: 600; }
+.q-answer summary { cursor: pointer; display: inline-flex; font: 600 11.5px/1 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); list-style: none; padding: 6px 0; }
+.q-answer summary::-webkit-details-marker { display: none; }
+.q-answer summary::before { content: "+"; margin-right: 8px; }
+.q-answer[open] summary::before { content: "−"; }
+.q-answer p { margin-top: 4px; padding: 10px 14px; border-left: 1px solid var(--gold); background: rgba(201,162,74,.05); border-radius: 0 8px 8px 0; }
+
 /* FAQ */
 .faqs { display: grid; gap: 10px; }
 .faq { border: 1px solid var(--line); border-radius: 12px; background: var(--panel-2); }
@@ -355,6 +379,16 @@ p { margin: 0; }
   .main { padding: 18px max(16px, env(safe-area-inset-right, 0px)) 40px max(16px, env(safe-area-inset-left, 0px)); }
 }
 @media (max-width: 600px) {
+  .table-wrap { border: 0; border-radius: 0; overflow: visible; }
+  .panel .table-wrap table, .panel .table-wrap tbody, .panel .table-wrap tr, .panel .table-wrap td { display: block; min-width: 0; width: 100%; }
+  .panel .table-wrap thead { display: none; }
+  .panel .table-wrap tr { border: 1px solid var(--line); border-radius: 12px; background: var(--panel-2); padding: 6px 0; }
+  .panel .table-wrap tr + tr { margin-top: 10px; }
+  .panel .table-wrap tbody tr:nth-child(even) td { background: none; }
+  .panel .table-wrap td { border: 0; padding: 6px 14px; }
+  .panel .table-wrap td[data-label]::before { content: attr(data-label); display: block; font: 600 10px/1.4 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+  .q { padding-left: 54px; }
+  .q::before { left: 12px; }
   body { font-size: 14.5px; }
   .hero { padding: 40px 22px 28px; }
   .hero-art::after { width: 240px; right: -90px; }
@@ -409,6 +443,7 @@ p { margin: 0; }
       <a href="#accueil" data-group="accueil"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Accueil</a>
       <a href="#magie" data-group="lore"><svg viewBox="0 0 24 24"><path d="M12 6c-2-1.5-5-2-9-2v14c4 0 7 .5 9 2 2-1.5 5-2 9-2V4c-4 0-7 .5-9 2Z"/><path d="M12 6v14"/></svg>Lore</a>
       <a href="#reglement" data-group="reglement"><svg viewBox="0 0 24 24"><path d="m14 4 6 6"/><path d="m11 7 6 6"/><path d="m12.5 5.5-7 7 6 6 7-7"/><path d="M8.5 15.5 3 21"/></svg>Règlement</a>
+      <a href="#revision" data-group="revision"><svg viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5Z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/><path d="M22 9v6"/></svg>Révision</a>
       <a href="#whitelist" data-group="whitelist"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h12V7Z"/><path d="M14 3v4h4"/><path d="m9 14 2 2 4-4"/></svg>Whitelist</a>
     </nav>
     <div class="side-foot"><strong>ElderWood RP</strong>Serveur nanos world</div>
@@ -418,6 +453,7 @@ p { margin: 0; }
     <div class="content">
       <nav class="tabs" data-tabs="lore" aria-label="Chapitres du lore" hidden>{{LORE_TABS}}</nav>
       <nav class="tabs" data-tabs="whitelist" aria-label="Guides whitelist" hidden>{{WL_TABS}}</nav>
+      <nav class="tabs" data-tabs="revision" aria-label="Fiches de révision" hidden>{{REV_TABS}}</nav>
       {{PAGES}}
       <footer class="foot">
         <span><strong>ELDERWOOD RP</strong> · univers magique sur nanos world</span>
@@ -455,6 +491,13 @@ p { margin: 0; }
   document.addEventListener("click", e => {
     const chip = e.target.closest("[data-jump]");
     if (chip) document.getElementById(chip.dataset.jump)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  /* ---- quiz : tout dévoiler / replier ---- */
+  document.querySelectorAll("ol.quiz[start]").forEach(ol => ol.style.setProperty("--start", ol.getAttribute("start")));
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-quiz]");
+    if (b) b.closest(".page").querySelectorAll(".q-answer").forEach(d => { d.open = b.dataset.quiz === "open"; });
   });
 
   /* ---- règlement : onglets et recherche ---- */
