@@ -256,7 +256,7 @@ p { margin: 0; }
 .house-motto { font: italic 500 18px/1.35 var(--f-quote); color: #efe6d2; margin-top: 6px !important; }
 .house-values { font-size: 12.5px; color: color-mix(in srgb, var(--h) 55%, #fff); letter-spacing: .04em; }
 .house-founder { font-size: 12px; color: var(--faint); }
-.paths { display: grid; gap: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.paths { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .path { display: grid; gap: 10px; align-content: start; padding: 22px; border-radius: 12px; text-decoration: none; color: var(--ink);
   background: var(--panel-2); border: 1px solid var(--line); transition: border-color .2s, transform .2s; }
 .path:hover { border-color: rgba(201,162,74,.55); transform: translateY(-2px); }
@@ -310,6 +310,30 @@ p { margin: 0; }
 .notice-body ul { margin: 0; padding-left: 1.2em; display: grid; gap: 2px; }
 .notice-body strong { color: #fff; }
 
+/* tableaux */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+.panel .table-wrap table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 14px; }
+.panel .table-wrap th, .panel .table-wrap td { border: 0; border-bottom: 1px solid var(--line); padding: 10px 14px; text-align: left; vertical-align: top; }
+.panel .table-wrap th { font: 600 11px/1.3 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); background: rgba(201,162,74,.06); }
+.panel .table-wrap tr:last-child td { border-bottom: 0; }
+.panel .table-wrap tbody tr:nth-child(even) td { background: rgba(255,255,255,.015); }
+.panel code { font-size: .9em; color: var(--gold-hi); background: rgba(201,162,74,.08); padding: 1px 5px; border-radius: 4px; }
+
+/* quiz */
+.quiz-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.quiz-tools p { flex: 1 1 260px; color: var(--muted); }
+.quiz-tools .btn { padding: 10px 14px; font-size: 11.5px; cursor: pointer; }
+.panel ol.quiz { list-style: none; padding: 0; display: grid; gap: 10px; counter-reset: q calc(var(--start, 1) - 1); }
+.q { counter-increment: q; position: relative; padding: 16px 18px 14px 62px; border-radius: 12px; background: var(--panel-2); border: 1px solid var(--line); display: grid; gap: 8px; }
+.q::before { content: counter(q); position: absolute; left: 16px; top: 14px; width: 32px; height: 32px; display: grid; place-items: center;
+  border-radius: 50%; border: 1.5px solid var(--gold); color: var(--gold-hi); font: 600 12.5px/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.q-text { color: #f5efe2 !important; font-weight: 600; }
+.q-answer summary { cursor: pointer; display: inline-flex; font: 600 11.5px/1 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); list-style: none; padding: 6px 0; }
+.q-answer summary::-webkit-details-marker { display: none; }
+.q-answer summary::before { content: "+"; margin-right: 8px; }
+.q-answer[open] summary::before { content: "−"; }
+.q-answer p { margin-top: 4px; padding: 10px 14px; border-left: 1px solid var(--gold); background: rgba(201,162,74,.05); border-radius: 0 8px 8px 0; }
+
 /* FAQ */
 .faqs { display: grid; gap: 10px; }
 .faq { border: 1px solid var(--line); border-radius: 12px; background: var(--panel-2); }
@@ -355,6 +379,16 @@ p { margin: 0; }
   .main { padding: 18px max(16px, env(safe-area-inset-right, 0px)) 40px max(16px, env(safe-area-inset-left, 0px)); }
 }
 @media (max-width: 600px) {
+  .table-wrap { border: 0; border-radius: 0; overflow: visible; }
+  .panel .table-wrap table, .panel .table-wrap tbody, .panel .table-wrap tr, .panel .table-wrap td { display: block; min-width: 0; width: 100%; }
+  .panel .table-wrap thead { display: none; }
+  .panel .table-wrap tr { border: 1px solid var(--line); border-radius: 12px; background: var(--panel-2); padding: 6px 0; }
+  .panel .table-wrap tr + tr { margin-top: 10px; }
+  .panel .table-wrap tbody tr:nth-child(even) td { background: none; }
+  .panel .table-wrap td { border: 0; padding: 6px 14px; }
+  .panel .table-wrap td[data-label]::before { content: attr(data-label); display: block; font: 600 10px/1.4 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+  .q { padding-left: 54px; }
+  .q::before { left: 12px; }
   body { font-size: 14.5px; }
   .hero { padding: 40px 22px 28px; }
   .hero-art::after { width: 240px; right: -90px; }
@@ -409,6 +443,7 @@ p { margin: 0; }
       <a href="#accueil" data-group="accueil"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Accueil</a>
       <a href="#magie" data-group="lore"><svg viewBox="0 0 24 24"><path d="M12 6c-2-1.5-5-2-9-2v14c4 0 7 .5 9 2 2-1.5 5-2 9-2V4c-4 0-7 .5-9 2Z"/><path d="M12 6v14"/></svg>Lore</a>
       <a href="#reglement" data-group="reglement"><svg viewBox="0 0 24 24"><path d="m14 4 6 6"/><path d="m11 7 6 6"/><path d="m12.5 5.5-7 7 6 6 7-7"/><path d="M8.5 15.5 3 21"/></svg>Règlement</a>
+      <a href="#revision" data-group="revision"><svg viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5Z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/><path d="M22 9v6"/></svg>Révision</a>
       <a href="#whitelist" data-group="whitelist"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h12V7Z"/><path d="M14 3v4h4"/><path d="m9 14 2 2 4-4"/></svg>Whitelist</a>
     </nav>
     <div class="side-foot"><strong>ElderWood RP</strong>Serveur nanos world</div>
@@ -418,6 +453,7 @@ p { margin: 0; }
     <div class="content">
       <nav class="tabs" data-tabs="lore" aria-label="Chapitres du lore" hidden><a class="tab" href="#magie" data-route="magie">La Magie</a><a class="tab" href="#ecole" data-route="ecole">Elderwood</a><a class="tab" href="#societe" data-route="societe">Société Magique</a><a class="tab" href="#contexte" data-route="contexte">Contexte</a><a class="tab" href="#glossaire" data-route="glossaire">Glossaire</a><a class="tab" href="#creatures" data-route="creatures">Entités magiques</a></nav>
       <nav class="tabs" data-tabs="whitelist" aria-label="Guides whitelist" hidden><a class="tab" href="#whitelist" data-route="whitelist">Guide officiel</a><a class="tab" href="#whitelist-aide" data-route="whitelist-aide">Aide rapide</a><a class="tab" href="#whitelist-faq" data-route="whitelist-faq">FAQ</a><a class="tab" href="#objectifs" data-route="objectifs">Objectifs</a><a class="tab" href="#creation" data-route="creation">Créer son personnage</a></nav>
+      <nav class="tabs" data-tabs="revision" aria-label="Fiches de révision" hidden><a class="tab" href="#revision" data-route="revision">Sommaire</a><a class="tab" href="#fiche-1" data-route="fiche-1">1. La magie</a><a class="tab" href="#fiche-2" data-route="fiche-2">2. L'école et les maisons</a><a class="tab" href="#fiche-3" data-route="fiche-3">3. Société, familles et personnages</a><a class="tab" href="#fiche-4" data-route="fiche-4">4. Chronologie</a><a class="tab" href="#fiche-5" data-route="fiche-5">5. Créatures et entités</a><a class="tab" href="#fiche-6" data-route="fiche-6">6. Glossaire du lore</a><a class="tab" href="#fiche-7" data-route="fiche-7">7. Règlement et lexique RP</a><a class="tab" href="#fiche-8" data-route="fiche-8">8. Créer son personnage et la WL</a><a class="tab" href="#fiche-9" data-route="fiche-9">9. Zones RPK</a><a class="tab" href="#fiche-10" data-route="fiche-10">10. Mon personnage</a><a class="tab" href="#quiz" data-route="quiz">Quiz</a></nav>
       <section class="page" id="page-accueil" data-route="accueil" data-group="accueil">
 <header class="hero hero-home">
   <div class="hero-art" aria-hidden="true"></div>
@@ -444,6 +480,7 @@ p { margin: 0; }
     <a class="path" href="#magie"><span class="path-n">6 chapitres</span><h3>Le lore</h3><p>L'Écho, la Résonance et le Flux, l'école, la société magique, la chronologie, le glossaire et les créatures.</p><span class="path-go">Ouvrir le lore</span></a>
     <a class="path" href="#reglement"><span class="path-n">68 règles</span><h3>Le règlement</h3><p>Général, vocal, lexique RP, roleplay, zones RPK et familles. Avec une recherche pour retrouver une règle en un instant.</p><span class="path-go">Ouvrir le règlement</span></a>
     <a class="path" href="#whitelist"><span class="path-n">Candidature</span><h3>La whitelist</h3><p>Ce que la douane attend de ton personnage, les redflags à éviter, l'oral et les règles de création.</p><span class="path-go">Ouvrir le guide</span></a>
+    <a class="path" href="#revision"><span class="path-n">10 fiches · quiz</span><h3>La révision</h3><p>Des fiches de synthèse pour préparer l'oral de whitelist, et un quiz type oral avec les réponses à dévoiler.</p><span class="path-go">Réviser</span></a>
   </div>
 </section>
 
@@ -761,7 +798,1184 @@ Nom de l'objectif/Details/Quand/Comment/Pourquoi</p><p>A la fin tu auras tous le
 Dit autrement, si vous envoyez une candidature dissonant à compter du 23/09, minuit, celle-ci ne sera PAS traitée.</p><p>Comment vous adapter :</p><ul>
 <li>Envoyer, dès ce soir, votre candidature dissonant,</li>
 <li>Adapter votre candidature en résonnant si vous n'avez pas le temps de gérer l'écrit ce soir.</li>
-</ul><p>Pour rappel, une candidature dissonant (donc une situation rare) doit faire ressortir le fait que ce statut-là est pertinent dans votre histoire et vos objectifs.</p><p>Merci de votre compréhension !</p></div></div></aside><section class="panel"><h2>À retenir pour la whitelist</h2><ul class="checks"><li>Un personnage humain, âgé de 15 ans à son entrée à Elderwood.</li><li>Le format Prénom Nom, original et crédible.</li><li>Pas de nom de famille officielle : Dravenholt, Caerwyn, Hearthbane, Valemont, Belladorn, Ravenscroft, Glenhart.</li><li>Pas de maison imposée : c'est la Source qui décide.</li><li>Une baguette pour seul catalyseur au départ.</li></ul></section><section class="panel"><h2>Les règles de création</h2><div class="entries grid"><article class="entry"><h3>Catalyseur</h3><div class="entry-body"><p>À votre entrée à Elderwood, votre personnage utilise une baguette. Les autres catalyseurs doivent être obtenus ou appris en RP sous suivi validé.</p></div></article><article class="entry"><h3>Noblesse</h3><div class="entry-body"><p>Une origine noble dans le monde Sans-Flux reste possible tant qu'elle n'apporte pas d'avantage ou d'impact particulier en RP. En revanche, vous ne pouvez pas inventer librement une lignée noble propre au monde résonant.</p></div></article><article class="entry"><h3>Dissonants</h3><div class="entry-body"><p>Un Dissonant joué comme élève doit être capable de ressentir l'Écho et de contrôler son Flux. Le terme reste également socialement péjoratif et peut être utilisé comme une forme de rejet ou d'insulte envers les Résonants issus de familles Sans-Flux.</p></div></article><article class="entry"><h3>Filiation : Résonant ou Dissonant ?</h3><div class="entry-body"><p>Pour être considéré comme Résonant, les deux parents doivent chacun posséder les deux prédispositions : ressentir l'Écho et contrôler leur Flux. Si l'un des parents ne possède pas ces deux aptitudes, l'enfant est considéré comme Dissonant, même s'il les possède lui-même.</p></div></article><article class="entry"><h3>Famille et métiers</h3><div class="entry-body"><p>Vos proches peuvent travailler dans des institutions comme l'AMRU ou dans l'administration. Les postes classiques sont possibles, mais les fonctions majeures comme Ministre, directeur ou haut responsable sont interdites sans validation.</p></div></article><article class="entry"><h3>Influence familiale</h3><div class="entry-body"><p>Une famille inventée peut être riche, ancienne ou reconnue dans son domaine, mais ne peut pas posséder une influence politique ou institutionnelle majeure dès la création.</p></div></article><article class="entry"><h3>Connaissances et capacités</h3><div class="entry-body"><p>Votre personnage peut avoir des facilités ou quelques connaissances liées à son éducation, mais ne peut pas arriver en maîtrisant déjà des magies avancées ou rares. Il ne peut pas non plus posséder une spécialité ou compétence unique propre à lui ou à une famille.</p></div></article><article class="entry"><h3>Lore existant</h3><div class="entry-body"><p>Votre personnage peut avoir été touché par les grands événements du monde, mais ne peut pas avoir joué un rôle majeur dans ceux-ci.</p></div></article><article class="entry"><h3>Personnages importants</h3><div class="entry-body"><p>Les liens directs avec des figures majeures du lore ou des familles déjà établies doivent être validés.</p></div></article></div></section></section>
+</ul><p>Pour rappel, une candidature dissonant (donc une situation rare) doit faire ressortir le fait que ce statut-là est pertinent dans votre histoire et vos objectifs.</p><p>Merci de votre compréhension !</p></div></div></aside><section class="panel"><h2>À retenir pour la whitelist</h2><ul class="checks"><li>Un personnage humain, âgé de 15 ans à son entrée à Elderwood.</li><li>Le format Prénom Nom, original et crédible.</li><li>Pas de nom de famille officielle : Dravenholt, Caerwyn, Hearthbane, Valemont, Belladorn, Ravenscroft, Glenhart.</li><li>Pas de maison imposée : c'est la Source qui décide.</li><li>Une baguette pour seul catalyseur au départ.</li></ul></section><section class="panel"><h2>Les règles de création</h2><div class="entries grid"><article class="entry"><h3>Catalyseur</h3><div class="entry-body"><p>À votre entrée à Elderwood, votre personnage utilise une baguette. Les autres catalyseurs doivent être obtenus ou appris en RP sous suivi validé.</p></div></article><article class="entry"><h3>Noblesse</h3><div class="entry-body"><p>Une origine noble dans le monde Sans-Flux reste possible tant qu'elle n'apporte pas d'avantage ou d'impact particulier en RP. En revanche, vous ne pouvez pas inventer librement une lignée noble propre au monde résonant.</p></div></article><article class="entry"><h3>Dissonants</h3><div class="entry-body"><p>Un Dissonant joué comme élève doit être capable de ressentir l'Écho et de contrôler son Flux. Le terme reste également socialement péjoratif et peut être utilisé comme une forme de rejet ou d'insulte envers les Résonants issus de familles Sans-Flux.</p></div></article><article class="entry"><h3>Filiation : Résonant ou Dissonant ?</h3><div class="entry-body"><p>Pour être considéré comme Résonant, les deux parents doivent chacun posséder les deux prédispositions : ressentir l'Écho et contrôler leur Flux. Si l'un des parents ne possède pas ces deux aptitudes, l'enfant est considéré comme Dissonant, même s'il les possède lui-même.</p></div></article><article class="entry"><h3>Famille et métiers</h3><div class="entry-body"><p>Vos proches peuvent travailler dans des institutions comme l'AMRU ou dans l'administration. Les postes classiques sont possibles, mais les fonctions majeures comme Ministre, directeur ou haut responsable sont interdites sans validation.</p></div></article><article class="entry"><h3>Influence familiale</h3><div class="entry-body"><p>Une famille inventée peut être riche, ancienne ou reconnue dans son domaine, mais ne peut pas posséder une influence politique ou institutionnelle majeure dès la création.</p></div></article><article class="entry"><h3>Connaissances et capacités</h3><div class="entry-body"><p>Votre personnage peut avoir des facilités ou quelques connaissances liées à son éducation, mais ne peut pas arriver en maîtrisant déjà des magies avancées ou rares. Il ne peut pas non plus posséder une spécialité ou compétence unique propre à lui ou à une famille.</p></div></article><article class="entry"><h3>Lore existant</h3><div class="entry-body"><p>Votre personnage peut avoir été touché par les grands événements du monde, mais ne peut pas avoir joué un rôle majeur dans ceux-ci.</p></div></article><article class="entry"><h3>Personnages importants</h3><div class="entry-body"><p>Les liens directs avec des figures majeures du lore ou des familles déjà établies doivent être validés.</p></div></article></div></section></section><section class="page" id="page-revision" data-route="revision" data-group="revision" hidden><header class="hero hero-revision"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Oral de whitelist</p><h1>Fiches de révision</h1><p class="hero-lead">L'oral porte sur : <strong>le règlement HRP/RP, le lexique, tout le lore, et l'histoire + les objectifs de ton personnage</strong>. Bon micro obligatoire.</p><p class="hero-src">Synthèse du contenu du dépôt ( lore/ , reglement/ , conseils/ ). Rien n'est inventé : chaque fiche cite ses sources. En cas de doute, la source fait foi.</p></header><nav class="toc" aria-label="Sur cette page"><span>Sur cette page</span><button type="button" class="chip" data-jump="revision-les-fiches">Les fiches</button><button type="button" class="chip" data-jump="revision-methode-conseillee">Méthode conseillée</button><button type="button" class="chip" data-jump="revision-incoherences-relevees-dans-les-sources">Incohérences relevées dans les sources</button></nav><section class="panel" id="revision-les-fiches"><h2>Les fiches</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Fiche</th>
+<th>Contenu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="#">1</td>
+<td data-label="Fiche"><a href="#fiche-1">La magie</a></td>
+<td data-label="Contenu">Écho, Résonance, Flux, couleurs, Voile, statuts, formes de magie</td>
+</tr>
+<tr>
+<td data-label="#">2</td>
+<td data-label="Fiche"><a href="#fiche-2">L'école et les maisons</a></td>
+<td data-label="Contenu">Fondation, maisons (devises, symboles, salles communes), lieux</td>
+</tr>
+<tr>
+<td data-label="#">3</td>
+<td data-label="Fiche"><a href="#fiche-3">Société, familles, personnages</a></td>
+<td data-label="Contenu">AMRU, familles, personnages illustres, Razeball</td>
+</tr>
+<tr>
+<td data-label="#">4</td>
+<td data-label="Fiche"><a href="#fiche-4">Chronologie</a></td>
+<td data-label="Contenu">Dates clés et contexte 2026</td>
+</tr>
+<tr>
+<td data-label="#">5</td>
+<td data-label="Fiche"><a href="#fiche-5">Créatures</a></td>
+<td data-label="Contenu">Créatures magiques et légendaires</td>
+</tr>
+<tr>
+<td data-label="#">6</td>
+<td data-label="Fiche"><a href="#fiche-6">Glossaire</a></td>
+<td data-label="Contenu">Tous les termes du lore</td>
+</tr>
+<tr>
+<td data-label="#">7</td>
+<td data-label="Fiche"><a href="#fiche-7">Règlement et lexique RP</a></td>
+<td data-label="Contenu">Lexique, /me /it /na, règles RP et HRP</td>
+</tr>
+<tr>
+<td data-label="#">8</td>
+<td data-label="Fiche"><a href="#fiche-8">Création de perso et WL</a></td>
+<td data-label="Contenu">Règles de création, contraintes, attentes de la douane</td>
+</tr>
+<tr>
+<td data-label="#">9</td>
+<td data-label="Fiche"><a href="#fiche-9">Zones RPK</a></td>
+<td data-label="Contenu">Les 7 zones et leurs règles</td>
+</tr>
+<tr>
+<td data-label="#">10</td>
+<td data-label="Fiche"><a href="#fiche-10">Mon personnage</a></td>
+<td data-label="Contenu">Questions à préparer <strong>toi-même</strong> (pas de réponses : IA interdite pour la candidature)</td>
+</tr>
+<tr>
+<td data-label="#">—</td>
+<td data-label="Fiche"><a href="#quiz">Quiz type oral</a></td>
+<td data-label="Contenu">94 questions-réponses</td>
+</tr>
+</tbody>
+</table></div></section><section class="panel" id="revision-methode-conseillee"><h2>Méthode conseillée</h2><ol>
+<li>Lire une fiche, puis faire la partie du quiz correspondante <strong>à voix haute</strong>.</li>
+<li>Noter les questions ratées et y revenir le lendemain.</li>
+<li>Priorités si peu de temps : <strong>lexique RP</strong> (fiche 7), <strong>contexte 2026</strong> (fiche 4), <strong>statuts et filiation</strong> (fiches 1 et 8), <strong>zones RPK</strong> (fiche 9), puis ton perso (fiche 10).</li>
+<li>La veille : raconter ton perso et ses objectifs en 2 minutes sans notes.</li>
+</ol></section><section class="panel" id="revision-incoherences-relevees-dans-les-sources"><h2>Incohérences relevées dans les sources</h2><p>Le texte officiel varie sur quelques noms ; mieux vaut connaître les deux formes :</p><ul>
+<li><strong>Razeball / Razorball</strong> (ancien nom ; le lieu s'appelle encore « Terrain de Razorball »).</li>
+<li><strong>Cercle de Frêne / Cercle du Frêne</strong>.</li>
+<li><strong>Briseflux / Brise-Flux</strong>.</li>
+<li><strong>Autorités Magiques du Royaume-Uni</strong> (lore) / <strong>Autorité Magique du Royaume Uni</strong> (règlement).</li>
+<li>La fin de la section « L'oral » du guide WL (consigne « sortie audio ») était coupée dans le message reçu.</li>
+</ul></section></section><section class="page" id="page-fiche-1" data-route="fiche-1" data-group="revision" hidden><header class="hero hero-fiche-1"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Fiche 1</p><h1>La magie</h1><p class="hero-src">Source : lore/01-magie.md . Rien d'ajouté.</p></header><nav class="toc" aria-label="Sur cette page"><span>Sur cette page</span><button type="button" class="chip" data-jump="fiche-1-la-chaine-a-retenir-echo-resonance-flux">La chaîne à retenir : Écho → Résonance → Flux</button><button type="button" class="chip" data-jump="fiche-1-les-quatre-couleurs-du-flux">Les quatre couleurs du Flux</button><button type="button" class="chip" data-jump="fiche-1-le-voile">Le Voile</button><button type="button" class="chip" data-jump="fiche-1-les-statuts-magiques">Les statuts magiques</button><button type="button" class="chip" data-jump="fiche-1-les-formes-de-magie">Les formes de magie</button></nav><section class="panel" id="fiche-1-la-chaine-a-retenir-echo-resonance-flux"><h2>La chaîne à retenir : Écho → Résonance → Flux</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Notion</th>
+<th>En une phrase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Notion"><strong>Écho</strong></td>
+<td data-label="En une phrase">Force originelle présente en toute chose depuis la naissance de l'univers (le « Premier Murmure »). Ne produit aucun sort, c'est le <strong>socle</strong> de toute magie.</td>
+</tr>
+<tr>
+<td data-label="Notion"><strong>Résonance</strong></td>
+<td data-label="En une phrase">Manière dont un être répond à l'Écho, fréquence propre à chacun. Repose sur <strong>deux prédispositions génétiques</strong> : <strong>ressentir</strong> l'Écho et le <strong>contrôler</strong>.</td>
+</tr>
+<tr>
+<td data-label="Notion"><strong>Flux</strong></td>
+<td data-label="En une phrase">Énergie qui <strong>naît de la rencontre</strong> Écho + Résonance assez forte. <strong>Pas une réserve</strong> dans le corps : une relation. Forme perceptible et manipulable de la magie.</td>
+</tr>
+</tbody>
+</table></div><ul>
+<li>C'est la <strong>Résonance</strong>, pas le sang ni la naissance, qui détermine qui peut pratiquer la magie.</li>
+<li>Chez les jeunes, le Flux se manifeste <strong>sans contrôle</strong> (peur qui repousse un danger, colère qui fait trembler un objet).</li>
+<li>On l'apprivoise par : <strong>intention, geste, incantation, catalyseur</strong>.</li>
+<li>Catalyseurs : baguette, sceptre, bâton, flûte, tout instrument magique.</li>
+<li>« Apprendre la magie, c'est apprendre à diriger volontairement ce que le Flux fait déjà instinctivement. »</li>
+</ul></section><section class="panel" id="fiche-1-les-quatre-couleurs-du-flux"><h2>Les quatre couleurs du Flux</h2><p>Révélées par l'eau de la <strong>Source de Vehr</strong> (« la Source »). Associées aux fondateurs puis aux maisons.</p><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Couleur</th>
+<th>Maison</th>
+<th>Mots-clés</th>
+<th>Idée</th>
+<th>Formule finale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Couleur"><strong>Bleu</strong></td>
+<td data-label="Maison">Aerwyn</td>
+<td data-label="Mots-clés">Courage · Protection · Action</td>
+<td data-label="Idée">Se placer entre le danger et ceux qu'on protège (boucliers, soutien, évacuation). Pas la violence.</td>
+<td data-label="Formule finale">« Le Bleu agit, protège… »</td>
+</tr>
+<tr>
+<td data-label="Couleur"><strong>Vert</strong></td>
+<td data-label="Maison">Brumval</td>
+<td data-label="Mots-clés">Stabilité · Loyauté · Continuité</td>
+<td data-label="Idée">Maintenir, renforcer, restaurer. Protection durable, soins, stabilité, équilibres du vivant. Tenir dans la durée.</td>
+<td data-label="Formule finale">« Le Vert préserve, soutient et résiste… »</td>
+</tr>
+<tr>
+<td data-label="Couleur"><strong>Orange</strong></td>
+<td data-label="Maison">Falcon</td>
+<td data-label="Mots-clés">Savoir · Curiosité · Créativité</td>
+<td data-label="Idée">Observer, expérimenter, inventer quand les méthodes habituelles échouent (invention de sort, étude d'artefact, exploration).</td>
+<td data-label="Formule finale">« L'Orange observe, comprend et invente… »</td>
+</tr>
+<tr>
+<td data-label="Couleur"><strong>Violet</strong></td>
+<td data-label="Maison">Venatrix</td>
+<td data-label="Mots-clés">Maîtrise · Stratégie · Influence</td>
+<td data-label="Idée">Contrôler ce qui existe, prendre l'avantage par la précision : dévier un sort, recueillir une info, lire l'adversaire.</td>
+<td data-label="Formule finale">« Le Violet observe, maîtrise, et agit rarement sans avoir mesuré les conséquences. »</td>
+</tr>
+</tbody>
+</table></div><p>Astuce mémo : <strong>B</strong>leu = <strong>B</strong>ouclier, <strong>V</strong>ert = <strong>V</strong>ivant/durée, <strong>O</strong>range = <strong>O</strong>bserver/inventer, <strong>Vi</strong>olet = <strong>Vi</strong>ser juste (stratégie).</p></section><section class="panel" id="fiche-1-le-voile"><h2>Le Voile</h2><ul>
+<li>Chaque lieu a sa propre Résonance. Forte concentration de Flux → <strong>Voile</strong> : le lieu devient difficile à remarquer pour les Sans-Flux.</li>
+<li>Écoles et sanctuaires se construisent dans des lieux voilés. <strong>Elderwood</strong> = l'exemple le plus connu (Voile naturel très puissant).</li>
+<li><strong>Voile naturel</strong> (spontané) ≠ <strong>voile artificiel</strong> (posé par des sorciers). Un artificiel peut se superposer au naturel et parfois le <strong>perturber</strong>.</li>
+<li>Lieu <strong>trop</strong> chargé en Flux → imprévisible → naissance d'<strong>Échoïdes</strong> (souvenirs figés dans une rune instable).</li>
+</ul></section><section class="panel" id="fiche-1-les-statuts-magiques"><h2>Les statuts magiques</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Statut</th>
+<th>Définition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Statut"><strong>Résonant</strong></td>
+<td data-label="Définition">« Sorcier » dans le langage courant. Résonance assez forte et claire pour un Flux exploitable. Accès à l'éducation magique, droits, devoirs, et <strong>responsabilité de ne pas exposer la magie aux Sans-Flux</strong>.</td>
+</tr>
+<tr>
+<td data-label="Statut"><strong>Sans-Flux</strong></td>
+<td data-label="Définition">Majorité de l'humanité. Ont une Résonance mais trop faible. Peuvent apercevoir des choses, subir des effets, traverser un Voile affaibli. Tendent à <strong>rationaliser</strong> et se tourner vers la science.</td>
+</tr>
+<tr>
+<td data-label="Statut"><strong>Dissonant</strong></td>
+<td data-label="Définition">Né généralement dans le monde Sans-Flux, souvent de parents Sans-Flux. La plupart n'ont <strong>qu'une</strong> des deux aptitudes (prodiges, voyants, médiums). Les plus rares ont <strong>les deux</strong> : pleinement Résonants, repérés par l'<strong>AMRU</strong>, invités à Elderwood. Le mot reste utilisé socialement à cause des origines Sans-Flux.</td>
+</tr>
+</tbody>
+</table></div></section><section class="panel" id="fiche-1-les-formes-de-magie"><h2>Les formes de magie</h2><dl class="terms"><div class="term"><dt>Magie d'usage</dt><dd>la plus répandue. Vie quotidienne, école, duels, soins, enchantements simples. Intention + canalisation + direction (geste, formule, catalyseur). Les <strong>baguettes</strong> l'ont transformée : Flux concentré, gestes affinés, savoir plus transmissible. Agit par <strong>le geste et l'instant</strong>.</dd></div><div class="term"><dt>Runomancie</dt><dd>inscrit le Flux <strong>dans la durée</strong>. Une rune = une <strong>fréquence</strong> retranscrite en symbole, une harmonie observée dans l'Écho. Une rune seule = influence limitée ; plusieurs runes = un <strong>accord</strong> (protéger un lieu, verrouiller un passage, conserver une mémoire, stabiliser un enchantement).</dd></div></dl></section></section><section class="page" id="page-fiche-2" data-route="fiche-2" data-group="revision" hidden><header class="hero hero-fiche-2"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Fiche 2</p><h1>L'école et les maisons</h1><p class="hero-src">Source : lore/02-ecole.md (+ créatures-symboles de lore/06-creatures.md ). Rien d'ajouté.</p></header><nav class="toc" aria-label="Sur cette page"><span>Sur cette page</span><button type="button" class="chip" data-jump="fiche-2-elderwood-en-bref">Elderwood en bref</button><button type="button" class="chip" data-jump="fiche-2-les-quatre-maisons">Les quatre maisons</button><button type="button" class="chip" data-jump="fiche-2-le-chateau">Le château</button><button type="button" class="chip" data-jump="fiche-2-l-ile-hors-du-chateau">L'île, hors du château</button></nav><section class="panel" id="fiche-2-elderwood-en-bref"><h2>Elderwood en bref</h2><ul>
+<li><strong>Seule grande école de sorcellerie du Royaume-Uni.</strong> Forme les jeunes Résonants à comprendre leur Flux.</li>
+<li>Dissimulée par un <strong>Voile</strong> puissant, bâtie autour d'une source de magie unique.</li>
+<li><strong>1298</strong> : Falcon découvre, sur une <strong>île sans nom</strong> protégée par un voile, la <strong>Source de Vehr</strong> (révèle la couleur de l'âme de qui s'y reflète). Il identifie 4 couleurs : bleu, vert, violet, orange.</li>
+<li>Il cherche trois personnes correspondant aux couleurs qu'il n'incarne pas : <strong>Aerwyn, Venatrix, Brumval</strong>.</li>
+<li><strong>1300</strong> : les quatre fondent Elderwood.</li>
+</ul></section><section class="panel" id="fiche-2-les-quatre-maisons"><h2>Les quatre maisons</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Maison</th>
+<th>Fondateur·rice</th>
+<th>Symbole (créature)</th>
+<th>Devise</th>
+<th>Valeurs</th>
+<th>Famille originelle</th>
+<th>Salle commune</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Maison"><strong>Aerwyn</strong> (Bleu)</td>
+<td data-label="Fondateur·rice"><strong>Althea</strong> Aerwyn</td>
+<td data-label="Symbole (créature)"><strong>Ephyr</strong> (équidé ailé)</td>
+<td data-label="Devise">« J'agis avec droiture et intégrité. »</td>
+<td data-label="Valeurs">Honneur · Protection · Constance</td>
+<td data-label="Famille originelle"><strong>Caerwyn</strong> — « Tant qu'Elderwood existe, un Caerwyn veille. »</td>
+<td data-label="Salle commune"><strong>La Veillée Bleue</strong> (toit de verre incassable, armures des anciens défenseurs)</td>
+</tr>
+<tr>
+<td data-label="Maison"><strong>Brumval</strong> (Vert)</td>
+<td data-label="Fondateur·rice"><strong>Hector</strong> Brumval</td>
+<td data-label="Symbole (créature)"><strong>Valdorn</strong> (ursidé)</td>
+<td data-label="Devise">« Ma force, c'est de rester fidèle à ceux qui comptent sur moi. »</td>
+<td data-label="Valeurs">Loyauté · Camaraderie · Courage</td>
+<td data-label="Famille originelle"><strong>Hearthbane</strong> — « Le feu accueille. Le feu dure. »</td>
+<td data-label="Salle commune"><strong>Le Grand Foyer</strong> (feu qui ne s'éteint jamais)</td>
+</tr>
+<tr>
+<td data-label="Maison"><strong>Falcon</strong> (Orange)</td>
+<td data-label="Fondateur·rice"><strong>Eldric</strong> Falcon</td>
+<td data-label="Symbole (créature)"><strong>Aetherion</strong> (rapace)</td>
+<td data-label="Devise">« La connaissance est une arme redoutable. »</td>
+<td data-label="Valeurs">Savoir · Curiosité · Sagesse</td>
+<td data-label="Famille originelle"><strong>Valemont</strong> — « La connaissance régit notre monde. »</td>
+<td data-label="Salle commune"><strong>L'Observatoire des Hautes-Vues</strong> (plus hautes tours, pont suspendu)</td>
+</tr>
+<tr>
+<td data-label="Maison"><strong>Venatrix</strong> (Violet)</td>
+<td data-label="Fondateur·rice"><strong>Selena</strong> Venatrix</td>
+<td data-label="Symbole (créature)"><strong>Akkorokamui</strong> (créature marine)</td>
+<td data-label="Devise">« Qui connaît les ficelles contrôle le jeu »</td>
+<td data-label="Valeurs">Ambition · Maîtrise · Influence</td>
+<td data-label="Famille originelle"><strong>Dravenholt</strong> — « Le monde appartient à ceux qui en comprennent les rouages. »</td>
+<td data-label="Salle commune"><strong>Le Salon des Ombres</strong> (sous-sols, deux baies vitrées sur le lac)</td>
+</tr>
+</tbody>
+</table></div><p>Caractère des maisons, en une ligne :</p><dl class="terms"><div class="term"><dt>Aerwyn</dt><dd>courage et serment tenu, un code choisi qu'on respecte même quand c'est inconfortable.</dd></div><div class="term"><dt>Brumval</dt><dd>foyer et fidélité, ce qu'on construit ensemble vaut plus que ce qu'on obtient seul.</dd></div><div class="term"><dt>Falcon</dt><dd>intelligence au service du monde, comprendre plutôt que forcer. Reproche : vivre trop haut dans ses réflexions.</dd></div><div class="term"><dt>Venatrix</dt><dd>stratégie et dissimulation, construire les chemins pour obtenir ce qu'on veut.</dd></div></dl><p>Rappel WL : <strong>on ne choisit pas sa maison</strong> et on ne peut <strong>jamais en changer</strong> (ban définitif).</p></section><section class="panel" id="fiche-2-le-chateau"><h2>Le château</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Lieu</th>
+<th>Rôle</th>
+<th>Détail à retenir</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Lieu">Bibliothèque</td>
+<td data-label="Rôle">Savoir, archives</td>
+<td data-label="Détail à retenir">Sections interdites, bibliothécaire + <strong>fées des bois</strong></td>
+</tr>
+<tr>
+<td data-label="Lieu">Infirmerie <strong>Grimshaw</strong></td>
+<td data-label="Rôle">Soins</td>
+<td data-label="Détail à retenir">Hommage à Edith Grimshaw, ancienne médicomage</td>
+</tr>
+<tr>
+<td data-label="Lieu">Jardins</td>
+<td data-label="Rôle">Botanique, repos</td>
+<td data-label="Détail à retenir">Modifiés par la proximité de la Source</td>
+</tr>
+<tr>
+<td data-label="Lieu">Grande Volière</td>
+<td data-label="Rôle">Courrier</td>
+<td data-label="Détail à retenir">Chouettes, <strong>corbeaux</strong> et <strong>faucons</strong> messagers</td>
+</tr>
+<tr>
+<td data-label="Lieu">Pavillon des Compagnons</td>
+<td data-label="Rôle">Ménagerie</td>
+<td data-label="Détail à retenir">Familiers des élèves ; garde-chasse + prof de magizoologie</td>
+</tr>
+<tr>
+<td data-label="Lieu">Atelier des Catalyseurs</td>
+<td data-label="Rôle">Entretien</td>
+<td data-label="Détail à retenir">Réparer baguettes, sceptres, bâtons</td>
+</tr>
+<tr>
+<td data-label="Lieu">Forge Runique</td>
+<td data-label="Rôle">Runomancie</td>
+<td data-label="Détail à retenir"><strong>Enfouie sous le château</strong>, élèves avancés</td>
+</tr>
+<tr>
+<td data-label="Lieu">Cuisines <strong>Hearthbane</strong></td>
+<td data-label="Rôle">Repas</td>
+<td data-label="Détail à retenir">Sous la Grande Salle</td>
+</tr>
+<tr>
+<td data-label="Lieu">Grande Salle</td>
+<td data-label="Rôle">Cœur du château</td>
+<td data-label="Détail à retenir"><strong>Seul lieu</strong> où toutes les maisons se retrouvent</td>
+</tr>
+</tbody>
+</table></div><p>Falcon aurait conçu les premières bases du système d'apprentissage dans l'Observatoire des Hautes-Vues.</p></section><section class="panel" id="fiche-2-l-ile-hors-du-chateau"><h2>L'île, hors du château</h2><dl class="terms"><div class="term"><dt>Brûlebrume</dt><dd>zone à <strong>haut risque</strong>, brume grise et corrosive, sanctuaire des <strong>Arachnides d'Éther</strong> (aussi zone RPK, voir fiche 9).</dd></div><div class="term"><dt>Terrain de Razorball</dt><dd>structure circulaire taillée dans la falaise, cœur de la vie extrascolaire.</dd></div><div class="term"><dt>Shedwood</dt><dd>village voisin, <strong>statue de Maeve Storm</strong>.</dd></div></dl></section></section><section class="page" id="page-fiche-3" data-route="fiche-3" data-group="revision" hidden><header class="hero hero-fiche-3"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Fiche 3</p><h1>Société, familles et personnages</h1><p class="hero-src">Sources : lore/03-societe-magique.md , reglement/06-familles.md . Rien d'ajouté.</p></header><nav class="toc" aria-label="Sur cette page"><span>Sur cette page</span><button type="button" class="chip" data-jump="fiche-3-l-amru">L'AMRU</button><button type="button" class="chip" data-jump="fiche-3-hierarchie-des-familles-reglement">Hiérarchie des familles (règlement)</button><button type="button" class="chip" data-jump="fiche-3-les-grandes-familles-originelles">Les grandes familles (originelles)</button><button type="button" class="chip" data-jump="fiche-3-les-familles-notables">Les familles notables</button><button type="button" class="chip" data-jump="fiche-3-personnages-illustres">Personnages illustres</button><button type="button" class="chip" data-jump="fiche-3-le-razeball-le-raze">Le Razeball (« le Raze »)</button></nav><section class="panel" id="fiche-3-l-amru"><h2>L'AMRU</h2><ul>
+<li><strong>Autorités Magiques du Royaume-Uni</strong> (le règlement écrit aussi « Autorité Magique du Royaume Uni »).</li>
+<li>Autorité <strong>centrale</strong> de la société magique britannique : lois, sécurité, institutions, régulation (pratiques, créatures, artefacts).</li>
+<li>Elderwood garde <strong>sa propre organisation et une importante autonomie</strong>, mais reste un <strong>interlocuteur essentiel</strong> de l'AMRU.</li>
+<li>C'est l'AMRU qui <strong>repère les Dissonants</strong> pleinement Résonants et les invite à Elderwood.</li>
+</ul></section><section class="panel" id="fiche-3-hierarchie-des-familles-reglement"><h2>Hiérarchie des familles (règlement)</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Rang</th>
+<th>Familles</th>
+<th>Slots</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Rang"><strong>Originelles</strong></td>
+<td data-label="Familles">Dravenholt, Caerwyn, Hearthbane, Valemont</td>
+<td data-label="Slots">6 joueurs + 2 streamers</td>
+</tr>
+<tr>
+<td data-label="Rang"><strong>Notables</strong></td>
+<td data-label="Familles">Belladorn, Ravenscroft, Glenhart</td>
+<td data-label="Slots">6 joueurs + 1 streamer</td>
+</tr>
+<tr>
+<td data-label="Rang"><strong>Réputées</strong></td>
+<td data-label="Familles">À venir (dossiers joueurs)</td>
+<td data-label="Slots">6 joueurs ; candidatures <strong>pas encore ouvertes</strong></td>
+</tr>
+</tbody>
+</table></div><ul>
+<li>Familles officielles = connues comme « sang pur » avec notoriété, possèdent un <strong>Titre de Noblesse Magique</strong>.</li>
+<li>« Lignée pure » dans l'opinion : <strong>plusieurs générations de Résonants</strong> chez les ancêtres. Une famille non officielle peut l'être, sans la notoriété.</li>
+<li>Famille non officielle : <strong>5 membres max</strong>, pas de cousins sous d'autres noms.</li>
+<li>Plus de <strong>3 joueurs</strong> → ticket pour l'archiver et <strong>réserver le nom</strong> (tant qu'au moins 4 membres sont actifs). 4 ou 5 membres → se signaler après la WL.</li>
+<li>Évolution possible dans les deux sens (non officielle ↔ réputée ↔ notable), décision du staff.</li>
+<li>Porter un nom de famille officielle = <strong>naissance validée par le staff</strong> obligatoire.</li>
+</ul></section><section class="panel" id="fiche-3-les-grandes-familles-originelles"><h2>Les grandes familles (originelles)</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Famille</th>
+<th>Maison</th>
+<th>Mot</th>
+<th>À retenir</th>
+<th>Représentant·e actuel·le</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Famille"><strong>Caerwyn</strong></td>
+<td data-label="Maison">Aerwyn</td>
+<td data-label="Mot">le serment</td>
+<td data-label="À retenir">Aux côtés d'Aerwyn dès la fondation ; protection d'Elderwood transmise de génération en génération ; honneur, code, parole donnée</td>
+<td data-label="Représentant·e actuel·le"><strong>Seraphine Caerwyn</strong>, capitaine de Razeball des Aerwyn</td>
+</tr>
+<tr>
+<td data-label="Famille"><strong>Hearthbane</strong></td>
+<td data-label="Maison">Brumval</td>
+<td data-label="Mot">le foyer</td>
+<td data-label="À retenir">À l'origine du <strong>premier feu de la Grande Salle</strong> et de la <strong>Flamme Ouverte</strong> ; loyauté, unité</td>
+<td data-label="Représentant·e actuel·le"><strong>Petra Hearthbane</strong>, 4e année</td>
+</tr>
+<tr>
+<td data-label="Famille"><strong>Valemont</strong></td>
+<td data-label="Maison">Falcon</td>
+<td data-label="Mot">le savoir</td>
+<td data-label="À retenir">Gardiens des archives ; ont sauvé les savoirs pendant la <strong>Crise des Archives (XIVe s.)</strong> ; influence dans l'enseignement, l'administration, le Razeball</td>
+<td data-label="Représentant·e actuel·le"><strong>Ebenezer Valemont</strong>, héritier</td>
+</tr>
+<tr>
+<td data-label="Famille"><strong>Dravenholt</strong></td>
+<td data-label="Maison">Venatrix</td>
+<td data-label="Mot">l'influence</td>
+<td data-label="À retenir">Cercles politiques, académiques et mondains ; apparences, réseaux, décisions dans l'ombre ; influents au Ministère</td>
+<td data-label="Représentant·e actuel·le"><strong>Isolde Dravenholt</strong>, 5e année</td>
+</tr>
+</tbody>
+</table></div></section><section class="panel" id="fiche-3-les-familles-notables"><h2>Les familles notables</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Famille</th>
+<th>Domaine</th>
+<th>À retenir</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Famille"><strong>Belladorn</strong></td>
+<td data-label="Domaine">Alchimie, expérimentation, indépendance</td>
+<td data-label="À retenir">Herboristerie ; refus des limites institutionnelles ; domaine caché <strong>la Chaudronnerie</strong> ; proches de <strong>Falcon et Venatrix</strong></td>
+</tr>
+<tr>
+<td data-label="Famille"><strong>Ravenscroft</strong></td>
+<td data-label="Domaine">Runomancie, précision, préparation</td>
+<td data-label="À retenir">« Comprendre avant d'intervenir, préparer avant d'agir » ; experts des partitions instables</td>
+</tr>
+<tr>
+<td data-label="Famille"><strong>Glenhart</strong></td>
+<td data-label="Domaine">Créatures, exploration, terrain</td>
+<td data-label="À retenir">Deux traditions : <strong>Compagnons</strong> (soin, confiance, observation rapprochée) et <strong>Arpenteurs</strong> (territoires sauvages)</td>
+</tr>
+</tbody>
+</table></div></section><section class="panel" id="fiche-3-personnages-illustres"><h2>Personnages illustres</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Personnage</th>
+<th>Rôle</th>
+<th>Fait marquant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Personnage"><strong>Arthurius Glenwood</strong></td>
+<td data-label="Rôle">Ancien directeur</td>
+<td data-label="Fait marquant">Mort dans une <strong>embuscade attribuée à l'Ascendance</strong> (2026). Rumeur : tué par <strong>Leopold Evenwald</strong>. Liens supposés avec le <strong>Cercle de Frêne</strong> (anti-Ascendance).</td>
+</tr>
+<tr>
+<td data-label="Personnage"><strong>Edith Grimshaw</strong></td>
+<td data-label="Rôle">Ancienne médicomage</td>
+<td data-label="Fait marquant">Maladie qui affaiblissait la Résonance d'élèves : elle relie leur magie à la sienne. Élèves sauvés, elle ne retrouve jamais toute sa magie. L'infirmerie porte son nom.</td>
+</tr>
+<tr>
+<td data-label="Personnage"><strong>Alistair Valemont</strong></td>
+<td data-label="Rôle">Haut placé de l'AMRU, patriarche Valemont</td>
+<td data-label="Fait marquant">Défend une application <strong>stricte du Secret magique</strong> ; associé aux décisions les plus <strong>conservatrices</strong>.</td>
+</tr>
+<tr>
+<td data-label="Personnage"><strong>Cadoc Caerwyn</strong></td>
+<td data-label="Rôle">« Celui qui tint la ligne »</td>
+<td data-label="Fait marquant"><strong>1958, baie de Lituya</strong> : réveil d'un <strong>Léviathan</strong> ; avec 3 autres Aerwyn, refuse l'ordre d'évacuer, tient une barrière <strong>3 jours et 3 nuits</strong>. Perd un bras.</td>
+</tr>
+<tr>
+<td data-label="Personnage"><strong>Bénédicte Hearthbane</strong></td>
+<td data-label="Rôle">Grand Incendie de Londres, <strong>1666</strong></td>
+<td data-label="Fait marquant">Avec des Brumval, détourne un ancien réseau runique (à l'origine de l'incendie) pour évacuer les familles résonantes sans se révéler. Inspire le <strong>Tunnel du Faux Pas</strong>.</td>
+</tr>
+<tr>
+<td data-label="Personnage"><strong>Edgar Ravenscroft</strong></td>
+<td data-label="Rôle"><strong>XVe siècle</strong></td>
+<td data-label="Fait marquant">Neutralise section par section un immense <strong>Échoïde</strong> né de protections runiques accumulées → <strong>Méthode Ravenscroft</strong>.</td>
+</tr>
+<tr>
+<td data-label="Personnage"><strong>Rowena Glenhart</strong></td>
+<td data-label="Rôle"><strong>1890</strong>, Expédition de Shedwood</td>
+<td data-label="Fait marquant"><strong>40 jours</strong> dans la forêt de Shedwood ; documentation majeure sur la faune ; <strong>deux membres disparus</strong> sans corps ni matériel ; elle n'a jamais dit ce qui s'est passé.</td>
+</tr>
+<tr>
+<td data-label="Personnage"><strong>Maeve Storm</strong></td>
+<td data-label="Rôle">« La dernière Garde », élève d'Elderwood</td>
+<td data-label="Fait marquant">Maîtrise exceptionnelle du <strong>Flux Bleu</strong> ; seule, bouclier autour de <strong>Shedwood</strong> jusqu'au dernier évacué ; meurt peu après. <strong>Statue</strong> sur la place de Shedwood.</td>
+</tr>
+</tbody>
+</table></div></section><section class="panel" id="fiche-3-le-razeball-le-raze"><h2>Le Razeball (« le Raze »)</h2><ul>
+<li>Originellement <strong>Razorball</strong>. Joué à <strong>près de 100 m de hauteur</strong>, sphère métallique à envoyer dans le <strong>Cœur</strong> adverse.</li>
+<li>Né à Elderwood en <strong>1863</strong> : <strong>Corvinus Valemont</strong> écrit le premier règlement et le dispositif qui stabilise les Cœurs.</li>
+<li><strong>1896</strong> : première <strong>Coupe du Monde</strong> ; ensuite <strong>tous les 4 ans</strong>.</li>
+<li><strong>6 joueurs</strong> : 1 <strong>Gardien</strong> + 5 joueurs de champ :</li>
+<li><strong>Finishers</strong> : conclusion, tirs longue distance</li>
+<li><strong>Playmakers</strong> : organisent, créent les ouvertures</li>
+<li><strong>Enforcers</strong> : présence physique</li>
+<li><strong>Lights Out</strong> : interception, destruction du jeu adverse</li>
+<li>À Elderwood : championnat entre maisons toute l'année, <strong>grande finale en fin d'année scolaire</strong>.</li>
+</ul></section></section><section class="page" id="page-fiche-4" data-route="fiche-4" data-group="revision" hidden><header class="hero hero-fiche-4"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Fiche 4</p><h1>Chronologie</h1><p class="hero-src">Source : lore/04-contexte-chronologie.md (+ dates citées dans lore/03-societe-magique.md ). Rien d'ajouté.</p></header><nav class="toc" aria-label="Sur cette page"><span>Sur cette page</span><button type="button" class="chip" data-jump="fiche-4-les-dates-officiellement-enseignees-a-elderwood">Les dates officiellement enseignées à Elderwood</button><button type="button" class="chip" data-jump="fiche-4-autres-dates-du-lore-personnages-illustres">Autres dates du lore (personnages illustres)</button><button type="button" class="chip" data-jump="fiche-4-2026-le-contexte-actuel-le-plus-important-pour-l-oral">2026 : le contexte actuel (le plus important pour l'oral)</button><button type="button" class="chip" data-jump="fiche-4-points-de-vigilance-le-texte-source-varie">Points de vigilance (le texte source varie)</button></nav><section class="panel" id="fiche-4-les-dates-officiellement-enseignees-a-elderwood"><h2>Les dates officiellement enseignées à Elderwood</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Événement</th>
+<th>Qui</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Date"><strong>1298</strong></td>
+<td data-label="Événement">Découverte de la <strong>Source de Vehr</strong></td>
+<td data-label="Qui">Falcon</td>
+</tr>
+<tr>
+<td data-label="Date"><strong>1300</strong></td>
+<td data-label="Événement"><strong>Fondation d'Elderwood</strong></td>
+<td data-label="Qui">Falcon, Aerwyn, Venatrix, Brumval</td>
+</tr>
+<tr>
+<td data-label="Date"><strong>1432</strong></td>
+<td data-label="Événement"><strong>La Sentence de Mireille</strong> : sanction controversée, divise encore la maison Aerwyn</td>
+<td data-label="Qui">Gwendolyn Caerwyn</td>
+</tr>
+<tr>
+<td data-label="Date"><strong>1463</strong></td>
+<td data-label="Événement"><strong>La Flamme Ouverte</strong> : premier grand festival ouvert à toutes les entités magiques</td>
+<td data-label="Qui">Elspeth Hearthbane</td>
+</tr>
+<tr>
+<td data-label="Date"><strong>1863</strong></td>
+<td data-label="Événement"><strong>Codification du Razeball</strong></td>
+<td data-label="Qui">Corvinus Valemont</td>
+</tr>
+<tr>
+<td data-label="Date"><strong>1944-1945</strong></td>
+<td data-label="Événement"><strong>Le Grand Confinement</strong> : décrets d'isolation du monde magique</td>
+<td data-label="Qui">Cassiopée Valemont</td>
+</tr>
+</tbody>
+</table></div></section><section class="panel" id="fiche-4-autres-dates-du-lore-personnages-illustres"><h2>Autres dates du lore (personnages illustres)</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Événement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Date">XIVe siècle</td>
+<td data-label="Événement">Crise des Archives, les Valemont sauvent les savoirs</td>
+</tr>
+<tr>
+<td data-label="Date">XVe siècle</td>
+<td data-label="Événement">Edgar Ravenscroft et l'Échoïde → Méthode Ravenscroft</td>
+</tr>
+<tr>
+<td data-label="Date">1666</td>
+<td data-label="Événement">Grand Incendie de Londres, Bénédicte Hearthbane</td>
+</tr>
+<tr>
+<td data-label="Date">1890</td>
+<td data-label="Événement">Expédition de Shedwood, Rowena Glenhart</td>
+</tr>
+<tr>
+<td data-label="Date">1896</td>
+<td data-label="Événement">Première Coupe du Monde de Razeball</td>
+</tr>
+<tr>
+<td data-label="Date">1958</td>
+<td data-label="Événement">Baie de Lituya, Cadoc Caerwyn</td>
+</tr>
+</tbody>
+</table></div></section><section class="panel" id="fiche-4-2026-le-contexte-actuel-le-plus-important-pour-l-oral"><h2>2026 : le contexte actuel (le plus important pour l'oral)</h2><ol>
+<li><strong>Tentative de coup d'État</strong> : l'<strong>Ascendance</strong> attaque l'AMRU pour prendre le contrôle des institutions. <strong>Échec</strong>, mais le <strong>Ministre de l'AMRU est assassiné</strong>. Période d'instabilité. L'AMRU classe l'Ascendance <strong>groupe extrémiste dangereux</strong>.</li>
+<li><strong>Mort d'Arthurius Glenwood</strong> : embuscade de l'Ascendance sur une <strong>île proche d'Elderwood</strong>. Rumeur : membre du <strong>Cercle du Frêne</strong>. <strong>Adam Wrightmoore</strong>, dirigeant présumé de l'Ascendance, est <strong>capturé</strong> et incarcéré à <strong>Briseflux</strong>.</li>
+<li><strong>Rupture du Voile</strong> : le Voile d'Elderwood <strong>cède quelques minutes</strong>. Des <strong>plaisanciers</strong> voient et <strong>filment</strong> l'île. Les vidéos circulent, théories.</li>
+<li><strong>Tensions entre les Mondes</strong> : les autorités <strong>renforcent les mesures du Grand Confinement</strong> (plus de discrétion, plus d'isolement). Le <strong>nombre de Dissonants augmente</strong>. Une partie de l'opinion devient réceptive aux idées de l'Ascendance, notamment son <strong>rejet de l'isolement</strong>.</li>
+</ol><p>Fil logique à savoir raconter : coup d'État raté → mort du directeur → Voile qui cède → plus de secret imposé → frustration → l'Ascendance gagne des oreilles.</p></section><section class="panel" id="fiche-4-points-de-vigilance-le-texte-source-varie"><h2>Points de vigilance (le texte source varie)</h2><ul>
+<li><strong>Cercle de Frêne</strong> (fiche personnage) / <strong>Cercle du Frêne</strong> (chronologie).</li>
+<li><strong>Briseflux</strong> (chronologie) / <strong>Brise-Flux</strong> (règlement RPK).</li>
+<li>Glenwood : tué par <strong>Leopold Evenwald</strong> selon des rumeurs, alors que le <strong>dirigeant présumé</strong> arrêté est <strong>Adam Wrightmoore</strong>. Ce sont deux noms différents, ne pas les confondre.</li>
+</ul></section></section><section class="page" id="page-fiche-5" data-route="fiche-5" data-group="revision" hidden><header class="hero hero-fiche-5"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Fiche 5</p><h1>Créatures et entités</h1><p class="hero-src">Source : lore/06-creatures.md . Rien d'ajouté.</p></header><nav class="toc" aria-label="Sur cette page"><span>Sur cette page</span><button type="button" class="chip" data-jump="fiche-5-creatures-magiques">Créatures magiques</button><button type="button" class="chip" data-jump="fiche-5-creatures-legendaires-symboles-des-maisons">Créatures légendaires (symboles des maisons)</button><button type="button" class="chip" data-jump="fiche-5-dragons">Dragons</button><button type="button" class="chip" data-jump="fiche-5-autres-creatures-citees-ailleurs">Autres créatures citées ailleurs</button></nav><section class="panel" id="fiche-5-creatures-magiques"><h2>Créatures magiques</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Créature</th>
+<th>Milieu</th>
+<th>Comportement</th>
+<th>Ce qu'on en tire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Créature"><strong>Brisecerat</strong></td>
+<td data-label="Milieu">Côtes : rochers, plages, abords de lacs</td>
+<td data-label="Comportement">Discret, farouche, lent, se fond dans le décor, <strong>fuit plutôt que se défendre</strong></td>
+<td data-label="Ce qu'on en tire"><strong>Cératine</strong> (dos) : équipements de protection accessibles et durables</td>
+</tr>
+<tr>
+<td data-label="Créature"><strong>Scalvignus</strong></td>
+<td data-label="Milieu">Forêt</td>
+<td data-label="Comportement">Silhouette de <strong>cerf couvert d'écailles</strong>, larges bois ramifiés ; paisible, évite les humains, ne se défend que menacé</td>
+<td data-label="Ce qu'on en tire"><strong>Bois tombés à la fin de l'hiver</strong> : confection de certains <strong>catalyseurs</strong></td>
+</tr>
+<tr>
+<td data-label="Créature"><strong>Échoïde</strong></td>
+<td data-label="Milieu">Lié à son lieu d'origine</td>
+<td data-label="Comportement">Né d'une <strong>structure runique</strong> qui a gardé savoir, souvenirs, personnalité de son créateur. Continue sa fonction (protéger, enseigner). Avec la dégradation des runes : <strong>confus, obsessionnel, dangereux</strong> ; certains se croient le runomancien. <strong>Dangereux et imprévisible.</strong></td>
+<td data-label="Ce qu'on en tire">—</td>
+</tr>
+<tr>
+<td data-label="Créature"><strong>Ornicabal</strong></td>
+<td data-label="Milieu">Semi-aquatique, forêts riveraines</td>
+<td data-label="Comportement"><strong>Sociable, joueuse, apprivoisable</strong>, mais brusquement agressive pour son territoire ou sa nourriture</td>
+<td data-label="Ce qu'on en tire"><strong>Écailles hydrophobes</strong> perdues en grandissant : équipements imperméables, magie de l'eau</td>
+</tr>
+</tbody>
+</table></div></section><section class="panel" id="fiche-5-creatures-legendaires-symboles-des-maisons"><h2>Créatures légendaires (symboles des maisons)</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Créature</th>
+<th>Maison</th>
+<th>Description</th>
+<th>Lien avec le fondateur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Créature"><strong>Ephyr</strong></td>
+<td data-label="Maison">Aerwyn</td>
+<td data-label="Description">Grand <strong>équidé ailé</strong>, farouche, loyal ; lien seulement avec ceux qu'il juge dignes, fidélité presque absolue</td>
+<td data-label="Lien avec le fondateur"><strong>Althea Aerwyn</strong> recueille un jeune Ephyr blessé ; il veille ensuite sur le chantier d'Elderwood depuis les airs</td>
+</tr>
+<tr>
+<td data-label="Créature"><strong>Valdorn</strong></td>
+<td data-label="Maison">Brumval</td>
+<td data-label="Description">Immense <strong>ursidé</strong>, territorial, lié aux forêts anciennes ; <strong>ressent les intentions</strong> ; la végétation reprend vigueur sur son passage</td>
+<td data-label="Lien avec le fondateur"><strong>Brumval</strong> vit plusieurs années à son contact avant la fondation, jusqu'à être accepté</td>
+</tr>
+<tr>
+<td data-label="Créature"><strong>Aetherion</strong></td>
+<td data-label="Maison">Falcon</td>
+<td data-label="Description">Immense <strong>rapace</strong> qui perçoit l'Écho, les Résonances et le Flux ; indépendant, choisit qui l'approche</td>
+<td data-label="Lien avec le fondateur"><strong>Eldric Falcon</strong>, blessé et isolé, est retrouvé grâce à ses cris ; symbole d'instinct, d'observation, de vision</td>
+</tr>
+<tr>
+<td data-label="Créature"><strong>Akkorokamui</strong></td>
+<td data-label="Maison">Venatrix</td>
+<td data-label="Description">Créature <strong>marine titanesque</strong>, intelligence proche de l'humain, <strong>télépathe</strong>, perçoit les intentions cachées</td>
+<td data-label="Lien avec le fondateur"><strong>Thalassia</strong>, la plus célèbre, liée à <strong>Selena Venatrix</strong> ; protectrice des eaux autour d'Elderwood</td>
+</tr>
+</tbody>
+</table></div></section><section class="panel" id="fiche-5-dragons"><h2>Dragons</h2><ul>
+<li>Aujourd'hui <strong>plus légende que réalité</strong>. Récits : êtres immenses, conscients, avides, orgueilleux, ont ravagé des régions.</li>
+<li>Vestiges possibles : <strong>wyvernes</strong> et <strong>wyrms</strong>.</li>
+<li>Personne ne peut affirmer qu'ils existent encore.</li>
+</ul></section><section class="panel" id="fiche-5-autres-creatures-citees-ailleurs"><h2>Autres créatures citées ailleurs</h2><dl class="terms"><div class="term"><dt>Arachnides d'Éther</dt><dd>à Brûlebrume (fiche 2).</dd></div><div class="term"><dt>Léviathan</dt><dd>son réveil cause le cataclysme de la baie de Lituya, 1958 (fiche 3).</dd></div><div class="term"><dt>Fées des bois</dt><dd>aident à la Bibliothèque.</dd></div></dl><p>Rappel règlement : on ne peut <strong>pas</strong> jouer une créature consciente, un hybride ou un lycanthrope en WL classique (fiche 8).</p></section></section><section class="page" id="page-fiche-6" data-route="fiche-6" data-group="revision" hidden><header class="hero hero-fiche-6"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Fiche 6</p><h1>Glossaire du lore</h1><p class="hero-src">Source : lore/05-glossaire.md et termes définis ailleurs dans le lore. Rien d'ajouté.</p></header><section class="panel"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Terme</th>
+<th>Définition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Terme"><strong>Écho</strong></td>
+<td data-label="Définition">Aussi appelé magie, l'origine de toute chose. Le « Premier Murmure ».</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Résonance</strong></td>
+<td data-label="Définition">Réponse propre de chaque être à l'Écho, deux prédispositions génétiques : ressentir et contrôler.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Flux</strong></td>
+<td data-label="Définition">Énergie née de la rencontre entre l'Écho et la Résonance.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Résonant</strong></td>
+<td data-label="Définition">Sorcier : Résonance assez forte pour un Flux exploitable.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Sans-Flux</strong></td>
+<td data-label="Définition">Humain dont la Résonance est trop faible pour un Flux exploitable.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Dissonant</strong></td>
+<td data-label="Définition">Né de parents Sans-Flux, <strong>une seule</strong> des deux prédispositions.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Dissonant (résonant)</strong></td>
+<td data-label="Définition">Né de parents Sans-Flux, <strong>les deux</strong> prédispositions : peut aller à Elderwood.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Voile</strong></td>
+<td data-label="Définition">Phénomène qui dissimule un lieu chargé de Flux aux Sans-Flux (naturel ou artificiel).</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Catalyseur</strong></td>
+<td data-label="Définition">Objet qui canalise le Flux : baguette, sceptre, bâton, flûte, tout instrument magique.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Source de Vehr</strong></td>
+<td data-label="Définition">« La Source », bassin qui révèle la couleur du Flux.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Magie d'usage</strong></td>
+<td data-label="Définition">Magie du quotidien, par le geste et l'instant.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Runomancie</strong></td>
+<td data-label="Définition">Inscrire le Flux dans la durée par des runes (fréquences en symboles) ; plusieurs runes = un accord.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Échoïde</strong></td>
+<td data-label="Définition">Créature née d'une structure runique instable, mémoire de son créateur.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>AMRU</strong></td>
+<td data-label="Définition">Autorités Magiques du Royaume-Uni, autorité centrale.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Ascendance</strong></td>
+<td data-label="Définition">Groupe déclaré extrémiste dangereux ; a tenté un coup d'État en 2026 ; rejette l'isolement du monde magique.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Cercle de/du Frêne</strong></td>
+<td data-label="Définition">Organisation secrète opposée à l'Ascendance (Glenwood y aurait appartenu).</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Grand Confinement</strong></td>
+<td data-label="Définition">1944-1945, décrets d'isolation du monde magique (Cassiopée Valemont), renforcés en 2026.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Secret magique</strong></td>
+<td data-label="Définition">Le fait de ne pas exposer la magie aux Sans-Flux ; défendu strictement par Alistair Valemont.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Razeball / le Raze</strong></td>
+<td data-label="Définition">Sport international sorcier (ex-Razorball).</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Cœur</strong></td>
+<td data-label="Définition">Le but du Razeball.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Couronnes</strong></td>
+<td data-label="Définition">La monnaie (règlement : arnaque max 2500 Couronnes).</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Briseflux / Brise-Flux</strong></td>
+<td data-label="Définition">Centre pénitentiaire, prison (zone RPK).</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Flamme Ouverte</strong></td>
+<td data-label="Définition">Festival de 1463 ouvert à toutes les entités magiques (Hearthbane).</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Tunnel du Faux Pas</strong></td>
+<td data-label="Définition">Dispositif inspiré du réseau runique détourné en 1666.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Chaudronnerie</strong></td>
+<td data-label="Définition">Domaine dissimulé des Belladorn.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Méthode Ravenscroft</strong></td>
+<td data-label="Définition">Neutraliser un système runique instable section par section.</td>
+</tr>
+</tbody>
+</table></div></section></section><section class="page" id="page-fiche-7" data-route="fiche-7" data-group="revision" hidden><header class="hero hero-fiche-7"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Fiche 7</p><h1>Règlement et lexique RP</h1><p class="hero-src">Sources : reglement/01 à 06 . Rien d'ajouté. 68 règles en 6 sections : Général (14), Vocal (1), Lexique RP (23), RolePlay (18), RPK On (8), Familles (4).</p></header><nav class="toc" aria-label="Sur cette page"><span>Sur cette page</span><button type="button" class="chip" data-jump="fiche-7-lexique-rp-la-definition-courte-de-chaque-terme">Lexique RP : la définition courte de chaque terme</button><button type="button" class="chip" data-jump="fiche-7-les-commandes-de-narration">Les commandes de narration</button><button type="button" class="chip" data-jump="fiche-7-roleplay-les-regles-cles">RolePlay : les règles clés</button><button type="button" class="chip" data-jump="fiche-7-general-hrp-l-essentiel">Général (HRP) : l'essentiel</button><button type="button" class="chip" data-jump="fiche-7-vocal-l-essentiel">Vocal : l'essentiel</button></nav><section class="panel" id="fiche-7-lexique-rp-la-definition-courte-de-chaque-terme"><h2>Lexique RP : la définition courte de chaque terme</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Terme</th>
+<th>Statut</th>
+<th>Définition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Terme"><strong>Metagaming</strong></td>
+<td data-label="Statut">Interdit</td>
+<td data-label="Définition">Utiliser en RP des infos obtenues hors RP (vocal, chat, streams…).</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Freekill</strong></td>
+<td data-label="Statut">Interdit</td>
+<td data-label="Définition">Tuer sans raison RP valable ni contexte.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Revenge Kill</strong></td>
+<td data-label="Statut">Interdit</td>
+<td data-label="Définition">Revenir se venger après la mort de son perso (la mort RP efface la mémoire des événements qui y ont mené).</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Free Attack</strong></td>
+<td data-label="Statut">Interdit</td>
+<td data-label="Définition">Attaquer sans raison RP ni interaction préalable.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Fear RP</strong></td>
+<td data-label="Statut"><strong>Obligatoire</strong></td>
+<td data-label="Définition">Réagir avec réalisme face à une menace sérieuse (otage, torture, surnombre, prof, directeur, créature). Sinon c'est du <strong>No-Fear</strong>.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Bunny Hopping</strong></td>
+<td data-label="Statut">Interdit</td>
+<td data-label="Définition">Sauter sans arrêt pour esquiver / avantage en combat ou fuite.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Cheat / Use bug</strong></td>
+<td data-label="Statut">Interdit</td>
+<td data-label="Définition">Cheats, scripts, mods, bugs pour un avantage. Bug trouvé = ticket.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Mass RP</strong></td>
+<td data-label="Statut">À respecter</td>
+<td data-label="Définition">Tenir compte des PNJ/civils présents (ex. ne pas entrer chez le directeur sans invitation).</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Pain RP</strong></td>
+<td data-label="Statut"><strong>Obligatoire</strong></td>
+<td data-label="Définition">Jouer la douleur de façon crédible (grimacer, ralentir…).</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>StreamHack</strong></td>
+<td data-label="Statut">Interdit</td>
+<td data-label="Définition">Utiliser le stream d'un autre joueur pour s'avantager.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Force RP</strong></td>
+<td data-label="Statut">Interdit</td>
+<td data-label="Définition">Imposer une action ou conséquence à un autre joueur sans son accord.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Power Gaming</strong></td>
+<td data-label="Statut">Interdit</td>
+<td data-label="Définition">User de la physique du jeu pour faire l'irréalisable dans l'univers.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Safe RP</strong></td>
+<td data-label="Statut">Interdit</td>
+<td data-label="Définition">Toujours protéger son perso sans jamais prendre de risque.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Win RP</strong></td>
+<td data-label="Statut">Interdit</td>
+<td data-label="Définition">Toujours réussir, sans échec ni conséquence.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Logique RP</strong></td>
+<td data-label="Statut">À respecter</td>
+<td data-label="Définition">Pas de changement soudain de caractère, histoire, apparence sans justification progressive.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>NLR</strong> (New Life Rule)</td>
+<td data-label="Statut">À respecter</td>
+<td data-label="Définition">Après la mort : oublier ce qui précède sous <strong>15 min</strong> ; pas de retour sur la zone pendant <strong>20 min</strong> minimum (sauf accord RP / staff).</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>RPK Flash</strong></td>
+<td data-label="Statut">Interdit</td>
+<td data-label="Définition">Tuer juste après avoir croisé quelqu'un, sans interaction. Tout meurtre : scénario + interaction + <strong>ticket RPK validé</strong>. Une scène RPK doit être longue, développée, rendre hommage au perso. (Ne s'applique pas en cas de NoFear ou de non-respect des zones RPK.)</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>AFK Farm</strong></td>
+<td data-label="Statut">Interdit</td>
+<td data-label="Définition">Progresser ou gagner des ressources en étant inactif.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Roll</strong></td>
+<td data-label="Statut">Règle</td>
+<td data-label="Définition"><code>/roll</code> pour une même action espacés d'<strong>1 min</strong> (sauf échec critique).</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>FairPlay</strong></td>
+<td data-label="Statut">À respecter</td>
+<td data-label="Définition">Honnêteté, respect, pas d'avantage injuste.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Double Voc</strong></td>
+<td data-label="Statut">Interdit</td>
+<td data-label="Définition">Être en vocal Discord en même temps qu'en jeu en RP.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>ERP</strong></td>
+<td data-label="Statut">Interdit</td>
+<td data-label="Définition">Scènes sexuelles interdites ; romances autorisées dans le respect.</td>
+</tr>
+<tr>
+<td data-label="Terme"><strong>Insinuations HRP</strong></td>
+<td data-label="Statut">Interdit</td>
+<td data-label="Définition">Allusions hors RP en jeu (« je suis dans ma tête », « appuie sur K », « le sort que t'as débloqué »).</td>
+</tr>
+</tbody>
+</table></div><div class="entries grid"><article class="entry"><h3>Le barème du /roll</h3><div class="entry-body"><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Résultat</th>
+<th>Degré</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Résultat">1 à 10</td>
+<td data-label="Degré">Échec critique</td>
+</tr>
+<tr>
+<td data-label="Résultat">11 à 49</td>
+<td data-label="Degré">Échec</td>
+</tr>
+<tr>
+<td data-label="Résultat">50 à 89</td>
+<td data-label="Degré">Réussite</td>
+</tr>
+<tr>
+<td data-label="Résultat">90 à 100</td>
+<td data-label="Degré">Réussite critique</td>
+</tr>
+</tbody>
+</table></div></div></article><article class="entry"><h3>Remplacer une insinuation HRP (exemples officiels)</h3><div class="entry-body"><ul>
+<li>« Je suis dans ma tête » → « J'ai besoin de rester seul un peu. » ou <code>/it Cornellius semblera absorbé par ses pensées</code>.</li>
+<li>« Appuie sur ton muscle K » → le demander sur Discord, dans les salons HRP.</li>
+<li>« Ton sort débloqué en cours » → « que tu as <strong>appris</strong> ».</li>
+<li>« Je dois faire le cours parce que j'ai pas le sort » → « je dois apprendre un sortilège / rattraper mon retard ».</li>
+</ul></div></article></div></section><section class="panel" id="fiche-7-les-commandes-de-narration"><h2>Les commandes de narration</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Commande</th>
+<th>Sert à</th>
+<th>Exemple officiel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Commande"><strong>/me</strong></td>
+<td data-label="Sert à">Action <strong>physique</strong> de son perso</td>
+<td data-label="Exemple officiel"><code>/me porte la tasse à ses lèvres</code></td>
+</tr>
+<tr>
+<td data-label="Commande"><strong>/it</strong></td>
+<td data-label="Sert à">Action <strong>environnementale</strong>, pas une action directe</td>
+<td data-label="Exemple officiel"><code>/it Une tension sera ressentie dans la forêt.</code></td>
+</tr>
+<tr>
+<td data-label="Commande"><strong>/na</strong></td>
+<td data-label="Sert à">Narration <strong>globale</strong>, envoyée à <strong>tout le serveur</strong> ; pas de spam</td>
+<td data-label="Exemple officiel"><code>/na Une partie de la forêt sera carbonisée.</code></td>
+</tr>
+</tbody>
+</table></div><ul>
+<li><strong>Une pensée ne s'écrit jamais</strong> en /me, /it ou /na. On peut seulement faire <code>/it X semblera pensif</code>.</li>
+<li>RPK : action en /me ou /it ; l'auteur <strong>peut</strong> faire un /na (pas obligatoire) ; le mort peut faire un texte de fin en /na <strong>sans dire comment ni par qui</strong>.</li>
+</ul></section><section class="panel" id="fiche-7-roleplay-les-regles-cles"><h2>RolePlay : les règles clés</h2><ul>
+<li><strong>Fear RP</strong> face aux profs, directeur, créatures : avoir peur, hésiter, fuir, obéir.</li>
+<li><strong>Nom de famille</strong> originelle/notable/réputée : seulement via <strong>naissance validée</strong> par le staff.</li>
+<li><strong>Vol / arnaque</strong> : jusqu'à <strong>2500 Couronnes</strong>.</li>
+<li><strong>Potions</strong> : effets réels, à jouer (amnésie = on oublie vraiment).</li>
+<li><strong>Coma</strong> : seulement si cohérent (blessure grave, choc), pas pour effacer une mémoire.</li>
+<li><strong>Mage noir</strong> : sur ticket ; élève = autorisation staff pour un arc illégal ; capturé/accusé = <strong>prison à vie ou RPK</strong> sauf décision staff. Pas de magie noire gratuite.</li>
+<li><strong>Créatures conscientes, hybrides, lycanthropes</strong> : slots limités, uniquement via <strong>naissance</strong> ; WL classique = <strong>humain</strong> seulement, sinon <strong>risque de blacklist</strong>. Infection/transformation lycan sous ticket.</li>
+<li><strong>Lettres</strong> : en jeu via le système, logiques (délai, lieu). Lettres sur Discord interdites (metagaming).</li>
+<li><strong>Incantation verbale obligatoire</strong> avant chaque sort ; <strong>pas de sort inventé</strong>.</li>
+<li><strong>Cohérence</strong> : pas d'invincible, omniscient ou super-héros ; les pouvoirs se gagnent en RP.</li>
+<li><strong>Rec</strong> ses scènes pour se défendre en <strong>BDA</strong>.</li>
+<li><strong>Bully RP</strong> : seulement mutuel et cohérent ; jamais empêcher quelqu'un de jouer.</li>
+<li><strong>Main character</strong> : ne pas voler les scènes, ne pas se donner rôles/prophéties/pouvoirs.</li>
+<li><strong>Conséquences</strong> : toute action RP a une conséquence ; le staff ne protège pas de ses choix.</li>
+<li><strong>Autorité</strong> : directeur, profs, surveillants = respect RP obligatoire.</li>
+<li><strong>Temporalité</strong> : <strong>2 semaines IRL = 1 an de scolarité</strong> ; perso de <strong>15 ans pile</strong> à la rentrée.</li>
+<li><strong>Changement de maison</strong> interdit (ni wipe/RPK forcé pour recommencer) : <strong>ban définitif</strong>.</li>
+</ul></section><section class="panel" id="fiche-7-general-hrp-l-essentiel"><h2>Général (HRP) : l'essentiel</h2><ol>
+<li><strong>Nom RP</strong> : original, crédible, format <strong>Prénom Nom</strong>, pas de noms réels/célèbres/trolls, pas de chiffres ni caractères spéciaux.</li>
+<li>Courtoisie, pas de trash du serveur (y compris ailleurs).</li>
+<li>Vocabulaire adapté ; propos haineux interdits <strong>en RP comme hors RP</strong>.</li>
+<li>
+<p>Sanctions : avertissement, kick, ban temporaire ou définitif. Recours par <strong>ticket</strong>.<br/>
+5-6. Pas de langage ni d'insinuation HRP en jeu.</p>
+</li>
+<li>
+<p>Pas de pub pour un autre serveur.</p>
+</li>
+<li>Pas de soundboard ni voice mod.</li>
+<li>Pas d'arnaque boutique ni de manipulation du staff.</li>
+<li>Pas de partage de compte.</li>
+<li>Contestation <strong>uniquement par ticket</strong>, jamais en MP.</li>
+<li>Pas de <strong>déconnexion en scène</strong> pour fuir (crash réel : ticket immédiat).</li>
+<li>Pas de mention staff sans raison : tickets.</li>
+<li>Pas d'use bug ; tout bug se signale par ticket.</li>
+</ol></section><section class="panel" id="fiche-7-vocal-l-essentiel"><h2>Vocal : l'essentiel</h2><ul>
+<li>Les communications vocales (jeu + Discord, BDA, events) peuvent être <strong>enregistrées</strong> par GREAT OWL STUDIO pour modération, litiges, preuves.</li>
+<li>Conservation <strong>24 mois max</strong>, accès réservé à la modération. Contact : direction@greatowlstudio.fr.</li>
+<li>Serveur <strong>réservé aux 18 ans et plus</strong>.</li>
+<li>Les autres joueurs peuvent streamer/enregistrer : c'est sous leur responsabilité.</li>
+</ul></section></section><section class="page" id="page-fiche-8" data-route="fiche-8" data-group="revision" hidden><header class="hero hero-fiche-8"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Fiche 8</p><h1>Créer son personnage et la WL</h1><p class="hero-src">Sources : lore/04-contexte-chronologie.md , reglement/04-roleplay.md , conseils/ . Rien d'ajouté.</p></header><nav class="toc" aria-label="Sur cette page"><span>Sur cette page</span><button type="button" class="chip" data-jump="fiche-8-les-regles-de-creation-lore">Les règles de création (lore)</button><button type="button" class="chip" data-jump="fiche-8-contraintes-wl-a-connaitre-par-cur">Contraintes WL à connaître par cœur</button><button type="button" class="chip" data-jump="fiche-8-ce-que-la-douane-attend">Ce que la douane attend</button><button type="button" class="chip" data-jump="fiche-8-l-oral">L'oral</button></nav><section class="panel" id="fiche-8-les-regles-de-creation-lore"><h2>Les règles de création (lore)</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Règle</th>
+<th>Ce qu'il faut retenir</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Règle">Principe général</td>
+<td data-label="Ce qu'il faut retenir">Tout est possible <strong>sans avantage disproportionné</strong> et <strong>sans imposer de conséquences</strong> au RP des autres ou au lore.</td>
+</tr>
+<tr>
+<td data-label="Règle">Catalyseur</td>
+<td data-label="Ce qu'il faut retenir">Entrée avec une <strong>baguette</strong>. Les autres catalyseurs s'obtiennent en RP sous suivi validé.</td>
+</tr>
+<tr>
+<td data-label="Règle">Noblesse</td>
+<td data-label="Ce qu'il faut retenir">Noblesse <strong>Sans-Flux</strong> possible si sans avantage. <strong>Interdit d'inventer une lignée noble résonante.</strong></td>
+</tr>
+<tr>
+<td data-label="Règle">Dissonants</td>
+<td data-label="Ce qu'il faut retenir">Un Dissonant élève doit <strong>ressentir l'Écho et contrôler son Flux</strong>. Terme <strong>péjoratif</strong> possible.</td>
+</tr>
+<tr>
+<td data-label="Règle">Filiation</td>
+<td data-label="Ce qu'il faut retenir"><strong>Résonant</strong> = <strong>les deux parents</strong> ont chacun les deux prédispositions. Sinon l'enfant est <strong>Dissonant</strong>, même s'il a les deux.</td>
+</tr>
+<tr>
+<td data-label="Règle">Famille et métiers</td>
+<td data-label="Ce qu'il faut retenir">Proches à l'AMRU ou dans l'administration : OK. <strong>Ministre, directeur, haut responsable</strong> : interdit sans validation.</td>
+</tr>
+<tr>
+<td data-label="Règle">Influence familiale</td>
+<td data-label="Ce qu'il faut retenir">Famille inventée riche, ancienne, reconnue : OK. <strong>Pas d'influence politique/institutionnelle majeure.</strong></td>
+</tr>
+<tr>
+<td data-label="Règle">Connaissances</td>
+<td data-label="Ce qu'il faut retenir">Facilités possibles. <strong>Pas de magie avancée ou rare</strong>, pas de <strong>spécialité unique</strong> propre à lui ou sa famille.</td>
+</tr>
+<tr>
+<td data-label="Règle">Lore existant</td>
+<td data-label="Ce qu'il faut retenir">Touché par les grands événements : OK. <strong>Pas de rôle majeur</strong> dedans.</td>
+</tr>
+<tr>
+<td data-label="Règle">Personnages importants</td>
+<td data-label="Ce qu'il faut retenir">Liens directs avec figures majeures ou familles établies : <strong>validation</strong> obligatoire.</td>
+</tr>
+</tbody>
+</table></div></section><section class="panel" id="fiche-8-contraintes-wl-a-connaitre-par-cur"><h2>Contraintes WL à connaître par cœur</h2><ul>
+<li><strong>Humain</strong> uniquement (WL classique).</li>
+<li><strong>15 ans pile</strong> à la rentrée.</li>
+<li>Nom <strong>Prénom Nom</strong>, pas de nom de famille officielle (Dravenholt, Caerwyn, Hearthbane, Valemont, Belladorn, Ravenscroft, Glenhart).</li>
+<li><strong>Pas de maison choisie</strong> ni imposée par l'histoire.</li>
+<li><strong>Candidatures Dissonants fermées</strong> depuis le <strong>23/09/2026 minuit</strong> (annonce du 22/09). Les Dissonants = <strong>10 %</strong> des élèves.</li>
+<li><strong>IA interdite</strong> pour les idées et la rédaction de la candidature (correcteurs type Scribens/Reverso autorisés).</li>
+<li>Pas de liens externes (Canva, Docs) dans le formulaire.</li>
+<li>Délais de carence en cas de refus : <strong>2, puis 4, puis 7 jours</strong>.</li>
+<li><strong>Horizon</strong> = où on voit son perso au <strong>très long terme</strong>.</li>
+<li>Frères et sœurs possibles, mais identité, personnalité et objectifs propres. Duo/trio : préciser qui sont des persos joueurs.</li>
+<li>Launcher <strong>Windows uniquement</strong> ; clé Nanos World via Steam après acceptation.</li>
+</ul></section><section class="panel" id="fiche-8-ce-que-la-douane-attend"><h2>Ce que la douane attend</h2><p><strong>Histoire</strong> : cohérente avec l'univers, réaliste, adaptée à un enfant de 15 ans <strong>qui n'a jamais tenu de baguette</strong>, fluide, avec de la profondeur. Ajouter une partie <strong>Caractère</strong> (2-3 lignes : adjectifs, qualités, défauts).</p><p><strong>Redflags histoire</strong> : lien avec des persos importants du lore ; famille ultra célèbre ; maison attribuée ; passé trop parfait ; nom troll ; réputation déjà faite ; perso centré sur lui-même ; aucune direction RP.</p><p><strong>Motivations</strong> : donner envie d'interagir, créer des interactions, évoluer dans le temps, donner une direction. Transformer le passif (« comprendre ») en <strong>objectifs actifs</strong>. Format <strong>court / moyen / long terme</strong> ou <strong>début / pendant / après l'école</strong>.</p><p><strong>Redflags motivations</strong> : devenir le plus fort ; objectifs qui n'intéressent personne ; « former un cercle » sans but actif ; réussir ses examens ; devenir sorcier ; suivre les cours.</p><p><strong>Refus</strong> : incohérente, trop puissante, hors lore, pas de vraie motivation, trop vide ou générique. Le staff explique, mais <strong>ne réécrit pas</strong>.</p><p><strong>Pas obligatoire</strong> : passé tragique, secret incroyable, famille importante, événement exceptionnel.</p></section><section class="panel" id="fiche-8-l-oral"><h2>L'oral</h2><ul>
+<li><strong>Bon micro obligatoire</strong>, celui avec lequel tu joueras.</li>
+<li>Porte sur : <strong>règlement HRP/RP, lexique, tout le lore, histoire et objectifs de ton perso</strong>.</li>
+<li>Tout est sur le launcher d'Elderwood.</li>
+</ul></section></section><section class="page" id="page-fiche-9" data-route="fiche-9" data-group="revision" hidden><header class="hero hero-fiche-9"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Fiche 9</p><h1>Zones RPK</h1><p class="hero-src">Source : reglement/05-rpk-on.md . Rien d'ajouté.</p></header><section class="panel" id="fiche-9-le-principe"><h2>Le principe</h2><ul>
+<li><strong>RPK</strong> = mort définitive du personnage.</li>
+<li>Pour tuer : <strong>ticket RPK actif</strong> OU <strong>accord HRP</strong> de la victime. Avec l'accord HRP, <strong>la victime</strong> doit le signaler au staff par ticket.</li>
+<li>Interdit d'<strong>attirer quelqu'un dans une zone RPK</strong> contre son gré pour l'y faire tuer sans ticket (= Force RP).</li>
+<li>Tuer, même avec ticket ou accord, <strong>n'exempte pas des conséquences RP</strong>.</li>
+</ul></section><section class="panel" id="fiche-9-les-7-zones"><h2>Les 7 zones</h2><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Zone</th>
+<th>Niveau</th>
+<th>Règle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Zone"><strong>Forêt de Brûlebrume</strong></td>
+<td data-label="Niveau">À risque</td>
+<td data-label="Règle">On peut y trouver la mort selon les situations.</td>
+</tr>
+<tr>
+<td data-label="Zone"><strong>Cathédrale abandonnée et cimetière</strong></td>
+<td data-label="Niveau">À risque</td>
+<td data-label="Règle">Mort possible ; <strong>pas de meurtre sans ticket</strong>.</td>
+</tr>
+<tr>
+<td data-label="Zone"><strong>Grottes</strong></td>
+<td data-label="Niveau">À risque</td>
+<td data-label="Règle">Mort possible ; <strong>pas de meurtre sans ticket</strong>.</td>
+</tr>
+<tr>
+<td data-label="Zone"><strong>Île de la Tour</strong></td>
+<td data-label="Niveau"><strong>Très haut risque</strong></td>
+<td data-label="Règle">Au large d'Elderwood, tour en ruines + <strong>phare abandonné</strong>. Sans invitation : les occupants sont libres de te tuer. <strong>Sans porte de sortie.</strong></td>
+</tr>
+<tr>
+<td data-label="Zone"><strong>Bureau du Directeur</strong></td>
+<td data-label="Niveau">Sans invitation</td>
+<td data-label="Règle"><strong>RPK sans porte de sortie.</strong></td>
+</tr>
+<tr>
+<td data-label="Zone"><strong>Siège de l'AMRU</strong></td>
+<td data-label="Niveau">Hors hall central (public)</td>
+<td data-label="Règle">Zone non publique sans invitation : <strong>RPK sans porte de sortie.</strong></td>
+</tr>
+<tr>
+<td data-label="Zone"><strong>Prison de Brise-Flux</strong></td>
+<td data-label="Niveau">Sans laisser-passer AMRU / autorisation</td>
+<td data-label="Règle"><strong>RPK sans porte de sortie.</strong> Les <strong>abords</strong> aussi sont RPK : porte de sortie la 1re fois, <strong>aucune en récidive</strong>.</td>
+</tr>
+</tbody>
+</table></div><p>Mémo : <strong>3 « à risque »</strong> (forêt, cathédrale/cimetière, grottes) + <strong>4 « sans porte de sortie »</strong> (île de la Tour, bureau du directeur, AMRU, prison).</p><p>Lien avec le lexique : la règle anti-RPK Flash <strong>ne s'applique pas</strong> si tu ne respectes pas les zones RPK ou si tu fais du NoFear.</p></section></section><section class="page" id="page-fiche-10" data-route="fiche-10" data-group="revision" hidden><header class="hero hero-fiche-10"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Fiche 10</p><h1>Mon personnage (à remplir moi-même)</h1><p class="hero-src">Le règlement interdit l'IA pour les idées et la rédaction de la candidature. Cette fiche ne contient aucune réponse : seulement les questions que la douane peut poser à l'oral. Les réponses doivent venir de toi et coller mot pour mot à ce que tu as envoyé.</p></header><nav class="toc" aria-label="Sur cette page"><span>Sur cette page</span><button type="button" class="chip" data-jump="fiche-10-identite">Identité</button><button type="button" class="chip" data-jump="fiche-10-histoire">Histoire</button><button type="button" class="chip" data-jump="fiche-10-objectifs">Objectifs</button><button type="button" class="chip" data-jump="fiche-10-pieges-classiques-de-l-oral">Pièges classiques de l'oral</button></nav><section class="panel" id="fiche-10-identite"><h2>Identité</h2><ul>
+<li>Nom complet, âge à la rentrée (rappel : 15 ans pile), statut (Résonant / Dissonant) et pourquoi.</li>
+<li>Qui sont tes parents ? Ont-ils chacun les deux prédispositions ? Que font-ils ?</li>
+<li>Ta famille est-elle de « lignée pure » au sens social ? Pourquoi ?</li>
+<li>Quel catalyseur à l'arrivée ?</li>
+</ul></section><section class="panel" id="fiche-10-histoire"><h2>Histoire</h2><ul>
+<li>Résume ton histoire en 1 minute, sans lire.</li>
+<li>Quel événement du lore a touché ton perso, et pourquoi n'y a-t-il <strong>pas</strong> joué de rôle majeur ?</li>
+<li>Quel est son caractère : 3 qualités, 3 défauts, et un exemple de chacun dans ton histoire.</li>
+<li>Qu'est-ce qu'il sait faire ou ne pas faire en arrivant ? (Rien d'avancé ni de rare.)</li>
+<li>Quelle maison imagines-tu, et pourquoi tu ne peux pas la choisir ?</li>
+</ul></section><section class="panel" id="fiche-10-objectifs"><h2>Objectifs</h2><ul>
+<li>Pendant l'école : quoi, quand, comment, avec qui, pourquoi.</li>
+<li>Après l'école : même chose.</li>
+<li>L'horizon : où est-il au très long terme ?</li>
+<li>Quels autres joueurs vont avoir du jeu grâce à tes objectifs ?</li>
+<li>Qu'est-ce qui peut faire échouer ton perso, et comment tu le jouerais ?</li>
+</ul></section><section class="panel" id="fiche-10-pieges-classiques-de-l-oral"><h2>Pièges classiques de l'oral</h2><ul>
+<li>Contradiction entre l'écrit et l'oral.</li>
+<li>Perso qui « sait déjà » ce qu'il apprendra à Elderwood.</li>
+<li>Objectif passif (« comprendre », « apprendre ») sans scène concrète.</li>
+<li>Lien avec une famille officielle ou une figure du lore non validé.</li>
+</ul></section></section><section class="page" id="page-quiz" data-route="quiz" data-group="revision" hidden><header class="hero hero-quiz"><div class="hero-art" aria-hidden="true"></div><p class="kicker">Entraînement à l'oral</p><h1>Quiz type oral</h1></header><div class="quiz-tools"><p>94 questions. Réponds à voix haute, puis dévoile la réponse.</p><button type="button" class="btn btn-ghost" data-quiz="open">Tout dévoiler</button><button type="button" class="btn btn-ghost" data-quiz="close">Tout replier</button></div><nav class="toc" aria-label="Sur cette page"><span>Sur cette page</span><button type="button" class="chip" data-jump="quiz-magie">Magie</button><button type="button" class="chip" data-jump="quiz-statuts-et-filiation">Statuts et filiation</button><button type="button" class="chip" data-jump="quiz-ecole-et-maisons">École et maisons</button><button type="button" class="chip" data-jump="quiz-societe-familles-personnages">Société, familles, personnages</button><button type="button" class="chip" data-jump="quiz-chronologie">Chronologie</button><button type="button" class="chip" data-jump="quiz-creatures">Créatures</button><button type="button" class="chip" data-jump="quiz-razeball">Razeball</button><button type="button" class="chip" data-jump="quiz-lexique-rp">Lexique RP</button><button type="button" class="chip" data-jump="quiz-regles-roleplay-et-hrp">Règles RolePlay et HRP</button><button type="button" class="chip" data-jump="quiz-zones-rpk">Zones RPK</button><button type="button" class="chip" data-jump="quiz-creation-de-perso">Création de perso</button></nav><section class="panel" id="quiz-magie"><h2>Magie</h2><ol class="quiz">
+<li class="q"><p class="q-text">Quelle est la différence entre l'Écho, la Résonance et le Flux ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>L'Écho est la force originelle présente en toute chose. La Résonance est la façon dont un être y répond (deux prédispositions : ressentir et contrôler). Le Flux naît de la rencontre des deux, c'est la magie manipulable.</p></details></li>
+<li class="q"><p class="q-text">Le Flux est-il une réserve stockée dans le corps du sorcier ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Non. C'est une énergie qui naît de la relation entre l'Écho et la Résonance.</p></details></li>
+<li class="q"><p class="q-text">Qu'est-ce qui détermine qu'on peut pratiquer la magie : le sang ou la Résonance ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>La Résonance, pas le sang ni la naissance.</p></details></li>
+<li class="q"><p class="q-text">Quels sont les quatre éléments qui permettent d'apprivoiser le Flux ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>L'intention, le geste, l'incantation et un catalyseur.</p></details></li>
+<li class="q"><p class="q-text">Cite des catalyseurs.</p><details class="q-answer"><summary>Voir la réponse</summary><p>Baguette, sceptre, bâton, flûte, ou tout autre instrument magique.</p></details></li>
+<li class="q"><p class="q-text">Qu'est-ce qui révèle la couleur du Flux ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>L'eau de la Source de Vehr (« la Source »).</p></details></li>
+<li class="q"><p class="q-text">Associe chaque couleur à sa maison et à ses trois mots.</p><details class="q-answer"><summary>Voir la réponse</summary><p>Bleu = Aerwyn (Courage, Protection, Action). Vert = Brumval (Stabilité, Loyauté, Continuité). Orange = Falcon (Savoir, Curiosité, Créativité). Violet = Venatrix (Maîtrise, Stratégie, Influence).</p></details></li>
+<li class="q"><p class="q-text">Un Flux Bleu, c'est forcément un combattant ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Non. Boucliers, soutien, évacuation : ce qui les unit, c'est se placer entre le danger et ceux qu'on protège, pas la violence.</p></details></li>
+<li class="q"><p class="q-text">Qu'est-ce que le Voile ? Quelles sont ses deux formes ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Un phénomène qui rend un lieu chargé de Flux difficile à remarquer pour les Sans-Flux. Naturel (spontané) ou artificiel (posé par des sorciers) ; l'artificiel peut perturber le naturel.</p></details></li>
+<li class="q"><p class="q-text">Que se passe-t-il quand un lieu est trop chargé en Flux ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Il devient imprévisible ; c'est ainsi que naissent les Échoïdes.</p></details></li>
+<li class="q"><p class="q-text">Quelle responsabilité implique le statut de Résonant ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Ne pas exposer la magie aux Sans-Flux.</p></details></li>
+<li class="q"><p class="q-text">Comment réagissent les Sans-Flux face à la magie ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Ils peuvent apercevoir des choses ou traverser un Voile affaibli, mais leur esprit rationalise et se tourne vers la science.</p></details></li>
+<li class="q"><p class="q-text">Différence entre Magie d'usage et Runomancie ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>La Magie d'usage agit par le geste et l'instant. La Runomancie inscrit le Flux dans la durée grâce aux runes ; plusieurs runes forment un accord.</p></details></li>
+<li class="q"><p class="q-text">Qu'est-ce qu'une rune ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Une fréquence retranscrite en symbole, une harmonie observée dans l'Écho.</p></details></li>
+</ol></section><section class="panel" id="quiz-statuts-et-filiation"><h2>Statuts et filiation</h2><ol class="quiz" start="15">
+<li class="q"><p class="q-text">Qu'est-ce qu'un Dissonant ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Quelqu'un né (souvent de parents Sans-Flux) avec une prédisposition liée à la Résonance. La plupart n'en ont qu'une ; les rares qui ont les deux sont pleinement Résonants et peuvent aller à Elderwood. Le terme est aussi péjoratif.</p></details></li>
+<li class="q"><p class="q-text">Qui repère les Dissonants aptes à la magie ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>L'AMRU, qui les invite à Elderwood.</p></details></li>
+<li class="q"><p class="q-text">Un enfant a les deux prédispositions, mais l'un de ses parents n'en a qu'une. Il est quoi ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Dissonant. Pour être Résonant, les deux parents doivent chacun avoir les deux prédispositions.</p></details></li>
+<li class="q"><p class="q-text">Peut-on encore candidater en Dissonant ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Non, fermé depuis le 23/09/2026 à minuit. Ils représentent 10 % des élèves.</p></details></li>
+<li class="q"><p class="q-text">Quand dit-on qu'une famille est de « lignée pure » ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Quand il y a plusieurs générations de Résonants chez les ancêtres (opinion sociale).</p></details></li>
+</ol></section><section class="panel" id="quiz-ecole-et-maisons"><h2>École et maisons</h2><ol class="quiz" start="20">
+<li class="q"><p class="q-text">Quand et par qui la Source a-t-elle été découverte ? Et l'école fondée ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>1298 par Falcon, sur une île sans nom protégée par un voile. Fondation en 1300 par Falcon, Aerwyn, Venatrix et Brumval.</p></details></li>
+<li class="q"><p class="q-text">Donne le prénom de chaque fondateur.</p><details class="q-answer"><summary>Voir la réponse</summary><p>Althea Aerwyn, Hector Brumval, Eldric Falcon, Selena Venatrix.</p></details></li>
+<li class="q"><p class="q-text">Quelle est la devise de chaque maison ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Aerwyn : « J'agis avec droiture et intégrité. » Brumval : « Ma force, c'est de rester fidèle à ceux qui comptent sur moi. » Falcon : « La connaissance est une arme redoutable. » Venatrix : « Qui connaît les ficelles contrôle le jeu ».</p></details></li>
+<li class="q"><p class="q-text">Quelle créature symbolise chaque maison ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Aerwyn : Ephyr. Brumval : Valdorn. Falcon : Aetherion. Venatrix : Akkorokamui.</p></details></li>
+<li class="q"><p class="q-text">Nomme les quatre salles communes.</p><details class="q-answer"><summary>Voir la réponse</summary><p>Veillée Bleue (Aerwyn), Grand Foyer (Brumval), Observatoire des Hautes-Vues (Falcon), Salon des Ombres (Venatrix).</p></details></li>
+<li class="q"><p class="q-text">Quel est le seul lieu où toutes les maisons se retrouvent ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>La Grande Salle.</p></details></li>
+<li class="q"><p class="q-text">Où se trouve la Forge Runique et qui y a accès ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Profondément sous le château, réservée aux élèves avancés.</p></details></li>
+<li class="q"><p class="q-text">Pourquoi l'infirmerie s'appelle-t-elle Grimshaw ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>En hommage à Edith Grimshaw, ancienne médicomage qui a relié sa magie à celle d'élèves malades et ne l'a jamais entièrement retrouvée.</p></details></li>
+<li class="q"><p class="q-text">Qu'est-ce que Brûlebrume ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Une zone à haut risque de brume grise et corrosive, sanctuaire des Arachnides d'Éther. Zone RPK.</p></details></li>
+<li class="q"><p class="q-text">Peut-on choisir ou changer de maison ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Non. On ne s'attribue pas de maison en WL, et le changement de maison (y compris par wipe/RPK forcé) = ban définitif.</p></details></li>
+</ol></section><section class="panel" id="quiz-societe-familles-personnages"><h2>Société, familles, personnages</h2><ol class="quiz" start="30">
+<li class="q"><p class="q-text">Qu'est-ce que l'AMRU et quel est son lien avec Elderwood ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Les Autorités Magiques du Royaume-Uni, autorité centrale (lois, sécurité, institutions, régulation). Elderwood garde son autonomie mais reste un interlocuteur essentiel.</p></details></li>
+<li class="q"><p class="q-text">Cite les familles originelles et leur maison.</p><details class="q-answer"><summary>Voir la réponse</summary><p>Caerwyn (Aerwyn), Hearthbane (Brumval), Valemont (Falcon), Dravenholt (Venatrix).</p></details></li>
+<li class="q"><p class="q-text">Cite les familles notables et leur spécialité.</p><details class="q-answer"><summary>Voir la réponse</summary><p>Belladorn (alchimie), Ravenscroft (runomancie), Glenhart (créatures).</p></details></li>
+<li class="q"><p class="q-text">Combien de membres max pour une famille non officielle ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>5. Au-delà de 3 joueurs, on ouvre un ticket pour l'archiver et réserver le nom.</p></details></li>
+<li class="q"><p class="q-text">Qui représente chaque famille originelle aujourd'hui ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Seraphine Caerwyn (capitaine de Razeball des Aerwyn), Petra Hearthbane (4e année), Ebenezer Valemont (héritier), Isolde Dravenholt (5e année).</p></details></li>
+<li class="q"><p class="q-text">Les deux traditions des Glenhart ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Les Compagnons (soin, confiance, observation rapprochée) et les Arpenteurs (territoires sauvages).</p></details></li>
+<li class="q"><p class="q-text">Comment s'appelle le domaine des Belladorn ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>La Chaudronnerie.</p></details></li>
+<li class="q"><p class="q-text">Qu'a fait Cadoc Caerwyn ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>En 1958, baie de Lituya, avec trois Aerwyn, il refuse d'évacuer après le réveil d'un Léviathan et tient une barrière 3 jours et 3 nuits. Il y perd un bras.</p></details></li>
+<li class="q"><p class="q-text">Qu'a fait Bénédicte Hearthbane ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>En 1666, pendant le Grand Incendie de Londres, elle détourne un réseau runique pour évacuer les familles résonantes sans se révéler. Cela inspire le Tunnel du Faux Pas.</p></details></li>
+<li class="q"><p class="q-text">Qu'est-ce que la Méthode Ravenscroft ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Neutraliser un système runique instable section par section, plutôt que le détruire. Créée par Edgar Ravenscroft au XVe siècle face à un Échoïde.</p></details></li>
+<li class="q"><p class="q-text">Que s'est-il passé lors de l'Expédition de Shedwood ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>1890, Rowena Glenhart, 40 jours en forêt de Shedwood. Documentation majeure, mais deux membres disparus sans corps ni matériel ; elle n'a jamais dit ce qui s'est passé.</p></details></li>
+<li class="q"><p class="q-text">Qui est Maeve Storm ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>« La dernière Garde », élève au Flux Bleu exceptionnel qui a protégé seule Shedwood d'un bouclier jusqu'au dernier évacué, puis est morte. Sa statue est sur la place de Shedwood.</p></details></li>
+<li class="q"><p class="q-text">Quelle est la position d'Alistair Valemont ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Haut placé de l'AMRU, il défend une application stricte du Secret magique ; associé aux décisions les plus conservatrices.</p></details></li>
+</ol></section><section class="panel" id="quiz-chronologie"><h2>Chronologie</h2><ol class="quiz" start="43">
+<li class="q"><p class="q-text">Qu'est-ce que la Sentence de Mireille ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>1432, sanction controversée appliquée par Gwendolyn Caerwyn, qui divise encore la maison Aerwyn.</p></details></li>
+<li class="q"><p class="q-text">Qu'est-ce que la Flamme Ouverte ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>1463, premier grand festival ouvert à toutes les entités magiques, organisé par Elspeth Hearthbane.</p></details></li>
+<li class="q"><p class="q-text">Qu'est-ce que le Grand Confinement ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>1944-1945, décrets d'isolation du monde magique rédigés par Cassiopée Valemont. Renforcés en 2026.</p></details></li>
+<li class="q"><p class="q-text">Raconte les quatre événements de 2026.</p><details class="q-answer"><summary>Voir la réponse</summary><p>1) Coup d'État raté de l'Ascendance, le Ministre de l'AMRU est assassiné, l'Ascendance est déclarée extrémiste. 2) Arthurius Glenwood meurt dans une embuscade ; Adam Wrightmoore est capturé et emprisonné à Briseflux. 3) Rupture du Voile : l'île visible quelques minutes, filmée par des plaisanciers. 4) Tensions : mesures de confinement renforcées, hausse des Dissonants, une partie de l'opinion séduite par l'Ascendance.</p></details></li>
+<li class="q"><p class="q-text">Pourquoi certains sont-ils réceptifs aux idées de l'Ascendance ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Les contraintes d'isolement pèsent lourd ; l'Ascendance rejette cet isolement imposé.</p></details></li>
+<li class="q"><p class="q-text">Qui aurait tué Glenwood selon les rumeurs, et à quelle organisation aurait-il appartenu ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Leopold Evenwald. Le Cercle de Frêne (ou du Frêne), organisation secrète opposée à l'Ascendance.</p></details></li>
+</ol></section><section class="panel" id="quiz-creatures"><h2>Créatures</h2><ol class="quiz" start="49">
+<li class="q"><p class="q-text">Quelle créature fournit des bois pour les catalyseurs ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Le Scalvignus (cerf à écailles) ; ses bois tombent à la fin de l'hiver.</p></details></li>
+<li class="q"><p class="q-text">Qu'est-ce que la cératine ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>La matière souple et résistante du dos du Brisecerat, pour des équipements de protection.</p></details></li>
+<li class="q"><p class="q-text">Quelle créature est apprivoisable mais peut devenir agressive ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>L'Ornicabal (territoire ou nourriture). Écailles hydrophobes.</p></details></li>
+<li class="q"><p class="q-text">Comment naît un Échoïde et pourquoi est-il dangereux ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>D'une structure runique qui a gardé la mémoire de son créateur. Avec la dégradation des runes il devient confus, obsessionnel, dangereux ; certains se croient le runomancien.</p></details></li>
+<li class="q"><p class="q-text">Comment s'appelle l'Akkorokamui lié à Selena Venatrix ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Thalassia.</p></details></li>
+<li class="q"><p class="q-text">Les dragons existent-ils encore ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Personne ne peut l'affirmer. Il reste des lignées comme les wyvernes et les wyrms.</p></details></li>
+</ol></section><section class="panel" id="quiz-razeball"><h2>Razeball</h2><ol class="quiz" start="55">
+<li class="q"><p class="q-text">Qui a codifié le Razeball, et quand ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Corvinus Valemont, en 1863, à Elderwood. Première Coupe du Monde en 1896, puis tous les 4 ans.</p></details></li>
+<li class="q"><p class="q-text">Combien de joueurs et quels postes ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Six : un Gardien et cinq joueurs de champ (Finishers, Playmakers, Enforcers, Lights Out).</p></details></li>
+<li class="q"><p class="q-text">Comment s'appelle le but ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Le Cœur.</p></details></li>
+</ol></section><section class="panel" id="quiz-lexique-rp"><h2>Lexique RP</h2><ol class="quiz" start="58">
+<li class="q"><p class="q-text">Définis le metagaming. Exemple ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Utiliser en RP une info obtenue hors RP. Exemples de sources interdites : vocal, chat, streams.</p></details></li>
+<li class="q"><p class="q-text">Freekill vs Free Attack vs RPK Flash ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Freekill : tuer sans raison RP. Free Attack : agresser sans raison ni interaction. RPK Flash : tuer juste après avoir croisé quelqu'un, sans interaction ni ticket.</p></details></li>
+<li class="q"><p class="q-text">Que dit la NLR ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Après la mort : oublier ce qui précède sous 15 minutes, et ne pas revenir sur la zone pendant 20 minutes minimum.</p></details></li>
+<li class="q"><p class="q-text">Qu'est-ce que le Fear RP ? Donne un exemple de No-Fear.</p><details class="q-answer"><summary>Voir la réponse</summary><p>Réagir avec réalisme face à une menace (prof, directeur, créature, surnombre). No-Fear : se moquer de quelqu'un bien plus puissant alors qu'on est en position de faiblesse.</p></details></li>
+<li class="q"><p class="q-text">Pain RP ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Jouer la douleur de façon crédible : pas de course normale après une blessure grave.</p></details></li>
+<li class="q"><p class="q-text">Force RP ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Imposer une action ou conséquence à un autre joueur sans son accord.</p></details></li>
+<li class="q"><p class="q-text">Power Gaming ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>User de la physique du jeu pour faire des choses irréalisables dans l'univers.</p></details></li>
+<li class="q"><p class="q-text">Safe RP et Win RP ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Safe RP : ne jamais prendre de risque pour protéger son perso. Win RP : toujours réussir, sans échec ni conséquence.</p></details></li>
+<li class="q"><p class="q-text">Mass RP ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Tenir compte de la présence des PNJ/civils, adapter son comportement (ex. ne pas entrer chez le directeur sans invitation).</p></details></li>
+<li class="q"><p class="q-text">Donne les paliers du /roll.</p><details class="q-answer"><summary>Voir la réponse</summary><p>1-10 échec critique, 11-49 échec, 50-89 réussite, 90-100 réussite critique. Une minute entre deux rolls pour la même action, sauf échec critique.</p></details></li>
+<li class="q"><p class="q-text">Double Voc ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Interdit d'être en vocal Discord en même temps qu'en jeu en RP.</p></details></li>
+<li class="q"><p class="q-text">Transforme « je suis dans ma tête » en phrase RP.</p><details class="q-answer"><summary>Voir la réponse</summary><p>« J'ai besoin de rester seul un peu. » ou /it [Nom] semblera absorbé par ses pensées.</p></details></li>
+</ol></section><section class="panel" id="quiz-regles-roleplay-et-hrp"><h2>Règles RolePlay et HRP</h2><ol class="quiz" start="70">
+<li class="q"><p class="q-text">Différence entre /me, /it et /na ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>/me : action physique de son perso. /it : action environnementale. /na : narration globale envoyée à tout le serveur, sans spam.</p></details></li>
+<li class="q"><p class="q-text">Peut-on écrire une pensée en /me ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Non. Jamais en /me, /it ou /na. Au plus « /it X semblera pensif ».</p></details></li>
+<li class="q"><p class="q-text">Après un RPK, que peut faire le joueur mort ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Un texte de fin en /na, sans dire comment ni par qui il est mort.</p></details></li>
+<li class="q"><p class="q-text">Quel montant max peut-on arnaquer ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>2500 Couronnes.</p></details></li>
+<li class="q"><p class="q-text">Peut-on inventer un sort ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Non. Incantation verbale obligatoire avant chaque sort, avec les vraies formules du lore.</p></details></li>
+<li class="q"><p class="q-text">Peut-on envoyer une lettre RP par Discord ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Non, c'est du metagaming. Lettres via le système en jeu, avec un délai logique.</p></details></li>
+<li class="q"><p class="q-text">Quelle est la temporalité du serveur ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>2 semaines IRL = 1 an de scolarité. Le perso a 15 ans pile à la rentrée.</p></details></li>
+<li class="q"><p class="q-text">Que risque un élève pris pour magie noire ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Prison à vie ou RPK, sauf décision du staff. Le RP mage noir se demande par ticket.</p></details></li>
+<li class="q"><p class="q-text">Peut-on jouer un lycanthrope en WL classique ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Non. Humain uniquement ; hybrides, lycanthropes et créatures conscientes passent par une naissance validée. Sinon risque de blacklist.</p></details></li>
+<li class="q"><p class="q-text">Pourquoi rec ses scènes ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Pour pouvoir se défendre si on est appelé en BDA.</p></details></li>
+<li class="q"><p class="q-text">Peut-on se déconnecter en pleine scène ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Non, sauf crash réel signalé immédiatement par ticket.</p></details></li>
+<li class="q"><p class="q-text">Comment contester une sanction ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Par ticket Discord, jamais en MP au staff.</p></details></li>
+<li class="q"><p class="q-text">Combien de temps sont gardés les enregistrements vocaux ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>24 mois maximum. Serveur réservé aux 18 ans et plus.</p></details></li>
+</ol></section><section class="panel" id="quiz-zones-rpk"><h2>Zones RPK</h2><ol class="quiz" start="83">
+<li class="q"><p class="q-text">Que faut-il pour tuer un perso ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Un ticket RPK actif ou l'accord HRP de la victime (qui doit alors le signaler par ticket). Ça n'exempte pas des conséquences RP.</p></details></li>
+<li class="q"><p class="q-text">Cite les zones RPK.</p><details class="q-answer"><summary>Voir la réponse</summary><p>Forêt de Brûlebrume, Cathédrale abandonnée et cimetière, Grottes, Île de la Tour, Bureau du Directeur, Siège de l'AMRU, Prison de Brise-Flux.</p></details></li>
+<li class="q"><p class="q-text">Lesquelles sont « sans porte de sortie » ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Île de la Tour (sans invitation), Bureau du Directeur (sans invitation), Siège de l'AMRU (hors hall central, sans invitation), Prison de Brise-Flux (sans laisser-passer).</p></details></li>
+<li class="q"><p class="q-text">Et les abords de la prison ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>RPK aussi, avec une porte de sortie la première fois, aucune en récidive.</p></details></li>
+<li class="q"><p class="q-text">Peut-on attirer quelqu'un dans une zone RPK pour le faire tuer ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Non sans ticket RPK actif : c'est du Force RP.</p></details></li>
+</ol></section><section class="panel" id="quiz-creation-de-perso"><h2>Création de perso</h2><ol class="quiz" start="88">
+<li class="q"><p class="q-text">Avec quel catalyseur entre-t-on à Elderwood ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Une baguette. Les autres s'obtiennent en RP sous suivi validé.</p></details></li>
+<li class="q"><p class="q-text">Peut-on être noble ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Noble Sans-Flux oui, si sans avantage. Inventer une lignée noble résonante : non.</p></details></li>
+<li class="q"><p class="q-text">Tes parents peuvent-ils être Ministre ou directeur ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Non sans validation. Des postes classiques (AMRU, administration) oui.</p></details></li>
+<li class="q"><p class="q-text">Ton perso peut-il maîtriser une magie rare ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Non. Des facilités oui, mais pas de magie avancée ou rare ni de spécialité unique.</p></details></li>
+<li class="q"><p class="q-text">Ton perso peut-il avoir joué un rôle dans le coup d'État de 2026 ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Il peut en avoir été touché, mais pas y avoir joué un rôle majeur.</p></details></li>
+<li class="q"><p class="q-text">Cite trois redflags de motivations.</p><details class="q-answer"><summary>Voir la réponse</summary><p>Devenir le plus fort ; réussir ses examens / suivre les cours / devenir sorcier ; objectifs qui n'impliquent personne.</p></details></li>
+<li class="q"><p class="q-text">Qu'est-ce que « l'horizon » ?</p><details class="q-answer"><summary>Voir la réponse</summary><p>Là où tu vois ton perso au très long terme.</p></details></li>
+</ol></section></section>
       <footer class="foot">
         <span><strong>ELDERWOOD RP</strong> · univers magique sur nanos world</span>
         <span class="status">Contenu recopié du lore et du règlement officiels</span>
@@ -798,6 +2012,13 @@ Dit autrement, si vous envoyez une candidature dissonant à compter du 23/09, mi
   document.addEventListener("click", e => {
     const chip = e.target.closest("[data-jump]");
     if (chip) document.getElementById(chip.dataset.jump)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  /* ---- quiz : tout dévoiler / replier ---- */
+  document.querySelectorAll("ol.quiz[start]").forEach(ol => ol.style.setProperty("--start", ol.getAttribute("start")));
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-quiz]");
+    if (b) b.closest(".page").querySelectorAll(".q-answer").forEach(d => { d.open = b.dataset.quiz === "open"; });
   });
 
   /* ---- règlement : onglets et recherche ---- */

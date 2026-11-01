@@ -1,10 +1,10 @@
 # Site ElderWood
 
-Site statique (une seule page) qui présente le lore, le règlement et les guides whitelist d'ElderWood RP.
+Site statique (une seule page) qui présente le lore, le règlement, les guides whitelist et les fiches de révision d'ElderWood RP.
 
 - `index.html` : le site généré, prêt à ouvrir dans un navigateur ou à héberger (GitHub Pages, Netlify…).
 - `template.html` : la mise en page, les styles et le script (navigation, recherche dans le règlement, ciel étoilé).
-- `build.py` : lit `lore/`, `reglement/` et `conseils/` et régénère `index.html`.
+- `build.py` : lit `lore/`, `reglement/`, `conseils/` et `revision/` et régénère `index.html`.
 
 ## Mettre à jour le contenu
 
