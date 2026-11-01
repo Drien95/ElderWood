@@ -1,15 +1,15 @@
-# Proposition de perso — Ewan Thorley (notes de travail)
+# Proposition de perso — Finlay Hesketh (notes de travail)
 
 > Proposition de Claude à la demande d'Adrien, en notes volontairement brutes. La FAQ interdit l'IA pour la WL : Adrien garde ce qui lui plaît, change le reste et rédige la candidature avec ses mots (modèle : _modele-wl.md).
 
 ## Identité
-- **Nom :** Ewan Thorley (à changer si tu préfères)
+- **Nom :** Finlay Hesketh (à changer si tu préfères)
 - **Âge :** 15 ans à la rentrée
 - **Origine :** Résonant, deux parents Résonants
 - **Lieu :** un hameau en bordure de la forêt de Kielder (Northumberland), dont une partie est voilée
 - **Famille :**
-  - Père : Rowan Thorley, garde-forestier pour l'AMRU sur la partie voilée de la forêt (poste ordinaire)
-  - Mère : Maren Thorley, cultive des herbes magiques et fournit les apothicaires de la région
+  - Père : Rowan Hesketh, garde-forestier pour l'AMRU sur la partie voilée de la forêt (poste ordinaire)
+  - Mère : Maren Hesketh, cultive des herbes magiques et fournit les apothicaires de la région
   - Pas de frère ou sœur (ou un petit frère si tu veux un lien affectif de plus)
 - **Catalyseur :** baguette
 
@@ -23,7 +23,7 @@
 2. Il repère un **Scalvignus** (créature du lore : cerf à écailles, paisible, qui évite les humains) et le suit pendant des années. Chaque fin d'hiver, il ramasse ses bois tombés et en garde un.
 3. Premières manifestations de Flux : banales (une branche qui casse quand il a peur, des herbes de sa mère qui reverdissent quand il est en colère, à toi de voir).
 4. 2026 : après la Rupture du Voile (qu'il n'a vue qu'en vidéo ou en rumeur), l'AMRU durcit les règles. Toute créature qui s'approche des zones fréquentées par les Sans-Flux doit être éliminée.
-5. Le Scalvignus s'approche d'un sentier de randonnée. Son père reçoit l'ordre et obéit. Ewan ne lui a presque plus parlé depuis.
+5. Le Scalvignus s'approche d'un sentier de randonnée. Son père reçoit l'ordre et obéit. Finlay ne lui a presque plus parlé depuis.
 6. Côté mère : moins de déplacements autorisés, moins de clients, les serres tournent au ralenti.
 7. Il arrive à Elderwood en colère contre quelqu'un, sans savoir qui : son père, l'AMRU, ou lui-même pour n'avoir rien fait.
 
