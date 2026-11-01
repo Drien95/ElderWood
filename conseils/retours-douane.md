@@ -73,3 +73,11 @@ Parfait merci à toi, pour le reste de la partie RP c'était okay ?
 - **Recrutement** (D ‣ RK) : recruter des membres est un *quand* (pré-requis), pas un *comment*. Le comment explique ce que le groupe fera. Montrer en quoi le sien est inédit.
 - **« Devenir reconnu »** (D ‣ RK) : ce n'est pas un objectif, c'est le résultat d'un objectif. « Devenir prof et transmettre », c'est déjà la définition d'un prof : proposer quelque chose d'innovant.
 - Les douaniers sont ouverts à toute idée originale tant qu'elle ne demande pas de développement supplémentaire aux équipes (clubs, sorties, entreprises…).
+
+## Refus n°1 d'Adrien (Finlay Hesketh, 01/11/2026)
+
+> Motif du refus : Salut, tes objectifs sont vraiment pas mal, y'a de bonnes idées pour faire du RP avec les autres. Par contre dans ton histoire, tu dis que l'AMRU a donné l'ordre d'abattre les créatures après la Rupture du Voile, mais tu peux pas inventer une décision comme ça. Faudrait revoir ce passage et aussi tes objectifs vu qu'ils tournent pas mal autour de ça. Faudrait trouver une autre raison.
+
+### À retenir
+- On ne peut pas inventer une décision officielle de l'AMRU (ni loi, ni mesure précise). Le lore dit seulement que les mesures héritées du Grand Confinement sont renforcées (plus de discrétion et d'isolement) : rester à ce niveau de généralité.
+- Les objectifs orientés « faire du RP avec les autres » sont validés par le douanier.
